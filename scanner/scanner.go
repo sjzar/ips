@@ -60,7 +60,9 @@ func (s *Scanner) ScanAndMerge(ipv6 bool) {
 
 		if ipRange != nil {
 			if data == dataTmp {
-				ipRange.Join(ipNet)
+				if ok := ipRange.Join(ipNet); !ok {
+					log.Println("ipRange Join Failed", ipRange, ipNet)
+				}
 				goto next
 			} else {
 				s.Print(ipRange, dataTmp)

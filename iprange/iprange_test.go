@@ -22,13 +22,15 @@ func TestIPRange(t *testing.T) {
 	// join network
 	_, ipNet, err = net.ParseCIDR("0.0.0.1/32")
 	ast.Nil(err)
-	ipRange.Join(ipNet)
+	ok := ipRange.Join(ipNet)
+	ast.True(ok)
 	ast.Equal("0.0.0.1", ipRange.End.String())
 
 	// join wrong network
 	_, ipNet, err = net.ParseCIDR("1.0.0.0/32")
 	ast.Nil(err)
-	ipRange.Join(ipNet)
+	ok = ipRange.Join(ipNet)
+	ast.False(ok)
 	ast.Equal("0.0.0.1", ipRange.End.String())
 
 	// output
@@ -44,6 +46,23 @@ func TestIPRange(t *testing.T) {
 	ipRange.End = net.ParseIP("0.0.4.255").To4()
 	ipNets = ipRange.IPNets()
 	ast.Equal(2, len(ipNets))
+
+	// join sub network
+	_, ipNet, err = net.ParseCIDR("58.82.200.0/23")
+	ast.Nil(err)
+	ipRange = NewIPRange(ipNet)
+	ast.Equal("58.82.200.0", ipRange.Start.String())
+	ast.Equal("58.82.201.255", ipRange.End.String())
+	_, ipNet, err = net.ParseCIDR("58.82.203.0/21")
+	ast.Nil(err)
+	ok = ipRange.Join(ipNet)
+	ast.True(ok)
+	ast.Equal("58.82.207.255", ipRange.End.String())
+
+	_, ipNet, err = net.ParseCIDR("58.82.203.0/20")
+	ast.Nil(err)
+	ok = ipRange.Join(ipNet)
+	ast.False(ok)
 }
 
 func TestIPNetMaskLess(t *testing.T) {

@@ -23,10 +23,13 @@ func NewIPRange(ipNet *net.IPNet) *IPRange {
 }
 
 // Join 合并网段
-func (r *IPRange) Join(ipNet *net.IPNet) {
-	if NextIP(r.End).Equal(ipNet.IP) {
-		r.End = LastIP(ipNet)
+// FIXME 可能存在重复网段
+func (r *IPRange) Join(ipNet *net.IPNet) (ok bool) {
+	if IPLess(ipNet.IP, r.Start) || IPLess(NextIP(r.End), ipNet.IP) || IPLess(LastIP(ipNet), r.End) {
+		return false
 	}
+	r.End = LastIP(ipNet)
+	return true
 }
 
 // IPNets 输出IP区间对应的CIDR分组
