@@ -1,10 +1,18 @@
-# Geolocation IP Databases Scan Tools
+## IPS
+
+IPS Commandline Tools
+
+### Install
+
+```bash
+go get github.com/sjzar/ips@latest
+```
 
 ### Feature
-* support ipdb(ipip.net) scan & pack
-* support awdb(ipplus360.com) scan
+* Geolocation IP Databases Scan & Repack
+* Multi Databases Support
+  * ipdb(ipip.net) scan & pack
+  * awdb(ipplus360.com) scan
 
-### TODO
-* support mmdb(maxmind.com) scan
-* support chunzhen(cz88.net) scan
-* support for comparing data
+### Usage
+

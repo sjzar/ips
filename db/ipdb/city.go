@@ -1,5 +1,9 @@
 package ipdb
 
+// Copy From https://github.com/ipipdotnet/ipdb-go
+// modify by sjzar
+// modify: Find / FindMap return ipNet
+
 import (
 	"encoding/json"
 	"net"

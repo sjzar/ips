@@ -13,7 +13,7 @@ const (
 	// ISP 运营商
 	ISP = "isp"
 
-	// Continent 大区
+	// Continent 大洲
 	Continent = "continent"
 
 	// UTCOffset UTC偏移值
@@ -27,13 +27,17 @@ const (
 
 	// ChinaAdminCode 中国行政区划代码
 	ChinaAdminCode = "chinaAdminCode"
-
-	// Placeholder 占位符
-	Placeholder = "-"
 )
 
-var FullFields = []string{
-	Country, Province, City, ISP,
-	Continent, UTCOffset, Latitude, Longitude,
+// CommonFields 公共字段
+var CommonFields = []string{
+	Country,
+	Province,
+	City,
+	ISP,
+	Continent,
+	UTCOffset,
+	Latitude,
+	Longitude,
 	ChinaAdminCode,
 }
