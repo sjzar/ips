@@ -99,6 +99,11 @@ func Pack(cmd *cobra.Command, args []string) {
 		ipVersion |= model.IPv6
 	}
 
+	meta := s.Meta()
+	if ipVersion != 0 {
+		meta.IPVersion = ipVersion
+	}
+
 	w := ipdb.NewWriter(s.Meta(), nil)
 	if err := ipio.ScanWrite(s, w); err != nil {
 		log.Fatal(err)

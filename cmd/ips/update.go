@@ -4,6 +4,14 @@ package ips
 // Updated: 2018-11-18 (0.o)
 // https://raw.githubusercontent.com/ipipdotnet/ipdb-go/master/city.free.ipdb
 
+// CZ88.NET
+// Updated: 2022-04-20
+// https://raw.githubusercontent.com/out0fmemory/qqwry.dat/master/historys/2022_04_20/qqwry.dat
+
+// CZ88.NET Mirror 2
+// Updated: daily update
+// https://99wry.cf/qqwry.dat
+
 import (
 	"io"
 	"log"
@@ -27,6 +35,7 @@ var updateCmd = &cobra.Command{
 
 func Update(cmd *cobra.Command, args []string) {
 	Download("city.free.ipdb", "https://raw.githubusercontent.com/ipipdotnet/ipdb-go/master/city.free.ipdb")
+	Download("qqwry.dat", "https://99wry.cf/qqwry.dat")
 }
 
 func Download(file, url string) {

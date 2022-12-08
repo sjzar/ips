@@ -39,7 +39,7 @@ func init() {
 	// set default config
 	viper.SetDefault("ipv4_file", "city.free.ipdb")
 	viper.SetDefault("ipv6_file", "city.free.ipdb")
-	viper.SetDefault("fields", []string{"country", "province", "city", "isp"})
+	//viper.SetDefault("fields", []string{"country", "province", "city", "isp"})
 
 	// read config
 	viper.SetConfigName(ConfigName)

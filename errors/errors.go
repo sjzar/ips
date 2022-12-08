@@ -12,4 +12,5 @@ var (
 	ErrMetaNotFound          = errors.New("meta not found")
 	ErrDBFormatNotSupported  = errors.New("format not supported")
 	ErrEmptyFile             = errors.New("empty file")
+	ErrDatabaseIsInvalid     = errors.New("database is invalid")
 )

@@ -91,10 +91,13 @@ func FieldsFormat(data map[string]string) map[string]string {
 
 // FieldsReplace 字段替换
 func FieldsReplace(fields []string) []string {
-	for i := range fields {
-		if v, ok := CommonFieldsMap[fields[i]]; ok {
-			fields[i] = v
+	ret := make([]string, len(fields))
+	copy(ret, fields)
+
+	for i := range ret {
+		if v, ok := CommonFieldsMap[ret[i]]; ok {
+			ret[i] = v
 		}
 	}
-	return fields
+	return ret
 }

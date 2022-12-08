@@ -3,9 +3,11 @@ package db
 import (
 	"net"
 	"path/filepath"
+	"strings"
 
 	"github.com/sjzar/ips/db/awdb"
 	"github.com/sjzar/ips/db/ipdb"
+	"github.com/sjzar/ips/db/qqwry"
 	"github.com/sjzar/ips/errors"
 	"github.com/sjzar/ips/ipx"
 	"github.com/sjzar/ips/model"
@@ -19,6 +21,8 @@ const (
 	// FormatAWDB AWDB格式
 	// Official: https://www.ipplus360.com/
 	FormatAWDB = "awdb"
+
+	FormatQQWry = "qqwry"
 )
 
 // Database IP 数据库
@@ -42,6 +46,8 @@ func NewDatabase(format, file string) (Database, error) {
 			format = FormatIPDB
 		case filepath.Ext(file) == ".awdb":
 			format = FormatAWDB
+		case strings.HasSuffix(file, "qqwry.dat"):
+			format = FormatQQWry
 		}
 	}
 
@@ -50,6 +56,8 @@ func NewDatabase(format, file string) (Database, error) {
 		return ipdb.New(file)
 	case FormatAWDB:
 		return awdb.New(file)
+	case FormatQQWry:
+		return qqwry.New(file)
 	}
 
 	return nil, errors.ErrDBFormatNotSupported

@@ -72,30 +72,32 @@ func Scan(cmd *cobra.Command, args []string) {
 		split := strings.Split(scanRewriteFiles, ",")
 		for i := range split {
 			if err := rw.DataLoader.LoadFile(split[i]); err != nil {
-				log.Println("load rewrite file failed", err)
+				log.Println("load rewrite file failed ", err)
 			}
 		}
 	}
 	r := ipio.NewDBScanner(database, selector, rw)
 
 	meta := r.Meta()
-	meta.IPVersion = ipVersion
+	if ipVersion != 0 {
+		meta.IPVersion = ipVersion
+	}
 	if err := r.Init(meta); err != nil {
-		log.Fatal("init scanner failed", err)
+		log.Fatal("init scanner failed ", err)
 	}
 	output := os.Stdout
 	if len(scanOutput) != 0 {
 		output, err = os.Create(scanOutput)
 		if err != nil {
-			log.Fatal("create file failed", err)
+			log.Fatal("create file failed ", err)
 		}
 	}
 
 	w, err := ipio.NewIPScanWriter(r.Meta(), output)
 	if err != nil {
-		log.Fatal("new writer failed", err)
+		log.Fatal("new writer failed ", err)
 	}
 	if err := ipio.ScanWrite(r, w); err != nil {
-		log.Fatal("scan write failed", err)
+		log.Fatal("scan write failed ", err)
 	}
 }

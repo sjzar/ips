@@ -1,18 +1,25 @@
 ## IPS
 
-IPS Commandline Tools
+ips is a tool for querying, scanning, and packing IP geolocation databases.
 
 ### Install
 
 ```bash
-go get github.com/sjzar/ips@latest
+go install github.com/sjzar/ips@latest
 ```
 
 ### Feature
-* Geolocation IP Databases Scan & Repack
+* IP Geolocation Databases Querying, Scanning, Packing
 * Multi Databases Support
-  * ipdb(ipip.net) scan & pack
-  * awdb(ipplus360.com) scan
+
+### Databases Support Status
+
+| Database | Query | Scan | Pack | Official                   | Notes     |
+|:---------|:------|:-----|:-----|:---------------------------|:----------|
+| ipdb     | ✅    | ✅   | ✅    | https://ipip.net |           |
+| awdb     | ✅    | ✅   | -    | https://ipplus360.com      |           |
+| qqwry    | ✅    | ✅   | -    | https://cz88.net           | IPv4 only |
+
 
 ### Usage
 
