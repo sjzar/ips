@@ -1,7 +1,6 @@
 package ipio
 
 import (
-	"log"
 	"net"
 	"reflect"
 
@@ -97,14 +96,14 @@ func (s *DBScanner) Init(meta model.Meta) error {
 
 // Scan 扫描IP库
 func (s *DBScanner) Scan() bool {
-	if s.done && !s.continue6() {
+	if s.done {
 		return false
 	}
 	if s.marker == nil {
-		if s.meta.IsIPv4Support() {
-			s.marker = make(net.IP, net.IPv4len)
-		} else if s.meta.IsIPv6Support() {
+		if s.meta.IsIPv6Support() {
 			s.marker = make(net.IP, net.IPv6len)
+		} else {
+			s.marker = net.IPv4(0, 0, 0, 0)
 		}
 	}
 	s.ipr, s.values = nil, nil
@@ -122,13 +121,12 @@ func (s *DBScanner) Scan() bool {
 				break
 			}
 			if ok := s.ipr.Join(_ipr); !ok {
-				log.Println("ip range join failed", s.ipr, s.marker, _ipr, _values)
 				break
 			}
 		}
 
 		s.marker = ipx.NextIP(_ipr.End)
-		if s.ipr.IsEnd() {
+		if ipx.IsLastIP(_ipr.End, s.meta.IsIPv6Support()) {
 			s.done = true
 			break
 		}
@@ -142,16 +140,4 @@ func (s *DBScanner) Result() (*ipx.Range, []string) {
 
 func (s *DBScanner) Err() error {
 	return s.err
-}
-
-// continue6 用于继续扫描 IPv6 的 IP 库
-func (s *DBScanner) continue6() bool {
-	if s.done {
-		if s.ipr.End.To4() != nil && s.meta.IsIPv6Support() {
-			s.marker = make(net.IP, net.IPv6len)
-			s.done = false
-			return true
-		}
-	}
-	return false
 }

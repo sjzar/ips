@@ -8,8 +8,10 @@ import (
 const MaxIPv4Uint32 = 4294967295
 
 var (
-	ZeroIPv4 = make(net.IP, net.IPv4len)
-	ZeroIPv6 = make(net.IP, net.IPv6len)
+	FirstIPv4 = net.IPv4(0, 0, 0, 0)
+	LastIPv4  = net.IPv4(255, 255, 255, 255)
+	FirstIPv6 = make(net.IP, net.IPv6len)
+	LastIPv6  = net.IP{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff}
 )
 
 // Uint32ToIPv4 uint32 转换为 IP
@@ -31,6 +33,25 @@ func IPv4StrToUint32(ipStr string) uint32 {
 	return 0
 }
 
+// Uint64ToIP uint64 转换为 IP
+func Uint64ToIP(uip uint64) net.IP {
+	return net.IP{
+		byte(uip >> 56 & 0xFF), byte(uip >> 48 & 0xFF), byte(uip >> 40 & 0xFF), byte(uip >> 32 & 0xFF),
+		byte(uip >> 24 & 0xFF), byte(uip >> 16 & 0xFF), byte(uip >> 8 & 0xFF), byte(uip & 0xFF),
+		0, 0, 0, 0, 0, 0, 0, 0,
+	}
+}
+
+// Uint64ToIP2 uint64 转换为 IP
+func Uint64ToIP2(high, low uint64) net.IP {
+	return net.IP{
+		byte(high >> 56 & 0xFF), byte(high >> 48 & 0xFF), byte(high >> 40 & 0xFF), byte(high >> 32 & 0xFF),
+		byte(high >> 24 & 0xFF), byte(high >> 16 & 0xFF), byte(high >> 8 & 0xFF), byte(high & 0xFF),
+		byte(low >> 56 & 0xFF), byte(low >> 48 & 0xFF), byte(low >> 40 & 0xFF), byte(low >> 32 & 0xFF),
+		byte(low >> 24 & 0xFF), byte(low >> 16 & 0xFF), byte(low >> 8 & 0xFF), byte(low & 0xFF),
+	}
+}
+
 // IPNetMaskLess CIDR大小比较
 // IPv4 < IPv6
 // ones越大，子网范围越小
@@ -41,6 +62,19 @@ func IPNetMaskLess(a, b *net.IPNet) bool {
 	aOnes, _ := a.Mask.Size()
 	bOnes, _ := b.Mask.Size()
 	return aOnes > bOnes
+}
+
+// PrevIP 上一个IP
+func PrevIP(ip net.IP) net.IP {
+	res := make(net.IP, len(ip))
+	for i := len(ip) - 1; i >= 0; i-- {
+		res[i] = ip[i] - 1
+		if res[i] != 0xff {
+			copy(res, ip[0:i])
+			break
+		}
+	}
+	return res
 }
 
 // NextIP 下一个IP
@@ -81,7 +115,21 @@ func Contains(start, end, ip net.IP) bool {
 	return !IPLess(ip, start) && IPLess(ip, NextIP(end))
 }
 
-// IsZeroIP 是否是起始IP
-func IsZeroIP(ip net.IP) bool {
-	return ip.Equal(ZeroIPv4) || ip.Equal(ZeroIPv6)
+// IsFirstIP 是否是起始IP
+func IsFirstIP(ip net.IP, ipv6 bool) bool {
+	if ipv6 {
+		return ip.Equal(FirstIPv6)
+	}
+	if len(ip) == net.IPv6len {
+		return ip[12] == 0 && ip[13] == 0 && ip[14] == 0 && ip[15] == 0
+	}
+	return ip.Equal(FirstIPv4)
+}
+
+// IsLastIP 是否是最后一个IP
+func IsLastIP(ip net.IP, ipv6 bool) bool {
+	if ipv6 {
+		return ip.Equal(LastIPv6)
+	}
+	return ip.Equal(LastIPv4)
 }

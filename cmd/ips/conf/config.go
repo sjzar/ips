@@ -37,8 +37,8 @@ func init() {
 	PrepareDir(ConfigPath)
 
 	// set default config
-	viper.SetDefault("ipv4_file", "city.free.ipdb")
-	viper.SetDefault("ipv6_file", "city.free.ipdb")
+	viper.SetDefault("ipv4_file", "qqwry.dat")
+	viper.SetDefault("ipv6_file", "zxipv6wry.db")
 	//viper.SetDefault("fields", []string{"country", "province", "city", "isp"})
 
 	// read config

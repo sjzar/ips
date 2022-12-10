@@ -134,7 +134,7 @@ func (s *IPScanScanner) Scan() bool {
 		}
 
 		s.ipr, s.values = ipx.NewRange(ipNet), values
-		if s.ipr.IsEnd() {
+		if ipx.IsLastIP(s.ipr.End, s.meta.IsIPv6Support()) {
 			s.done = true
 		}
 		break

@@ -12,6 +12,16 @@ package ips
 // Updated: daily update
 // https://99wry.cf/qqwry.dat
 
+// MaxMind GeoLite2-City
+// Updated: 2022-12-07
+// https://git.io/GeoLite2-City.mmdb
+// https://github.com/P3TERX/GeoLite.mmdb/releases/latest/download/GeoLite2-City.mmdb
+
+// ZXINC
+// Updated: 2021-05-11
+// https://ip.zxinc.org/ip.7z
+// https://raw.githubusercontent.com/ZX-Inc/zxipdb-python/main/data/ipv6wry.db
+
 import (
 	"io"
 	"log"
@@ -36,6 +46,9 @@ var updateCmd = &cobra.Command{
 func Update(cmd *cobra.Command, args []string) {
 	Download("city.free.ipdb", "https://raw.githubusercontent.com/ipipdotnet/ipdb-go/master/city.free.ipdb")
 	Download("qqwry.dat", "https://99wry.cf/qqwry.dat")
+	Download("zxipv6wry.db", "https://raw.githubusercontent.com/ZX-Inc/zxipdb-python/main/data/ipv6wry.db")
+
+	//Download("GeoLite2-City.mmdb", "https://git.io/GeoLite2-City.mmdb")
 }
 
 func Download(file, url string) {

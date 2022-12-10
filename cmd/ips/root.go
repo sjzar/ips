@@ -13,6 +13,18 @@ import (
 	"github.com/sjzar/ips/parser"
 )
 
+var (
+	rootDBFormat string
+	rootDBFile   string
+	rootFields   string
+)
+
+func init() {
+	rootCmd.Flags().StringVarP(&rootDBFormat, "format", "", "", "database format")
+	rootCmd.Flags().StringVarP(&rootDBFile, "database", "d", "", "database file")
+	rootCmd.Flags().StringVarP(&rootFields, "fields", "f", "", "fields")
+}
+
 var rootCmd = &cobra.Command{
 	Use:   "ips",
 	Short: "ips commandline tools",

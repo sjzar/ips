@@ -27,7 +27,8 @@ func New(file string) (*Database, error) {
 	}
 	if db.Metadata.IPVersion == 4 {
 		meta.IPVersion |= model.IPv4
-	} else if db.Metadata.IPVersion == 6 {
+	}
+	if db.Metadata.IPVersion == 6 {
 		meta.IPVersion |= model.IPv6
 	}
 
@@ -45,8 +46,8 @@ func (d *Database) Meta() model.Meta {
 // Find 查询 IP 对应的网段和结果
 func (d *Database) Find(ip net.IP) (*ipx.Range, map[string]string, error) {
 	var record interface{}
-	ipNet, ok, err := d.db.LookupNetwork(ip, &record)
-	if !ok || err != nil {
+	ipNet, _, err := d.db.LookupNetwork(ip, &record)
+	if err != nil {
 		return nil, nil, err
 	}
 

@@ -203,7 +203,9 @@ func (p *Writer) Nodes(ip net.IP, mask int) (node, index int, ok bool) {
 	// 统一扩展为IPv6的子网掩码进行处理
 	maxMask := mask - 1
 	if ip.To4() != nil {
-		maxMask += 96
+		if maxMask < 32 {
+			maxMask += 96
+		}
 		if len(ip) == net.IPv4len {
 			ip = ip.To16()
 		}

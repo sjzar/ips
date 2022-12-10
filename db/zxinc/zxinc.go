@@ -1,4 +1,4 @@
-package qqwry
+package zxinc
 
 import (
 	"net"
@@ -9,19 +9,20 @@ import (
 
 type Database struct {
 	meta model.Meta
-	db   *QQWry
+	db   *ZXInc
 }
 
 // New 初始化 QQWRY 数据库实例
 func New(file string) (*Database, error) {
-	db, err := NewQQWry(file)
+
+	db, err := NewZXInc(file)
 	if err != nil {
 		return nil, err
 	}
 
 	meta := model.Meta{
 		Fields:    []string{FieldCountry, FieldArea},
-		IPVersion: model.IPv4,
+		IPVersion: model.IPv6,
 	}
 
 	return &Database{

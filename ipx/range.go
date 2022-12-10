@@ -12,10 +12,11 @@ type Range struct {
 }
 
 // NewRange 初始化IP区间
+// 统一成 IPv6 长度进行处理
 func NewRange(ipNet *net.IPNet) *Range {
 	return &Range{
-		Start: ipNet.IP,
-		End:   LastIP(ipNet),
+		Start: ipNet.IP.To16(),
+		End:   LastIP(ipNet).To16(),
 	}
 }
 
@@ -89,11 +90,6 @@ func (r *Range) IPNets() []*net.IPNet {
 		}
 		start = NextIP(last)
 	}
-}
-
-// IsEnd IP区间的 End 是否是最后一个IP
-func (r *Range) IsEnd() bool {
-	return IsZeroIP(NextIP(r.End))
 }
 
 // PrefixSameLength 前缀相同长度

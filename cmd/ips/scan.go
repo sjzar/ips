@@ -72,7 +72,7 @@ func Scan(cmd *cobra.Command, args []string) {
 		split := strings.Split(scanRewriteFiles, ",")
 		for i := range split {
 			if err := rw.DataLoader.LoadFile(split[i]); err != nil {
-				log.Println("load rewrite file failed ", err)
+				log.Fatal("load rewrite file failed ", err)
 			}
 		}
 	}

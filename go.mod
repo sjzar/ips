@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/adrg/xdg v0.4.0
 	github.com/dilfish/awdb-golang/awdb-golang v1.0.20210701
+	github.com/oschwald/maxminddb-golang v1.10.0
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.8.1
