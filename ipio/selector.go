@@ -40,7 +40,7 @@ var magicArgs = map[string]string{
 	"ipdb":           strings.Join(ipdb.FullFields, ","),
 	"chinaCity":      "country,province,city,isp|country=中国:country,province,city,isp|country,,,",
 	"provinceAndISP": "province,isp|country=中国:province,isp|,",
-	"cn":             "country|country=中国:CN|OV",
+	"cn":             "country|country=中国:'CN'|'OV'",
 }
 
 // FieldSelector 字段选择器
@@ -106,6 +106,7 @@ func (f *FieldSelector) Select(data map[string]string) []string {
 	if len(f.defaultFields) != 0 {
 		fields = f.defaultFields
 	}
+
 	for _, field := range f.fields {
 		if valueFields, ok := f.rules[field]; ok && len(valueFields[data[field]]) != 0 {
 			fields = valueFields[data[field]]
@@ -114,10 +115,11 @@ func (f *FieldSelector) Select(data map[string]string) []string {
 
 	ret := make([]string, len(fields))
 	for i, field := range fields {
-		if val, ok := data[field]; ok {
+		trimField := strings.TrimSuffix(strings.TrimPrefix(field, "'"), "'")
+		if val, ok := data[trimField]; ok {
 			ret[i] = val
-		} else {
-			ret[i] = field
+		} else if len(field) > len(trimField) {
+			ret[i] = trimField
 		}
 	}
 	return ret

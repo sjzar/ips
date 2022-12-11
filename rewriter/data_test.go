@@ -26,7 +26,7 @@ var DataLoad1 = `isp	Beihai	电信
 province	上海市	上海
 province	云南省	云南
 [wrong line]
-asnumber	4808	isp|联通
+asnumber	4808	isp=联通&country=中国
 `
 
 func TestDataRewriter(t *testing.T) {
@@ -56,7 +56,8 @@ func TestDataRewriter(t *testing.T) {
 
 	_, _, retData, err = dataRewriter.Rewrite(nil, nil, data)
 	ast.Nil(err)
-	ast.Equal(2, len(retData))
+	ast.Equal(3, len(retData))
 	ast.Equal("4808", retData["asnumber"])
 	ast.Equal("联通", retData["isp"])
+	ast.Equal("中国", retData["country"])
 }

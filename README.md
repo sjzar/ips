@@ -128,3 +128,23 @@ ips pack qqwry.dat --format qqwry -f country
 ips pack qqwry.dat --format qqwry -r ./countrydemo.map
 ```
 
+### Examples
+
+#### Scan and Rewrite qqwry.dat
+```shell
+# scan qqwry.dat with fields
+ips scan qqwry.dat -f "country,province,city,isp|isp=:country,province,city,area" -o qqwry.ipscan
+
+# scan qqwry.dat with rewrite
+ips scan qqwry.dat -f "country,province,city,isp|isp=:country,province,city,area" -r ./data/qqwry_area.map,./data/qqwry_country.map -o qqwry_rewrite.ipscan
+
+# diff qqwry.ipscan and qqwry_rewrite.ipscan
+# qqwry.ipscan
+1.24.24.0/21	内蒙古鄂尔多斯市,,,联通
+108.162.243.0/24	美国华盛顿州西雅图,,,CloudFlare节点
+219.138.4.0/26	长江大学,,, CZ88.NET
+# qqwry_rewrite.ipscan
+1.24.24.0/21	中国,内蒙古,鄂尔多斯,联通
+108.162.243.0/24	美国,华盛顿,西雅图,CloudFlare
+219.138.4.0/26	中国,湖北,荆州/长江大学, CZ88.NET
+```

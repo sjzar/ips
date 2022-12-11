@@ -21,6 +21,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"net/url"
 	"os"
 	"strings"
 
@@ -29,8 +30,8 @@ import (
 )
 
 const (
-	DataSep    = "\t"
-	ReplaceSep = "|"
+	DataSep          = "\t"
+	ReplaceQueryMode = "="
 )
 
 // DataRewriter 数据改写
@@ -43,11 +44,11 @@ type DataRewriter struct {
 // 数据以'\t'作为分段，每一行的格式为: <field>\t<match>\t<replace>\n
 // @ <field> - 字段ID
 // @ <match> - 匹配内容
-// @ <replace> - 改写内容，支持以'|'作为分段，表示匹配后改写其他字段
+// @ <replace> - 改写内容，支持 `url.Query` 格式，表示替换多个字段或非 filed 字段
 // 举例:
 // country\t\t保留地址 - "国家"字段中，如果数据为空，改写为"保留地址"
 // province\t内蒙古\t内蒙 - "省份"字段中，如果数据为"内蒙古"，改写为"内蒙"
-// asnumber\t4134\tisp|电信 - "AS号码"字段中，如果数据为"4134"，改写"运营商"字段为"电信"
+// asnumber\t4134\tisp=电信 - "AS号码"字段中，如果数据为"4134"，改写"运营商"字段为"电信"
 func NewDataRewriter(dl *DataLoader, rw Rewriter) *DataRewriter {
 	if rw == nil {
 		rw = DefaultRewriter
@@ -146,11 +147,18 @@ func (l *DataLoader) Rewrite(data map[string]string) {
 			if !ok {
 				continue
 			}
-			split := strings.Split(replace, ReplaceSep)
-			if len(split) > 1 {
-				data[split[0]] = split[1]
-			} else {
-				data[field] = split[0]
+			values, err := url.ParseQuery(replace)
+			if err != nil {
+				data[field] = replace
+				continue
+			}
+			for k := range values {
+				v := values.Get(k)
+				if len(v) == 0 {
+					data[field] = k
+					continue
+				}
+				data[k] = v
 			}
 		}
 	}
