@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package qqwry
+package ip2region
 
 import (
 	"net"
@@ -25,12 +25,13 @@ import (
 
 type Database struct {
 	meta model.Meta
-	db   *QQWry
+	db   *IP2Region
 }
 
-// New 初始化 QQWRY 数据库实例
+// New 初始化 IP2Region 数据库实例
 func New(file string) (*Database, error) {
-	db, err := NewQQWry(file)
+
+	db, err := NewIP2Region(file)
 	if err != nil {
 		return nil, err
 	}

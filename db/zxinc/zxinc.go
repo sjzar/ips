@@ -28,7 +28,7 @@ type Database struct {
 	db   *ZXInc
 }
 
-// New 初始化 QQWRY 数据库实例
+// New 初始化 ZXInc 数据库实例
 func New(file string) (*Database, error) {
 
 	db, err := NewZXInc(file)
@@ -37,7 +37,7 @@ func New(file string) (*Database, error) {
 	}
 
 	meta := model.Meta{
-		Fields:    []string{FieldCountry, FieldArea},
+		Fields:    FullFields,
 		IPVersion: model.IPv6,
 	}
 

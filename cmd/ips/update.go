@@ -38,6 +38,10 @@ package ips
 // https://ip.zxinc.org/ip.7z
 // https://raw.githubusercontent.com/ZX-Inc/zxipdb-python/main/data/ipv6wry.db
 
+// ip2region
+// Updated: 2022-12-07
+// https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/ip2region.xdb
+
 import (
 	"io"
 	"log"
