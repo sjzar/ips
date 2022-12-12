@@ -20,13 +20,14 @@ go install github.com/sjzar/ips@latest
 
 ### Databases Support Status
 
-| Database | Query | Scan | Pack | Official              | Comments  |
-|:---------|:------|:-----|:-----|:----------------------|:----------|
-| ipdb     | ✅    | ✅   | ✅    | https://ipip.net      |           |
-| awdb     | ✅    | ✅   | -    | https://ipplus360.com |           |
-| mmdb     | ✅    | ✅   | -    | https://maxmind.com   |           |
-| qqwry    | ✅    | ✅   | -    | https://cz88.net      | IPv4 only |
-| zxinc    | ✅    | ✅   | -    | https://ip.zxinc.org  | IPv6 only |
+| Database  | Query | Scan | Pack | Official              | Comments  |
+|:----------|:------|:-----|:-----|:----------------------|:----------|
+| ipdb      | ✅    | ✅   | ✅    | https://ipip.net      |           |
+| awdb      | ✅    | ✅   | -    | https://ipplus360.com |           |
+| mmdb      | ✅    | ✅   | -    | https://maxmind.com   |           |
+| qqwry     | ✅    | ✅   | -    | https://cz88.net      | IPv4 only |
+| zxinc     | ✅    | ✅   | -    | https://ip.zxinc.org  | IPv6 only |
+| ip2region | ✅    | ✅   | -    | https://github.com/lionsoul2014/ip2region  | IPv4 only |
 
 
 ### Usage

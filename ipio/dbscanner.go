@@ -17,6 +17,7 @@
 package ipio
 
 import (
+	"log"
 	"net"
 	"reflect"
 
@@ -126,6 +127,7 @@ func (s *DBScanner) Scan() bool {
 	for {
 		_ipr, _values, err := s.Find(s.marker)
 		if err != nil {
+			log.Println("DBScanner Find() failed ", s.marker, _ipr, _values, err)
 			s.err = err
 			return false
 		}

@@ -23,6 +23,7 @@ import (
 	"strings"
 
 	"github.com/sjzar/ips/db/awdb"
+	"github.com/sjzar/ips/db/ip2region"
 	"github.com/sjzar/ips/db/ipdb"
 	"github.com/sjzar/ips/db/mmdb"
 	"github.com/sjzar/ips/db/qqwry"
@@ -52,6 +53,10 @@ const (
 	// FormatZXInc ZXInc格式
 	// Official: https://ip.zxinc.org/
 	FormatZXInc = "zxinc"
+
+	// FormatIP2Region (v2)
+	// Official: https://github.com/lionsoul2014/ip2region
+	FormatIP2Region = "ip2region"
 )
 
 const (
@@ -100,6 +105,8 @@ func NewDatabase(format, file string) (Database, error) {
 			format = FormatAWDB
 		case filepath.Ext(file) == ".mmdb":
 			format = FormatMMDB
+		case filepath.Ext(file) == ".xdb":
+			format = FormatIP2Region
 		case strings.HasSuffix(file, "qqwry.dat"):
 			format = FormatQQWry
 		case strings.HasSuffix(file, "zxipv6wry.db"):
@@ -118,6 +125,8 @@ func NewDatabase(format, file string) (Database, error) {
 		return mmdb.New(file)
 	case FormatZXInc:
 		return zxinc.New(file)
+	case FormatIP2Region:
+		return ip2region.New(file)
 	}
 
 	return nil, errors.ErrDBFormatNotSupported
