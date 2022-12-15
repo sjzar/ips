@@ -25,8 +25,8 @@ import (
 func TestTextParser(t *testing.T) {
 	ast := assert.New(t)
 
-	ipv4FillResult := func(ip string) string { return ip }
-	ipv6FillResult := func(ip string) string { return ip }
+	ipv4FillResult := func(ip string) []string { return []string{ip} }
+	ipv6FillResult := func(ip string) []string { return []string{ip} }
 
 	type instance struct {
 		str    string

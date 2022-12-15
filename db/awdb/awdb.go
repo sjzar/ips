@@ -67,7 +67,12 @@ func (d *Database) Find(ip net.IP) (*ipx.Range, map[string]string, error) {
 		return nil, nil, err
 	}
 
-	return ipx.NewRange(ipNet), FieldsFormat(record.(map[string]interface{})), nil
+	data := make(map[string]string)
+	for k, v := range record.(map[string]interface{}) {
+		data[k] = string(v.([]byte))
+	}
+
+	return ipx.NewRange(ipNet), model.FieldsFormat(CommonFieldsMap, data), nil
 }
 
 // Close 关闭数据库实例

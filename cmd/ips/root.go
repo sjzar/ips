@@ -30,19 +30,23 @@ import (
 )
 
 var (
-	rootDBFormat string
-	rootDBFile   string
-	rootFields   string
+	rootDBFormat   string
+	rootDBFile     string
+	rootFields     string
+	rootJsonFormat bool
+	rootJsonIndent bool
 )
 
 func init() {
 	rootCmd.Flags().StringVarP(&rootDBFormat, "format", "", "", "database format")
 	rootCmd.Flags().StringVarP(&rootDBFile, "database", "d", "", "database file")
 	rootCmd.Flags().StringVarP(&rootFields, "fields", "f", "", "fields")
+	rootCmd.Flags().BoolVarP(&rootJsonFormat, "json", "", false, "json format")
+	rootCmd.Flags().BoolVarP(&rootJsonIndent, "json-indent", "", false, "json indent")
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "ips",
+	Use:   "ips ip [-d dbFile] [-f fields] [--json]",
 	Short: "ips commandline tools",
 	Long:  `ips is a tool for querying, scanning, and packing IP geolocation databases.`,
 	Args:  cobra.MinimumNArgs(0),
@@ -66,43 +70,75 @@ func Root(cmd *cobra.Command, args []string) {
 
 	// pipeline mode
 	if len(args) == 0 {
-		if fi, err := os.Stdin.Stat(); err == nil {
-			if fi.Mode()&os.ModeNamedPipe != 0 {
-				scanner := bufio.NewScanner(os.Stdin)
-				for scanner.Scan() {
-					str := scanner.Text()
-					if len(str) != 0 {
-						fmt.Println(ParseLine(str))
-					}
+		fi, err := os.Stdin.Stat()
+		if err != nil || fi.Mode()&os.ModeNamedPipe == 0 {
+			_ = cmd.Help()
+			return
+		}
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			str := scanner.Text()
+			if len(str) == 0 {
+				continue
+			}
+			if rootJsonFormat {
+				result := ParseLineJson(str, rootJsonIndent)
+				if !strings.Contains(result, "[]") {
+					fmt.Println(result)
 				}
-				return
+			} else {
+				fmt.Println(ParseLine(str))
 			}
 		}
-		_ = cmd.Help()
 		return
 	}
 
-	fmt.Println(ParseLine(strings.Join(args, " ")))
+	if rootJsonFormat {
+		fmt.Println(ParseLineJson(strings.Join(args, " "), rootJsonIndent))
+	} else {
+		fmt.Println(ParseLine(strings.Join(args, " ")))
+	}
 }
 
 // ParseLine 解析文本
 func ParseLine(line string) string {
 	p := parser.NewTextParser(line)
-	p.IPv4FillResult = func(str string) string {
+	p.IPv4FillResult = func(str string) []string {
 		_, values, err := GetIPv4().Find(net.ParseIP(str))
 		if err != nil {
-			return ""
+			return []string{}
 		}
-		return strings.Join(values, " ")
+		return values
 	}
-	p.IPv6FillResult = func(str string) string {
+	p.IPv6FillResult = func(str string) []string {
 		_, values, err := GetIPv6().Find(net.ParseIP(str))
 		if err != nil {
-			return ""
+			return []string{}
 		}
-		return strings.Join(values, " ")
+		return values
 	}
 
 	return p.Parse().String()
+}
 
+// ParseLineJson 解析文本并返回json格式
+func ParseLineJson(line string, indent bool) string {
+	p := parser.NewTextParser(line)
+	p.IPv4Fields = GetIPv4().Meta().Fields
+	p.IPv4FillResult = func(str string) []string {
+		_, values, err := GetIPv4().Find(net.ParseIP(str))
+		if err != nil {
+			return []string{}
+		}
+		return values
+	}
+	p.IPv6Fields = GetIPv6().Meta().Fields
+	p.IPv6FillResult = func(str string) []string {
+		_, values, err := GetIPv6().Find(net.ParseIP(str))
+		if err != nil {
+			return []string{}
+		}
+		return values
+	}
+	return p.Parse().Json(indent)
 }

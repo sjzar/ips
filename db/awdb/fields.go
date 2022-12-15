@@ -121,19 +121,3 @@ var CommonFieldsMap = map[string]string{
 	model.Longitude:      FieldLngwgs,
 	model.ChinaAdminCode: FieldAdcode,
 }
-
-// FieldsFormat 字段格式化，并补充公共字段
-func FieldsFormat(record map[string]interface{}) map[string]string {
-	data := make(map[string]string)
-
-	for k, v := range record {
-		data[k] = string(v.([]byte))
-	}
-
-	// Fill Common Fields
-	for k, v := range CommonFieldsMap {
-		data[k] = data[v]
-	}
-
-	return data
-}

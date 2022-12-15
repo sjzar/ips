@@ -88,60 +88,15 @@ const (
 
 	// FieldIsSatelliteProvider 是否卫星提供商
 	FieldIsSatelliteProvider = "is_satellite_provider"
-)
 
-// The City struct corresponds to the data in the GeoIP2/GeoLite2 City
-// databases.
-// Copy From https://github.com/oschwald/geoip2-golang/blob/ab86d30fa7a001e932981dab47fc57fb983048d5/reader.go#L87
-type City struct {
-	City struct {
-		GeoNameID uint              `maxminddb:"geoname_id"`
-		Names     map[string]string `maxminddb:"names"`
-	} `maxminddb:"city"`
-	Continent struct {
-		Code      string            `maxminddb:"code"`
-		GeoNameID uint              `maxminddb:"geoname_id"`
-		Names     map[string]string `maxminddb:"names"`
-	} `maxminddb:"continent"`
-	Country struct {
-		GeoNameID         uint              `maxminddb:"geoname_id"`
-		IsInEuropeanUnion bool              `maxminddb:"is_in_european_union"`
-		IsoCode           string            `maxminddb:"iso_code"`
-		Names             map[string]string `maxminddb:"names"`
-	} `maxminddb:"country"`
-	Location struct {
-		AccuracyRadius uint16  `maxminddb:"accuracy_radius"`
-		Latitude       float64 `maxminddb:"latitude"`
-		Longitude      float64 `maxminddb:"longitude"`
-		MetroCode      uint    `maxminddb:"metro_code"`
-		TimeZone       string  `maxminddb:"time_zone"`
-	} `maxminddb:"location"`
-	Postal struct {
-		Code string `maxminddb:"code"`
-	} `maxminddb:"postal"`
-	RegisteredCountry struct {
-		GeoNameID         uint              `maxminddb:"geoname_id"`
-		IsInEuropeanUnion bool              `maxminddb:"is_in_european_union"`
-		IsoCode           string            `maxminddb:"iso_code"`
-		Names             map[string]string `maxminddb:"names"`
-	} `maxminddb:"registered_country"`
-	RepresentedCountry struct {
-		GeoNameID         uint              `maxminddb:"geoname_id"`
-		IsInEuropeanUnion bool              `maxminddb:"is_in_european_union"`
-		IsoCode           string            `maxminddb:"iso_code"`
-		Names             map[string]string `maxminddb:"names"`
-		Type              string            `maxminddb:"type"`
-	} `maxminddb:"represented_country"`
-	Subdivisions []struct {
-		GeoNameID uint              `maxminddb:"geoname_id"`
-		IsoCode   string            `maxminddb:"iso_code"`
-		Names     map[string]string `maxminddb:"names"`
-	} `maxminddb:"subdivisions"`
-	Traits struct {
-		IsAnonymousProxy    bool `maxminddb:"is_anonymous_proxy"`
-		IsSatelliteProvider bool `maxminddb:"is_satellite_provider"`
-	} `maxminddb:"traits"`
-}
+	// ASN Fields
+
+	// FieldAutonomousSystemNumber 自治系统号
+	FieldAutonomousSystemNumber = "autonomous_system_number"
+
+	// FieldAutonomousSystemOrganization 自治系统组织
+	FieldAutonomousSystemOrganization = "autonomous_system_organization"
+)
 
 func (c *City) Format() map[string]string {
 	data := make(map[string]string)
@@ -183,11 +138,19 @@ func (c *City) Format() map[string]string {
 	data[FieldIsAnonymousProxy] = strconv.FormatBool(c.Traits.IsAnonymousProxy)
 	data[FieldIsSatelliteProvider] = strconv.FormatBool(c.Traits.IsSatelliteProvider)
 
-	return FieldsFormat(data)
+	return data
 }
 
-// FullFields 全字段列表
-var FullFields = []string{
+func (a *ASN) Format() map[string]string {
+	data := make(map[string]string)
+	data[FieldAutonomousSystemNumber] = strconv.FormatUint(uint64(a.AutonomousSystemNumber), 10)
+	data[FieldAutonomousSystemOrganization] = a.AutonomousSystemOrganization
+
+	return data
+}
+
+// CityFullFields 城市数据库全字段列表
+var CityFullFields = []string{
 	FieldCity,
 	FieldContinent,
 	FieldContinentCode,
@@ -211,6 +174,12 @@ var FullFields = []string{
 	FieldIsSatelliteProvider,
 }
 
+// ASNFullFields ASN数据库全字段列表
+var ASNFullFields = []string{
+	FieldAutonomousSystemNumber,
+	FieldAutonomousSystemOrganization,
+}
+
 // CommonFieldsMap 公共字段映射
 var CommonFieldsMap = map[string]string{
 	model.Country:   FieldCountry,
@@ -219,20 +188,4 @@ var CommonFieldsMap = map[string]string{
 	model.UTCOffset: FieldTimeZone,
 	model.Latitude:  FieldLatitude,
 	model.Longitude: FieldLongitude,
-}
-
-// FieldsFormat 字段格式化，并补充公共字段
-func FieldsFormat(record map[string]string) map[string]string {
-	data := make(map[string]string)
-
-	for k, v := range record {
-		data[k] = v
-	}
-
-	// Fill Common Fields
-	for k, v := range CommonFieldsMap {
-		data[k] = data[v]
-	}
-
-	return data
 }

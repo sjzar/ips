@@ -57,3 +57,27 @@ var CommonFields = []string{
 	Longitude,
 	ChinaAdminCode,
 }
+
+// FieldsFormat 字段格式化，并补充公共字段
+func FieldsFormat(commonFieldsMap, data map[string]string) map[string]string {
+
+	// Fill Common Fields
+	for k, v := range commonFieldsMap {
+		data[k] = data[v]
+	}
+
+	return data
+}
+
+// FieldsReplace 字段替换
+func FieldsReplace(commonFieldsMap map[string]string, fields []string) []string {
+	ret := make([]string, len(fields))
+	copy(ret, fields)
+
+	for i := range ret {
+		if v, ok := commonFieldsMap[ret[i]]; ok {
+			ret[i] = v
+		}
+	}
+	return ret
+}

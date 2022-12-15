@@ -56,14 +56,3 @@ var CommonFieldsMap = map[string]string{
 	model.City:     FieldCity,
 	model.ISP:      FieldISP,
 }
-
-// FieldsFormat 字段格式化，并补充公共字段
-func FieldsFormat(data map[string]string) map[string]string {
-
-	// Fill Common Fields
-	for k, v := range CommonFieldsMap {
-		data[k] = data[v]
-	}
-
-	return data
-}

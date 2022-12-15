@@ -36,11 +36,11 @@ var ConfigPath string
 var Conf Config
 
 type Config struct {
-	IPv4Format string   `mapstructure:"ipv4_format"`
-	IPv4File   string   `mapstructure:"ipv4_file"`
-	IPv6Format string   `mapstructure:"ipv6_format"`
-	IPv6File   string   `mapstructure:"ipv6_file"`
-	Fields     []string `mapstructure:"fields"`
+	IPv4Format string `mapstructure:"ipv4_format"`
+	IPv4File   string `mapstructure:"ipv4_file"`
+	IPv6Format string `mapstructure:"ipv6_format"`
+	IPv6File   string `mapstructure:"ipv6_file"`
+	Fields     string `mapstructure:"fields"`
 }
 
 func init() {
@@ -55,7 +55,6 @@ func init() {
 	// set default config
 	viper.SetDefault("ipv4_file", "qqwry.dat")
 	viper.SetDefault("ipv6_file", "zxipv6wry.db")
-	//viper.SetDefault("fields", []string{"country", "province", "city", "isp"})
 
 	// read config
 	viper.SetConfigName(ConfigName)
@@ -71,6 +70,34 @@ func init() {
 	}
 }
 
+// SetConfig 设置配置
+func SetConfig(key string, value interface{}) error {
+	viper.Set(key, value)
+	return viper.WriteConfig()
+}
+
+// GetConfig 获取配置
+func GetConfig() map[string]interface{} {
+	return viper.AllSettings()
+}
+
+// GetIPv4File 获取 IPv4 文件路径
+func GetIPv4File() string {
+	if filepath.IsAbs(Conf.IPv4File) {
+		return Conf.IPv4File
+	}
+	return filepath.Join(ConfigPath, Conf.IPv4File)
+}
+
+// GetIPv6File 获取 IPv6 文件路径
+func GetIPv6File() string {
+	if filepath.IsAbs(Conf.IPv6File) {
+		return Conf.IPv6File
+	}
+	return filepath.Join(ConfigPath, Conf.IPv6File)
+}
+
+// PrepareDir 初始化目录
 func PrepareDir(path string) {
 	stat, err := os.Stat(path)
 	if err != nil {

@@ -24,7 +24,6 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"net"
 	"os"
 	"reflect"
@@ -83,7 +82,7 @@ func newReader(name string, obj interface{}) (*reader, error) {
 	if fileSize < 4 {
 		return nil, ErrFileSize
 	}
-	body, err := ioutil.ReadFile(name)
+	body, err := os.ReadFile(name)
 	if err != nil {
 		return nil, ErrReadFull
 	}
