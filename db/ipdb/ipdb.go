@@ -59,7 +59,7 @@ func (d *Database) Find(ip net.IP) (*ipx.Range, map[string]string, error) {
 		return nil, nil, err
 	}
 
-	return ipx.NewRange(ipNet), FieldsFormat(data), nil
+	return ipx.NewRange(ipNet), model.FieldsFormat(CommonFieldsMap, data), nil
 }
 
 // Meta 返回元数据

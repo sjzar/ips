@@ -54,7 +54,7 @@ func TestReader(t *testing.T) {
 
 	ipr, values, err := reader.Find(net.ParseIP("0.0.0.0"))
 	ast.Nil(err)
-	ast.Equal("0.0.0.0", ipNet.IP.String())
+	ast.Equal("0.0.0.0", ipr.Start.String())
 	ast.Equal([]string{"country1", "province1", "", "isp2"}, values)
 	ast.Equal([]string{"country", "province", "", "isp"}, reader.Meta().Fields)
 }
@@ -76,6 +76,13 @@ func TestReader_Scan(t *testing.T) {
 	ok := reader.Scan()
 	ast.True(ok)
 	ipr, values := reader.Result()
+	ast.Equal("::/0", ipr.IPNets()[0].String())
+	ast.Equal([]string{"中国", "电信"}, values)
+	err = reader.Init(model.Meta{IPVersion: model.IPv4})
+	ast.Nil(err)
+	ok = reader.Scan()
+	ast.True(ok)
+	ipr, values = reader.Result()
 	ast.Equal("0.0.0.0/0", ipr.IPNets()[0].String())
 	ast.Equal([]string{"中国", "电信"}, values)
 
@@ -89,15 +96,15 @@ func TestReader_Scan(t *testing.T) {
 	ast.Equal("0.0.0.0/2", ipr.IPNets()[0].String())
 	ok = reader.Scan()
 	ast.True(ok)
-	ipr, values = reader.Result()
+	ipr, _ = reader.Result()
 	ast.Equal("64.0.0.0/2", ipr.IPNets()[0].String())
 	ok = reader.Scan()
 	ast.True(ok)
-	ipr, values = reader.Result()
+	ipr, _ = reader.Result()
 	ast.Equal("128.0.0.0/2", ipr.IPNets()[0].String())
 	ok = reader.Scan()
 	ast.True(ok)
-	ipr, values = reader.Result()
+	ipr, _ = reader.Result()
 	ast.Equal("192.0.0.0/2", ipr.IPNets()[0].String())
 	ok = reader.Scan()
 	ast.False(ok)
@@ -105,22 +112,22 @@ func TestReader_Scan(t *testing.T) {
 
 	err = reader.Init(model.Meta{IPVersion: model.IPv4 | model.IPv6})
 	ast.Nil(err)
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 4; i++ {
 		ok = reader.Scan()
 		ast.True(ok)
 	}
-	ipr, values = reader.Result()
-	ast.Equal("::/2", ipr.IPNets()[0].String())
+	ipr, _ = reader.Result()
+	ast.Equal("c000::/2", ipr.IPNets()[0].String())
 
 	err = reader.Init(model.Meta{IPVersion: model.IPv6})
 	ast.Nil(err)
 	ok = reader.Scan()
 	ast.True(ok)
-	ipr, values = reader.Result()
+	ipr, _ = reader.Result()
 	ast.Equal("::/2", ipr.IPNets()[0].String())
 	ok = reader.Scan()
 	ast.True(ok)
-	ipr, values = reader.Result()
+	ipr, _ = reader.Result()
 	ast.Equal("4000::/2", ipr.IPNets()[0].String())
 }
 

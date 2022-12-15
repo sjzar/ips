@@ -99,10 +99,6 @@ func (s *IPScanScanner) init() error {
 			}
 			break
 		}
-
-		if strings.HasPrefix(line, CommentPrefix) {
-			continue
-		}
 	}
 
 	if !metaflag {

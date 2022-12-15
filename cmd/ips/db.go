@@ -40,66 +40,80 @@ var (
 
 // GetIPv4 returns a ipio.Reader for IPv4
 func GetIPv4() ipio.Reader {
-	ipv4once.Do(func() {
-		format := rootDBFormat
-		if len(format) == 0 {
-			format = conf.Conf.IPv4Format
+	ipv4once.Do(getIPv4)
+	return ipv4
+}
+
+func getIPv4() {
+	format := rootDBFormat
+	if len(format) == 0 {
+		format = conf.Conf.IPv4Format
+	}
+	file := rootDBFile
+	if len(file) == 0 {
+		file = conf.GetIPv4File()
+	}
+	database, err := db.NewDatabase(format, file)
+	if err != nil {
+		if file == conf.GetIPv4File() {
+			update()
+			database, err = db.NewDatabase(format, file)
 		}
-		file := rootDBFile
-		if len(file) == 0 {
-			file = conf.ConfigPath + "/" + conf.Conf.IPv4File
-		}
-		database, err := db.NewDatabase(format, file)
 		if err != nil {
 			log.Println("read database failed", file, err)
-			if file == conf.ConfigPath+"/"+conf.Conf.IPv4File {
-				log.Println("use ips update first")
-			}
 			os.Exit(1)
 		}
-		fields := conf.Conf.Fields
-		if len(rootFields) != 0 {
-			fields = strings.Split(rootFields, ",")
-		}
-		if len(fields) == 0 {
-			fields = database.Meta().Fields
-		}
-		selector := ipio.NewFieldSelector(strings.Join(fields, ","))
-		ipv4 = ipio.NewDBScanner(database, selector, nil)
-	})
-
-	return ipv4
+	}
+	var fields []string
+	if len(conf.Conf.Fields) != 0 {
+		fields = strings.Split(conf.Conf.Fields, ",")
+	}
+	if len(rootFields) != 0 {
+		fields = strings.Split(rootFields, ",")
+	}
+	if len(fields) == 0 {
+		fields = database.Meta().Fields
+	}
+	selector := ipio.NewFieldSelector(strings.Join(fields, ","))
+	ipv4 = ipio.NewDBScanner(database, selector, nil)
 }
 
 // GetIPv6 returns a ipio.Reader for IPv6
 func GetIPv6() ipio.Reader {
-	ipv6once.Do(func() {
-		format := rootDBFormat
-		if len(format) == 0 {
-			format = conf.Conf.IPv4Format
+	ipv6once.Do(getIPv6)
+	return ipv6
+}
+
+func getIPv6() {
+	format := rootDBFormat
+	if len(format) == 0 {
+		format = conf.Conf.IPv4Format
+	}
+	file := rootDBFile
+	if len(file) == 0 {
+		file = conf.GetIPv6File()
+	}
+	database, err := db.NewDatabase(format, file)
+	if err != nil {
+		if file == conf.GetIPv6File() {
+			update()
+			database, err = db.NewDatabase(format, file)
 		}
-		file := rootDBFile
-		if len(file) == 0 {
-			file = conf.ConfigPath + "/" + conf.Conf.IPv6File
-		}
-		database, err := db.NewDatabase(format, file)
 		if err != nil {
 			log.Println("read database failed", file, err)
-			if file == conf.ConfigPath+"/"+conf.Conf.IPv6File {
-				log.Println("use ips update first")
-			}
 			os.Exit(1)
 		}
-		fields := conf.Conf.Fields
-		if len(rootFields) != 0 {
-			fields = strings.Split(rootFields, ",")
-		}
-		if len(fields) == 0 {
-			fields = database.Meta().Fields
-		}
-		selector := ipio.NewFieldSelector(strings.Join(fields, ","))
-		ipv6 = ipio.NewDBScanner(database, selector, nil)
-	})
-
-	return ipv6
+	}
+	var fields []string
+	if len(conf.Conf.Fields) != 0 {
+		fields = strings.Split(conf.Conf.Fields, ",")
+	}
+	if len(rootFields) != 0 {
+		fields = strings.Split(rootFields, ",")
+	}
+	if len(fields) == 0 {
+		fields = database.Meta().Fields
+	}
+	selector := ipio.NewFieldSelector(strings.Join(fields, ","))
+	ipv6 = ipio.NewDBScanner(database, selector, nil)
 }

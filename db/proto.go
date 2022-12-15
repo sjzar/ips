@@ -22,41 +22,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/sjzar/ips/db/awdb"
-	"github.com/sjzar/ips/db/ip2region"
-	"github.com/sjzar/ips/db/ipdb"
-	"github.com/sjzar/ips/db/mmdb"
-	"github.com/sjzar/ips/db/qqwry"
-	"github.com/sjzar/ips/db/zxinc"
 	"github.com/sjzar/ips/errors"
 	"github.com/sjzar/ips/ipx"
 	"github.com/sjzar/ips/model"
-)
-
-const (
-	// FormatIPDB IPDB格式
-	// Official: https://www.ipip.net/
-	FormatIPDB = "ipdb"
-
-	// FormatAWDB AWDB格式
-	// Official: https://www.ipplus360.com/
-	FormatAWDB = "awdb"
-
-	// FormatMMDB MMDB格式
-	// Official: https://www.maxmind.com/
-	FormatMMDB = "mmdb"
-
-	// FormatQQWry QQWry格式
-	// Official: https://www.cz88.net/
-	FormatQQWry = "qqwry"
-
-	// FormatZXInc ZXInc格式
-	// Official: https://ip.zxinc.org/
-	FormatZXInc = "zxinc"
-
-	// FormatIP2Region (v2)
-	// Official: https://github.com/lionsoul2014/ip2region
-	FormatIP2Region = "ip2region"
 )
 
 const (
@@ -92,41 +60,23 @@ func NewDatabase(format, file string) (Database, error) {
 				file = strings.Replace(file, "~", u.HomeDir, -1)
 			}
 		}
-		if _file, err := filepath.Abs(file); err != nil {
+		if _file, err := filepath.Abs(file); err == nil {
 			file = _file
 		}
 	}
 
-	if len(format) == 0 {
-		switch {
-		case filepath.Ext(file) == ".ipdb":
-			format = FormatIPDB
-		case filepath.Ext(file) == ".awdb":
-			format = FormatAWDB
-		case filepath.Ext(file) == ".mmdb":
-			format = FormatMMDB
-		case filepath.Ext(file) == ".xdb":
-			format = FormatIP2Region
-		case strings.HasSuffix(file, "qqwry.dat"):
-			format = FormatQQWry
-		case strings.HasSuffix(file, "zxipv6wry.db"):
-			format = FormatZXInc
-		}
+	if fn, ok := Formats[format]; ok {
+		return fn(file)
 	}
 
-	switch format {
-	case FormatIPDB:
-		return ipdb.New(file)
-	case FormatAWDB:
-		return awdb.New(file)
-	case FormatQQWry:
-		return qqwry.New(file)
-	case FormatMMDB:
-		return mmdb.New(file)
-	case FormatZXInc:
-		return zxinc.New(file)
-	case FormatIP2Region:
-		return ip2region.New(file)
+	if fn, ok := Exts[filepath.Ext(file)]; ok {
+		return fn(file)
+	}
+
+	for commonName, fn := range CommonNames {
+		if strings.HasPrefix(filepath.Base(file), commonName) {
+			return fn(file)
+		}
 	}
 
 	return nil, errors.ErrDBFormatNotSupported

@@ -93,27 +93,3 @@ var CommonFieldsMap = map[string]string{
 	model.Longitude:      FieldLongitude,
 	model.ChinaAdminCode: FieldChinaAdminCode,
 }
-
-// FieldsFormat 字段格式化，并补充公共字段
-func FieldsFormat(data map[string]string) map[string]string {
-
-	// Fill Common Fields
-	for k, v := range CommonFieldsMap {
-		data[k] = data[v]
-	}
-
-	return data
-}
-
-// FieldsReplace 字段替换
-func FieldsReplace(fields []string) []string {
-	ret := make([]string, len(fields))
-	copy(ret, fields)
-
-	for i := range ret {
-		if v, ok := CommonFieldsMap[ret[i]]; ok {
-			ret[i] = v
-		}
-	}
-	return ret
-}

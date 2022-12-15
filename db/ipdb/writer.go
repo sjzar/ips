@@ -107,7 +107,7 @@ type Writer struct {
 
 // NewWriter 初始化 IPDB 写入实例
 func NewWriter(meta model.Meta, languages map[string]int) *Writer {
-	if languages == nil || len(languages) == 0 {
+	if len(languages) == 0 {
 		languages = map[string]int{"CN": 0}
 	}
 
@@ -116,7 +116,7 @@ func NewWriter(meta model.Meta, languages map[string]int) *Writer {
 			Build:     int(time.Now().Unix()),
 			IPVersion: meta.IPVersion,
 			Languages: languages,
-			Fields:    FieldsReplace(meta.Fields),
+			Fields:    model.FieldsReplace(CommonFieldsMap, meta.Fields),
 		},
 		node:      [][2]int{{}},
 		dataChunk: &bytes.Buffer{},

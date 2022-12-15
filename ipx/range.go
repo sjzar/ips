@@ -77,19 +77,19 @@ func (r *Range) Contains(ip net.IP) bool {
 // JoinIPNet 合并网段
 func (r *Range) JoinIPNet(ipNet *net.IPNet) bool {
 	// 禁止 起始IP小于原IP区间 或 IP区间不相邻 的IP区间合入
-	if IPLess(ipNet.IP, r.Start) || IPLess(NextIP(r.End), ipNet.IP) {
+	if IPLess(ipNet.IP.To16(), r.Start) || IPLess(NextIP(r.End), ipNet.IP.To16()) {
 		return false
 	}
 
-	if !IPLess(LastIP(ipNet), r.End) {
-		r.End = LastIP(ipNet)
+	if !IPLess(LastIP(ipNet).To16(), r.End) {
+		r.End = LastIP(ipNet).To16()
 	}
 	return true
 }
 
 // IPNets 输出IP区间对应的CIDR分组
 func (r *Range) IPNets() []*net.IPNet {
-	start, end := r.Start, r.End
+	start, end := r.Start.To16(), r.End.To16()
 	bitLength := len(start) * 8
 	var result []*net.IPNet
 	for {

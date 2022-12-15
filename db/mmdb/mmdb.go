@@ -26,8 +26,9 @@ import (
 )
 
 type Database struct {
-	meta model.Meta
-	db   *maxminddb.Reader
+	meta   model.Meta
+	db     *maxminddb.Reader
+	dbType databaseType
 }
 
 // New 初始化 mmdb 数据库实例
@@ -53,9 +54,14 @@ func New(file string) (*Database, error) {
 	if !supportDefaultLang && supportEnglish {
 		Lang = "en"
 	}
+	dbType := getDBType(db.Metadata.DatabaseType)
+	fullFields := CityFullFields
+	if dbType&isASN > 0 {
+		fullFields = ASNFullFields
+	}
 
 	meta := model.Meta{
-		Fields: FullFields,
+		Fields: fullFields,
 	}
 
 	switch db.Metadata.IPVersion {
@@ -67,21 +73,44 @@ func New(file string) (*Database, error) {
 	}
 
 	return &Database{
-		meta: meta,
-		db:   db,
+		meta:   meta,
+		db:     db,
+		dbType: dbType,
 	}, nil
 }
 
 // Find 查询 IP 对应的网段和结果
 func (d *Database) Find(ip net.IP) (*ipx.Range, map[string]string, error) {
 
-	var data City
-	ipNet, _, err := d.db.LookupNetwork(ip, &data)
-	if err != nil {
-		return nil, nil, err
+	dataMap := make(map[string]string)
+	var ipNet *net.IPNet
+	var err error
+	switch {
+	case d.dbType&isCity > 0:
+		var data City
+		ipNet, err = d.find(ip, &data)
+		if err != nil {
+			return nil, nil, err
+		}
+		dataMap = data.Format()
+	case d.dbType&isASN > 0:
+		var data ASN
+		ipNet, err = d.find(ip, &data)
+		if err != nil {
+			return nil, nil, err
+		}
+		dataMap = data.Format()
 	}
 
-	return ipx.NewRange(ipNet), FieldsFormat(data.Format()), nil
+	return ipx.NewRange(ipNet), model.FieldsFormat(CommonFieldsMap, dataMap), nil
+}
+
+func (d *Database) find(ip net.IP, data interface{}) (*net.IPNet, error) {
+	ipNet, _, err := d.db.LookupNetwork(ip, &data)
+	if err != nil {
+		return nil, err
+	}
+	return ipNet, nil
 }
 
 // Meta 返回元数据
