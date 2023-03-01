@@ -39,7 +39,7 @@ City Free (2018-11-18): https://raw.githubusercontent.com/ipipdotnet/ipdb-go/mas
 
 CZ88.NET
 Official:
-qqwry.dat (daily update): https://99wry.cf/qqwry.dat
+qqwry.dat (daily update): https://github.com/sspanel-uim/qqwry.dat/raw/main/qqwry.dat
 qqwry.dat Mirror 2 (2022-04-20): https://raw.githubusercontent.com/out0fmemory/qqwry.dat/master/historys/2022_04_20/qqwry.dat
 
 MaxMind
@@ -64,7 +64,7 @@ dbip-asn-lite.mmdb (2022-12): https://download.db-ip.com/free/dbip-asn-lite-2022
 
 var DownloadMap = map[string]string{
 	"city.free.ipdb":      "https://raw.githubusercontent.com/ipipdotnet/ipdb-go/master/city.free.ipdb",
-	"qqwry.dat":           "https://99wry.cf/qqwry.dat",
+	"qqwry.dat":           "https://github.com/sspanel-uim/qqwry.dat/raw/main/qqwry.dat",
 	"zxipv6wry.db":        "https://raw.githubusercontent.com/ZX-Inc/zxipdb-python/main/data/ipv6wry.db",
 	"GeoLite2-City.mmdb":  "https://git.io/GeoLite2-City.mmdb",
 	"ip2region.xdb":       "https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/ip2region.xdb",
