@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 shenjunzheng@gmail.com
+ * Copyright (c) 2023 shenjunzheng@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,80 +17,173 @@
 package ips
 
 import (
-	"fmt"
-	"log"
+	"os"
 
-	"github.com/spf13/cobra"
+	log "github.com/sirupsen/logrus"
 
-	"github.com/sjzar/ips/cmd/ips/conf"
+	"github.com/sjzar/ips/internal/config"
+	"github.com/sjzar/ips/internal/ips"
 )
 
-var FormatFileMap = map[string]string{
-	"ipdb":      "city.free.ipdb",
-	"qqwry":     "qqwry.dat",
-	"zxinc":     "zxipv6wry.db",
-	"geoip2":    "GeoLite2-City.mmdb",
-	"ip2region": "ip2region.db",
-	"dbip":      "dbip-city-lite.mmdb",
-}
+const (
+	ConfigName = "ips"
+	ConfigType = "json"
+	EnvIPSDir  = "IPS_DIR"
+)
 
-func init() {
-	rootCmd.AddCommand(configCmd)
-}
+// Global variables storing command-line or configuration values.
+var (
 
-var configCmd = &cobra.Command{
-	Use:   "config [set <key> <value>]",
-	Short: "Print the config of ips",
-	Long: `1. choose free ip database format
-  free ipv4 format support: ipdb, qqwry, geoip2, ip2region, dbip
-  free ipv6 format support: zxinc, geoip2, dbip
-  use 'ips config set ipv4 ipdb' or 'ips config set ipv6 zxinc' to set format
+	// logLevel specifies the logging level for the application.
+	logLevel string
 
-2. set ip database file path
-  use 'ips config set ipv4_file ~/path/to/ipv4.db' to set file path
-  use 'ips config set ipv4_format format' to set database format
+	// operate
+	// field select
+	// fields specifies the fields to output.
+	fields string
 
-3. set print fields
-  use 'ips config set fields country,province,city,isp' to set print fields`,
-	Run: Config,
-}
+	// useDBFields indicates whether to use database fields. (default is common fields)
+	useDBFields bool
 
-func Config(cmd *cobra.Command, args []string) {
-	if len(args) == 0 {
-		fmt.Println("config_path: ", conf.ConfigPath)
-		for k, v := range conf.GetConfig() {
-			fmt.Printf("%s: %v\n", k, v)
-		}
-		fmt.Println("\n================================================================================")
-		fmt.Println(cmd.Long)
-		return
+	// rewriter
+	// rewriteFiles specifies the files for data rewriting.
+	rewriteFiles string
+
+	// root command flags
+	// database
+	// rootFormat defines the format for database.
+	rootFormat string
+
+	// rootFile specifies the file path for database.
+	rootFile string
+
+	// rootIPv4Format defines the format for IPv4 database.
+	rootIPv4Format string
+
+	// rootIPv4File specifies the file path for IPv4 database.
+	rootIPv4File string
+
+	// rootIPv6Format defines the format for IPv6 database.
+	rootIPv6Format string
+
+	// rootIPv6File specifies the file path for IPv6 database.
+	rootIPv6File string
+
+	// output
+	// rootTextFormat defines the format for text output.
+	rootTextFormat string
+
+	// rootTextValuesSep defines the separator for text output.
+	rootTextValuesSep string
+
+	// rootJson defines whether to output in JSON format.
+	rootJson bool
+
+	// rootJsonIndent defines whether to output in indented JSON format.
+	rootJsonIndent bool
+
+	// dump & pack command flags
+	// operate
+	// dpFields specifies the fields to output for dump and pack operations.
+	dpFields string
+
+	// dpRewriterFiles specifies the files for data rewriting during dump and pack operations.
+	dpRewriterFiles string
+
+	// inputFile specifies the input file for dump and pack operations.
+	inputFile string
+
+	// inputFormat specifies the input format for dump and pack operations.
+	inputFormat string
+
+	// outputFile specifies the output file for dump and pack operations.
+	outputFile string
+
+	// outputFormat specifies the output format for pack operations.
+	outputFormat string
+)
+
+// GetFlagConfig initializes and returns the configuration for the IP service.
+// It loads the configuration from a file or environment variables, then overrides
+// specific fields based on the global variables, which might be set from command-line arguments.
+func GetFlagConfig() *ips.Config {
+	conf := GetConfig()
+
+	// operate
+	if len(fields) != 0 {
+		conf.Fields = fields
 	}
-	switch args[0] {
-	case "set":
-		if len(args) < 3 {
-			log.Fatal("need key and value")
-			return
-		}
-		key, value := args[1], args[2]
 
-		switch key {
-		case "ipv4":
-			if dbfile, ok := FormatFileMap[value]; ok {
-				key = "ipv4_file"
-				value = dbfile
-			}
-		case "ipv6":
-			if dbfile, ok := FormatFileMap[value]; ok {
-				key = "ipv6_file"
-				value = dbfile
-			}
-		}
-
-		if err := conf.SetConfig(key, value); err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println("set config success")
-	default:
-		log.Fatal("unknown config command")
+	if useDBFields {
+		conf.UseDBFields = useDBFields
 	}
+
+	if len(rewriteFiles) != 0 {
+		conf.RewriteFiles = rewriteFiles
+	}
+
+	// root command flags
+	if len(rootFile) != 0 {
+		conf.IPv4File = rootFile
+		conf.IPv6File = rootFile
+		if len(rootFormat) != 0 {
+			conf.IPv4Format = rootFormat
+			conf.IPv6Format = rootFormat
+		}
+	}
+
+	if len(rootIPv4File) != 0 {
+		conf.IPv4File = rootIPv4File
+		if len(rootIPv4Format) != 0 {
+			conf.IPv4Format = rootIPv4Format
+		}
+	}
+
+	if len(rootIPv6File) != 0 {
+		conf.IPv6File = rootIPv6File
+		if len(rootIPv6Format) != 0 {
+			conf.IPv6Format = rootIPv6Format
+		}
+	}
+
+	if len(rootTextFormat) != 0 {
+		conf.TextFormat = rootTextFormat
+	}
+
+	if len(rootTextValuesSep) != 0 {
+		conf.TextValuesSep = rootTextValuesSep
+	}
+
+	if rootJson {
+		conf.OutputType = ips.OutputTypeJSON
+	}
+
+	if rootJsonIndent {
+		conf.OutputType = ips.OutputTypeJSON
+		conf.JsonIndent = rootJsonIndent
+	}
+
+	// dump & pack command flags
+	if len(dpFields) != 0 {
+		conf.DPFields = dpFields
+	}
+
+	if len(dpRewriterFiles) != 0 {
+		conf.DPRewriterFiles = dpRewriterFiles
+	}
+
+	return conf
+}
+
+// GetConfig initializes and returns the configuration for the IP service.
+func GetConfig() *ips.Config {
+	conf := &ips.Config{}
+	if err := config.Init(ConfigName, ConfigType, os.Getenv(EnvIPSDir)); err != nil {
+		log.Fatal(err)
+	}
+	if err := config.Load(conf); err != nil {
+		log.Fatal(err)
+	}
+	conf.IPSDir = config.ConfigPath
+	return conf
 }

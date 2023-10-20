@@ -1,151 +1,120 @@
 ## IPS
 
-ips is a command-line tool for querying, scanning, and packing IP geolocation database files.
+[![Go Report Card](https://goreportcard.com/badge/github.com/sjzar/ips)](https://goreportcard.com/report/github.com/sjzar/ips)
+[![GoDoc](https://godoc.org/github.com/sjzar/ips?status.svg)](https://godoc.org/github.com/sjzar/ips)
+[![GitHub release](https://img.shields.io/github/release/sjzar/ips.svg)](https://github.com/sjzar/ips/releases)
+[![GitHub license](https://img.shields.io/github/license/sjzar/ips.svg)](https://github.com/sjzar/ips/blob/main/LICENSE)
 
-ips is support for multiple database protocols, including popular ones such as MaxMind GeoLite2 and ipip.net, which allows for easy integration with existing systems. In addition, it has flexible query methods that can be chosen based on specific requirements, improving query efficiency.
+ips 是一个命令行工具与库，可以轻松完成 IP 地理位置数据库的查询、转存与打包。
 
-Using ips, it is easy to query the geolocation information of an IP address, including country, city, and isp. In addition, it can scan the entire database, quickly extract records that meet specific conditions, and package them into a new database file for further processing.
+中文 | [English](./README_en.md)
 
-ips is a powerful and easy-to-use tool for IP geolocation, suitable for a wide range of applications that require handling of IP geolocation information.
+### 下载与安装
 
-### Install
+#### 源码安装
 
 ```bash
 go install github.com/sjzar/ips@latest
 ```
 
-### Feature
-* IP Geolocation Databases Querying, Scanning, Packing
-* Multiple Databases Support
+本机需要安装 Go 1.16+，并且配置好 Go 的环境变量。
 
-### Databases Support Status
+### 特性
 
-| Database  | Query | Scan | Pack | Official              | Comments  |
-|:----------|:------|:-----|:-----|:----------------------|:----------|
-| ipdb      | ✅    | ✅   | ✅    | https://ipip.net      |           |
-| awdb      | ✅    | ✅   | -    | https://ipplus360.com |           |
-| mmdb      | ✅    | ✅   | -    | https://maxmind.com   |           |
-| qqwry     | ✅    | ✅   | -    | https://cz88.net      | IPv4 only |
-| zxinc     | ✅    | ✅   | -    | https://ip.zxinc.org  | IPv6 only |
-| ip2region | ✅    | ✅   | -    | https://github.com/lionsoul2014/ip2region  | IPv4 only |
+* 一键查询、转存和打包 IP 地理位置数据库
+* 兼容多种数据库格式
+* 通过命令行参数或管道进行查询
+* 输出支持文本和 JSON 格式
+* 可自定义查询字段并持久化配置
+* 灵活的数据库字段改写：按需增减字段和内容修改
 
+### 数据库支持列表
 
-### Usage
+| 数据库       | 查询 | 转存 | 打包 | 官方网站                                              | 说明        |
+|:----------|:---|:---|:---|:--------------------------------------------------|:----------|
+| txt       | -  | ✅  | ✅  | -                                                 | 本项目转存时使用  |
+| ipdb      | ✅  | ✅  | ✅  | [Link](https://ipip.net)                          |           |
+| mmdb      | ✅  | ✅  | ✅  | [Link](https://maxmind.com)                       |           |
+| awdb      | ✅  | ✅  | -  | [Link](https://ipplus360.com)                     |           |
+| qqwry     | ✅  | ✅  | -  | [Link](https://cz88.net)                          | IPv4 only |
+| zxinc     | ✅  | ✅  | -  | [Link](https://ip.zxinc.org)                      | IPv6 only |
+| ip2region | ✅  | ✅  | -  | [Link](https://github.com/lionsoul2014/ip2region) | IPv4 only |
 
-#### Query
+### 使用方法
+
+#### 查询
 
 ```shell
-ips [option] <ip or text>
+# 基础查询
+ips <ip或文本> [选项]
 
-# Query IP
+# 查询 IP
 ips 61.144.235.160
-61.144.235.160 [广东省深圳市 电信]
+# 输出：61.144.235.160 [中国 广东 深圳 电信]
 
-# Qeury IP with pipeline
+# 使用管道查询 IP
 echo "61.144.235.160" | ips
-61.144.235.160 [广东省深圳市 电信]
+# 输出：61.144.235.160 [中国 广东 深圳 电信]
 
-# Query IP with database
-ips -d ./city.free.ipdb 61.144.235.160
-61.144.235.160 [中国 广东 深圳]
+# 使用指定的数据库文件查询 IP
+ips -d ./GeoLite2-City.mmdb 61.144.235.160
+# 输出：61.144.235.160 [中国 广州]
 
-# Query IP with database and fields
-ips -d ./city.free.ipdb --fields country,province 61.144.235.160
-61.144.235.160 [中国 广东]
+# 使用指定的数据库文件并设置查询字段
+ips -d ./GeoLite2-City.mmdb --fields country 61.144.235.160
+# 输出：61.144.235.160 [中国]
 
-# Query IP with database and set format
-ips -d ./city.free.ipdb.rename --format ipdb 61.144.235.160
-61.144.235.160 [中国 广东 深圳]
-ips -d ipdb:./city.free.ipdb.rename 61.144.235.160
-61.144.235.160 [中国 广东 深圳]
+# 使用指定的数据库文件，以 JSON 格式输出结果
+ips -d ./GeoLite2-City.mmdb --fields '*' -j 61.144.235.160
+# 输出：{"ip":"61.144.235.160","net":"61.144.192.0/18","data":{"city":"广州市","continent":"亚洲","country":"中国","latitude":"23.1181","longitude":"113.2539","utcOffset":"Asia/Shanghai"}}
 ```
 
-#### Scan
+#### 转存
 
 ```shell
-# Scan database
-ips scan ./qqwry.dat
-# ScanTime: 2006-01-02 15:04:05
-# Fields: country,area
-# IPVersion: 1
-# Meta: {"IPVersion":1,"Fields":["country","area"]}
-0.0.0.0/8       IANA,保留地址
-1.0.0.0/32      美国,亚太互联网络信息中心(CloudFlare节点)
-1.0.0.1/32      美国,APNIC&CloudFlare公共DNS服务器
-1.0.0.2/31      美国,亚太互联网络信息中心(CloudFlare节点)
-<ignore more content>
+# 基础转存命令，输出转存内容
+ips dump -i ./qqwry.dat
+# 输出：
+#    # Dump Time: 2023-10-20 00:00:00
+#    # Fields: country,area
+#    ... <省略部分输出> ...
 
-# Scan database with fields
-ips/ips scan qqwry.dat --fields country
-# ScanTime: 2006-01-02 15:04:05
-# Fields: country
-# IPVersion: 1
-# Meta: {"IPVersion":1,"Fields":["country"]}
-0.0.0.0/8       IANA
-1.0.0.0/24      美国
-1.0.1.0/24      福建省
-1.0.2.0/23      福建省
-1.0.4.0/22      澳大利亚
-<ignore more content>
+# 指定字段进行转存
+ips dump -i ./qqwry.dat -f country
+# 输出：
+#    # Dump Time: 2023-10-20 00:00:00
+#    # Fields: country
+#    ... <省略部分输出> ...
 
-# Scan database with rewrite
-# rewrite file format: <field>\t<match>\t<replace>\n
-# make rewrite file like:
-# country\t美国\t美利坚合众国
-ips scan -r ./countrydemo.map qqwry.dat
-# ScanTime: 2022-12-10 21:17:01
-# Fields: country,area
-# IPVersion: 1
-# Meta: {"IPVersion":1,"Fields":["country","area"]}
-0.0.0.0/8       IANA,保留地址
-1.0.0.0/32      美利坚合众国,亚太互联网络信息中心(CloudFlare节点)
-1.0.0.1/32      美利坚合众国,APNIC&CloudFlare公共DNS服务器
-1.0.0.2/31      美利坚合众国,亚太互联网络信息中心(CloudFlare节点)
-<ignore more content>
-
-# Scan database and output to file
-ips scan qqwry.dat -o qqwry.ipscan
-ll
--rw-r--r--  1 sarv  staff    10M 12 10 20:33 qqwry.dat
--rw-r--r--  1 sarv  staff    48M 12 10 21:19 qqwry.ipscan
+# 转存内容并保存到文件
+ips dump -i ./qqwry.dat -o 1.txt
 ```
 
-#### Pack
+#### 打包
 
 ```shell
-# Pack ipscan file
-ips pack qqwry.ipscan
+# 使用转存文件进行打包
+ips pack -i qqwry.txt -o qqwry.ipdb
 
-# Pack ipscan file and output to another file
-ips pack qqwry.ipscan -o demo1.ipdb
+# 使用数据库文件进行打包
+ips pack -i qqwry.dat -o qqwry.ipdb
 
-# Pack database
-ips pack qqwry.dat --format qqwry
-
-# Pack database with fields
-ips pack qqwry.dat --format qqwry -f country
-
-# Pack database with rewrite
-ips pack qqwry.dat --format qqwry -r ./countrydemo.map
+# 使用数据库文件并指定字段进行打包
+ips pack -i qqwry.dat -f country -o country.ipdb
 ```
 
-### Examples
+### 许可
 
-#### Scan and Rewrite qqwry.dat
-```shell
-# scan qqwry.dat with fields
-ips scan qqwry.dat -f "country,province,city,isp|isp=:country,province,city,area" -o qqwry.ipscan
+`ips` 是在 Apache-2.0 许可下的开源软件。
 
-# scan qqwry.dat with rewrite
-ips scan qqwry.dat -f "country,province,city,isp|isp=:country,province,city,area" -r ./data/qqwry_area.map,./data/qqwry_country.map -o qqwry_rewrite.ipscan
+### 致谢
 
-# diff qqwry.ipscan and qqwry_rewrite.ipscan
-# qqwry.ipscan
-1.24.24.0/21	内蒙古鄂尔多斯市,,,联通
-108.162.243.0/24	美国华盛顿州西雅图,,,CloudFlare节点
-219.138.4.0/26	长江大学,,, CZ88.NET
-# qqwry_rewrite.ipscan
-1.24.24.0/21	中国,内蒙古,鄂尔多斯,联通
-108.162.243.0/24	美国,华盛顿,西雅图,CloudFlare
-219.138.4.0/26	中国,湖北,荆州/长江大学, CZ88.NET
-```
+* [IPIP.net](https://ipip.net) 的 ipdb 数据库格式
+* [MaxMind](https://maxmind.com) 的 mmdb 数据库格式
+* [埃文科技](https://ipplus360.com) 的 awdb 数据库格式
+* [纯真网络](https://cz88.net) 的 qqwry 数据库格式
+* [ip.zxinc.org](https://ip.zxinc.org) 的 zxinc 数据库格式
+* [@lionsoul2014](https://github.com/lionsoul2014) 的 [ip2region](https://github.com/lionsoul2014/ip2region) 数据库格式
+* [@zu1k](https://github.com/zu1k) 的 [nali](https://github.com/zu1k/nali) 项目，本项目查询功能参考了 nali 的方案
+* [@metowolf](https://github.com/metowolf) 的 [qqwry.dat](https://github.com/metowolf/qqwry.dat) 和 ipdb 项目
+* 各个 Go 开源库的贡献者们，例如 [cobra](https://github.com/spf13/cobra)、[viper](https://github.com/spf13/viper)、[logrus](https://github.com/sirupsen/logrus)、[progressbar](https://github.com/schollz/progressbar) 等
