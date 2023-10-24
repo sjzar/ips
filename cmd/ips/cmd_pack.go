@@ -27,12 +27,15 @@ func init() {
 	// operate
 	packCmd.Flags().StringVarP(&dpFields, "fields", "f", "", "Specify the fields to be dumped from the input file. Default is all fields.")
 	packCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
+	packCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
 
 	// input & output
 	packCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", "Path to the IP database file.")
 	packCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", "Specify the format of the input file. Examples: ipdb, mmdb, etc.")
+	packCmd.Flags().StringVarP(&readerOption, "input-option", "", "", "Specify the option for database reader.")
 	packCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", "Path to the packed IP database file.")
-	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", "output format")
+	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", "Specify the format of the output file. Examples: ipdb, mmdb, etc.")
+	packCmd.Flags().StringVarP(&writerOption, "output-option", "", "", "Specify the option for database writer.")
 
 }
 

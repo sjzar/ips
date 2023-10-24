@@ -32,6 +32,7 @@ var (
 	ErrReadCompleted          = errors.New("read operation already completed")
 	ErrMetaMissing            = errors.New("meta information missing")
 	ErrNilWriter              = errors.New("writer is not initialized")
+	ErrUnsupportedLanguage    = errors.New("unsupported language")
 
 	// Operate
 

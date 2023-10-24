@@ -17,13 +17,14 @@
 package ips
 
 import (
+	"net/url"
 	"os"
 	"strings"
 
 	log "github.com/sirupsen/logrus"
 
 	"github.com/sjzar/ips/format"
-	"github.com/sjzar/ips/format/ipdb"
+	"github.com/sjzar/ips/format/mmdb"
 	"github.com/sjzar/ips/format/plain"
 	"github.com/sjzar/ips/internal/data"
 	"github.com/sjzar/ips/internal/ipio"
@@ -42,6 +43,24 @@ func (m *Manager) Pack(_format, file, _outputFormat, outputFile string) error {
 	defer func() {
 		_ = dbr.Close()
 	}()
+
+	// Add specific logic based on the db reader type
+	switch dbr.(type) {
+	case *mmdb.Reader:
+		readerOptionArg, err := url.ParseQuery(m.Conf.ReaderOption)
+		if err != nil {
+			log.Debug("url.ParseQuery error: ", err)
+			return err
+		}
+		option := mmdb.ReaderOption{
+			DisableExtraData: readerOptionArg.Get("disable_extra_data") == "true",
+			UseFullField:     readerOptionArg.Get("use_full_field") == "true",
+		}
+		if err := dbr.SetOption(option); err != nil {
+			log.Debug("reader.SetOption error: ", err)
+			return err
+		}
+	}
 
 	// Initialize the reader
 	reader := ipio.NewStandardReader(dbr, nil)
@@ -68,9 +87,13 @@ func (m *Manager) Pack(_format, file, _outputFormat, outputFile string) error {
 
 	reader.OperateChain.Use(rw.Do)
 
-	// Add specific logic based on the db reader type
-	switch dbr.(type) {
-	case *ipdb.Reader:
+	if len(m.Conf.Lang) != 0 {
+		tl, err := operate.NewTranslator(m.Conf.Lang)
+		if err != nil {
+			log.Debug("operate.NewTranslator error: ", err)
+			return err
+		}
+		reader.OperateChain.Use(tl.Do)
 	}
 
 	// Setup the writer
@@ -96,6 +119,19 @@ func (m *Manager) Pack(_format, file, _outputFormat, outputFile string) error {
 
 	// Add specific logic based on the writer type
 	switch writer.(type) {
+	case *mmdb.Writer:
+		writerOptionArg, err := url.ParseQuery(m.Conf.WriterOption)
+		if err != nil {
+			log.Debug("url.ParseQuery error: ", err)
+			return err
+		}
+		option := mmdb.WriterOption{
+			SelectLanguages: writerOptionArg.Get("select_languages"),
+		}
+		if err := writer.SetOption(option); err != nil {
+			log.Debug("writer.SetOption error: ", err)
+			return err
+		}
 	case *plain.Writer:
 		if err := writer.SetOption(plain.WriterOption{IW: output}); err != nil {
 			log.Debug("writer.SetOption error: ", err)

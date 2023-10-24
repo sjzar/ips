@@ -1,0 +1,7 @@
+6255146	en:Africa|zh-CN:非洲|ru:Африка|ja:アフリカ|de:Afrika|fr:Afrique|es:África|pt-BR:África|fa:افریقا|ko:아프리카	AF					
+6255147	en:Asia|zh-CN:亚洲|ru:Азия|ja:アジア|de:Asien|fr:Asie|es:Asia|pt-BR:Ásia|ko:아시아	AS					
+6255148	en:Europe|zh-CN:欧洲|ru:Европа|ja:ヨーロッパ|de:Europa|fr:Europe|es:Europa|pt-BR:Europa|ko:유럽	EU					
+6255149	en:North America|zh-CN:北美洲|ru:Північна Америка|ja:北アメリカ|de:Nordamerika|fr:Amérique du Nord|es:Norteamérica|pt-BR:América do Norte|ko:북아메리카	NA					
+6255150	en:South America|zh-CN:南美洲|ru:Южная Америка|ja:南アメリカ|de:Südamerika|fr:Amérique du Sud|es:Sudamérica|pt-BR:América do Sul|ko:남아메리카	SA					
+6255151	en:Oceania|zh-CN:大洋洲|ru:Океания|ja:オセアニア|de:Ozeanien|fr:Océanie|es:Oceanía|pt-BR:Oceania|ko:오세아니아	OC					
+6255152	en:Antarctica|zh-CN:南极洲|ru:Антарктида|ja:南極|de:Antarktika|fr:Antarctique|es:Antártida|pt-BR:Antártica|fa:قطب جنوب|ko:남극	AN					

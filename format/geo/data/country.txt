@@ -1,0 +1,250 @@
+49518	en:Rwanda|zh-CN:卢旺达|ru:Руанда|ja:ルワンダ共和国|de:Ruanda|fr:Rwanda|es:Ruanda|pt-BR:Ruanda|fa:رواندا|ko:르완다		RW		6255146		
+51537	en:Somalia|zh-CN:索马里|ru:Сомали|ja:ソマリア|de:Somalia|fr:Somalie|es:Somalia|pt-BR:Somália|fa:سومالی|ko:소말리아		SO		6255146		
+69543	en:Yemen|zh-CN:也门|ru:Йемен|ja:イエメン共和国|de:Jemen|fr:Yémen|es:Yemen|pt-BR:Iêmen|fa:یمن|ko:예멘		YE		6255147		
+99237	en:Iraq|zh-CN:伊拉克|ru:Ирак|ja:イラク共和国|de:Irak|fr:Irak|es:Irak|pt-BR:Iraque|fa:عراق|ko:이라크		IQ		6255147		
+102358	en:Saudi Arabia|zh-CN:沙特阿拉伯|ru:Саудовская Аравия|ja:サウジアラビア王国|de:Saudi-Arabien|fr:Arabie saoudite|es:Arabia Saudí|pt-BR:Arábia Saudita|fa:عربستان|ko:사우디아라비아		SA		6255147		
+130758	en:Iran|zh-CN:伊朗|ru:Иран|ja:イラン・イスラム共和国|de:Iran|fr:Iran|es:Irán|pt-BR:Irã|fa:Jomhūrī-ye Eslāmī-ye Īrān|ko:이란		IR		6255147		
+146669	en:Cyprus|zh-CN:塞浦路斯|ru:Кипр|ja:キプロス共和国|de:Zypern|fr:Chypre|es:Chipre|pt-BR:Chipre|fa:قبرس|ko:사이프러스		CY	1	6255148		
+149590	en:Tanzania|zh-CN:坦桑尼亚|ru:Танзания|ja:タンザニア連合共和国|de:Tansania|fr:Tanzanie|es:Tanzania|pt-BR:Tanzânia|fa:تانزانیا|ko:탄자니아		TZ		6255146		
+163843	en:Syria|zh-CN:叙利亚|ru:Сирия|ja:シリア・アラブ共和国|de:Syrien|fr:Syrie|es:Siria|pt-BR:Síria|fa:سوریه|ko:시리아		SY		6255147		
+174982	en:Armenia|zh-CN:亚美尼亚|ru:Армения|ja:アルメニア共和国|de:Armenien|fr:Arménie|es:Armenia|pt-BR:Armênia|fa:ارمنستان|ko:아르메니아		AM		6255147		
+192950	en:Kenya|zh-CN:肯尼亚|ru:Кения|ja:ケニア共和国|de:Kenia|fr:Kenya|es:Kenia|pt-BR:Quênia|fa:کنیا|ko:케냐		KE		6255146		
+203312	en:DR Congo|zh-CN:扎伊尔|ru:Заир|ja:コンゴ民主共和国|de:Kongo|fr:RDC|es:Congo Democrático|pt-BR:Congo - Kinshasa|fa:کنگو - کینشاسا|ko:콩고-킨샤사		CD		6255146		
+223816	en:Djibouti|zh-CN:吉布提|ru:Джибути|ja:ジブチ|de:Dschibuti|fr:Djibouti|es:Yibuti|pt-BR:Djibuti|fa:جیبوتی|ko:지부티		DJ		6255146		
+226074	en:Uganda|zh-CN:乌干达|ru:Уганда|ja:ウガンダ共和国|de:Uganda|fr:Ouganda|es:Uganda|pt-BR:Uganda|fa:اوگاندا|ko:우간다		UG		6255146		
+239880	en:Central African Republic|zh-CN:中非|ru:Центрально-Африканская Республика|ja:中央アフリカ共和国|de:Zentralafrikanische Republik|fr:Centrafrique|es:República Centroafricana|pt-BR:República Centro-Africana|fa:جمهوری افریقای مرکزی|ko:중앙 아프리카 공화국		CF		6255146		
+241170	en:Seychelles|zh-CN:塞舌尔|ru:Сейшельские о-ва|ja:セーシェル|de:Seychellen|fr:Seychelles|es:Seychelles|pt-BR:Ilhas Seychelles|fa:سیشل|ko:쉐이쉘		SC		6255146		
+248816	en:Jordan|zh-CN:约旦|ru:Иордания|ja:ヨルダン・ハシミテ王国|de:Jordanien|fr:Jordanie|es:Jordania|pt-BR:Jordânia|fa:اردن|ko:요르단		JO		6255147		
+272103	en:Lebanon|zh-CN:黎巴嫩|ru:Ливан|ja:レバノン共和国|de:Libanon|fr:Liban|es:Líbano|pt-BR:Líbano|fa:لبنان|ko:레바논		LB		6255147		
+285570	en:Kuwait|zh-CN:科威特|ru:Кувейт|ja:クウェート|de:Kuwait|fr:Koweït|es:Kuwait|pt-BR:Kuwait|fa:کویت|ko:쿠웨이트		KW		6255147		
+286963	en:Oman|zh-CN:阿曼|ru:Оман|ja:オマーン国|de:Oman|fr:Oman|es:Omán|pt-BR:Omã|fa:عمان|ko:오만		OM		6255147		
+289688	en:Qatar|zh-CN:卡塔尔|ru:Катар|ja:カタール|de:Katar|fr:Qatar|es:Catar|pt-BR:Catar|fa:قطر|ko:카타르		QA		6255147		
+290291	en:Bahrain|zh-CN:巴林|ru:Бахрейн|ja:バーレーン|de:Bahrain|fr:Bahreïn|es:Bahréin|pt-BR:Bahrain|fa:بحرین|ko:바레인		BH		6255147		
+290557	en:United Arab Emirates|zh-CN:阿联酋|ru:ОАЭ|ja:アラブ首長国連邦|de:Vereinigte Arabische Emirate|fr:Émirats Arabes Unis|es:Emiratos Árabes Unidos|pt-BR:Emirados Árabes Unidos|fa:امارات متحدهٔ عربی|ko:아랍에미리트 연합		AE		6255147		
+294640	en:Israel|zh-CN:以色列|ru:Израиль|ja:イスラエル国|de:Israel|fr:Israël|es:Israel|pt-BR:Israel|fa:اسرائیل|ko:이스라엘		IL		6255147		
+298795	en:Turkey|zh-CN:土耳其|ru:Турция|ja:トルコ共和国|de:Türkei|fr:Turquie|es:Turquía|pt-BR:Turquia|fa:ترکیه|ko:터키		TR		6255147		
+337996	en:Ethiopia|zh-CN:埃塞俄比亚|ru:Эфиопия|ja:エチオピア|de:Äthiopien|fr:Éthiopie|es:Etiopía|pt-BR:Etiópia|fa:اتیوپی|ko:이디오피아		ET		6255146		
+338010	en:Eritrea|zh-CN:厄立特里亚|ru:Эритрея|ja:エリトリア|de:Eritrea|fr:Érythrée|es:Eritrea|pt-BR:Eritreia|fa:اریتره|ko:에리트리아		ER		6255146		
+357994	en:Egypt|zh-CN:埃及|ru:Египет|ja:エジプト・アラブ共和国|de:Ägypten|fr:Égypte|es:Egipto|pt-BR:Egito|fa:مصر|ko:이집트		EG		6255146		
+366755	en:Sudan|zh-CN:苏丹|ru:Судан|ja:スーダン共和国|de:Sudan|fr:Soudan|es:Sudán|pt-BR:Sudão|fa:سودان|ko:수단		SD		6255146		
+390903	en:Greece|zh-CN:希腊|ru:Греция|ja:ギリシャ共和国|de:Griechenland|fr:Grèce|es:Grecia|pt-BR:Grécia|fa:یونان|ko:그리스		GR	1	6255148		
+433561	en:Burundi|zh-CN:布隆迪|ru:Бурунди|ja:ブルンジ共和国|de:Burundi|fr:Burundi|es:Burundi|pt-BR:Burundi|fa:بوروندی|ko:부룬디		BI		6255146		
+453733	en:Estonia|zh-CN:爱沙尼亚|ru:Эстония|ja:エストニア共和国|de:Estland|fr:Estonie|es:Estonia|pt-BR:Estônia|fa:استونی|ko:에스토니아		EE	1	6255148		
+458258	en:Latvia|zh-CN:拉脱维亚|ru:Латвия|ja:ラトビア共和国|de:Lettland|fr:Lettonie|es:Letonia|pt-BR:Letônia|fa:لتونی|ko:라트비아		LV	1	6255148		
+587116	en:Azerbaijan|zh-CN:阿塞拜疆|ru:Азербайджан|ja:アゼルバイジャン共和国|de:Aserbaidschan|fr:Azerbaïdjan|es:Azerbaiyán|pt-BR:Azerbaijão|fa:جمهوری آذربایجان|ko:아제르바이잔		AZ		6255147		
+597427	en:Lithuania|zh-CN:立陶宛|ru:Литва|ja:リトアニア共和国|de:Litauen|fr:Lituanie|es:Lituania|pt-BR:Lituânia|fa:لیتوانی|ko:리투아니아		LT	1	6255148		
+607072	en:Svalbard and Jan Mayen|zh-CN:斯瓦尔巴岛和扬马延岛|ru:Шпицберген и Ян-Майен|ja:スバールバル諸島・ヤンマイエン島|de:Spitzbergen und Jan Mayen|fr:Svalbard et Jan Mayen|es:Svalbard y Jan Mayen|pt-BR:Svalbard e Jan Mayen|fa:سوالبارد و یان ماین|ko:스발바르제도-얀마웬섬		SJ		6255148		
+614540	en:Georgia|zh-CN:格鲁吉亚|ru:Грузия|ja:グルジア共和国|de:Georgien|fr:Géorgie|es:Georgia|pt-BR:Geórgia|fa:گرجستان|ko:그루지야		GE		6255147		
+617790	en:Moldova|zh-CN:摩尔多瓦|ru:Молдова|ja:モルドバ共和国|de:Republik Moldau|fr:Moldavie|es:Moldavia|pt-BR:Moldávia|fa:مولدووا|ko:몰도바		MD		6255148		
+630336	en:Belarus|zh-CN:白俄罗斯|ru:Беларусь|ja:ベラルーシ共和国|de:Belarus|fr:Biélorussie|es:Bielorrusia|pt-BR:Bielorrússia|fa:بیلوروسی|ko:벨라루스		BY		6255148		
+660013	en:Finland|zh-CN:芬兰|ru:Финляндия|ja:フィンランド共和国|de:Finnland|fr:Finlande|es:Finlandia|pt-BR:Finlândia|fa:فنلاند|ko:핀란드		FI	1	6255148		
+661882	en:Åland Islands|zh-CN:奥兰群岛|ru:Аланды|ja:オーランド諸島|de:Ålandinseln|fr:Îles Åland|es:Islas Aland|pt-BR:Alanda|fa:جزایر آلاند|ko:올란드 제도		AX	1	6255148		
+690791	en:Ukraine|zh-CN:乌克兰|ru:Украина|ja:ウクライナ共和国|de:Ukraine|fr:Ukraine|es:Ucrania|pt-BR:Ucrânia|fa:اوکراین|ko:우크라이나		UA		6255148		
+718075	en:North Macedonia|zh-CN:前南马其顿|ru:Северная Македония|ja:北マケドニア|de:Nordmazedonien|fr:Macédoine du Nord|es:Macedonia del Norte|pt-BR:Macedônia|fa:مقدونیه|ko:북마케도니아		MK		6255148		
+719819	en:Hungary|zh-CN:匈牙利|ru:Венгрия|ja:ハンガリー共和国|de:Ungarn|fr:Hongrie|es:Hungría|pt-BR:Hungria|fa:مجارستان|ko:헝가리		HU	1	6255148		
+732800	en:Bulgaria|zh-CN:保加利亚|ru:Болгария|ja:ブルガリア共和国|de:Bulgarien|fr:Bulgarie|es:Bulgaria|pt-BR:Bulgária|fa:بلغارستان|ko:불가리아		BG	1	6255148		
+783754	en:Albania|zh-CN:阿尔巴尼亚|ru:Албания|ja:アルバニア共和国|de:Albanien|fr:Albanie|es:Albania|pt-BR:Albânia|fa:آلبانی|ko:알바니아		AL		6255148		
+798544	en:Poland|zh-CN:波兰|ru:Польша|ja:ポーランド共和国|de:Polen|fr:Pologne|es:Polonia|pt-BR:Polônia|fa:لهستان|ko:폴란드		PL	1	6255148		
+798549	en:Romania|zh-CN:罗马尼亚|ru:Румыния|ja:ルーマニア|de:Rumänien|fr:Roumanie|es:Rumanía|pt-BR:Romênia|fa:رومانی|ko:루마니아		RO	1	6255148		
+831053	en:Kosovo|zh-CN:科索沃|ru:Косово|ja:コソボ|de:Kosovo|fr:Kosovo|es:Kosovo|pt-BR:Kosovo|fa:کوزوو|ko:코소보 공화국		XK		6255148		
+878675	en:Zimbabwe|zh-CN:津巴布韦|ru:Зимбабве|ja:ジンバブエ共和国|de:Simbabwe|fr:Zimbabwe|es:Zimbawe|pt-BR:Zimbábue|fa:زیمبابوه|ko:짐바브웨		ZW		6255146		
+895949	en:Zambia|zh-CN:赞比亚|ru:Замбия|ja:ザンビア共和国|de:Sambia|fr:Zambie|es:Zambia|pt-BR:Zâmbia|fa:زامبیا|ko:잠비아		ZM		6255146		
+921929	en:Comoros|zh-CN:科摩罗|ru:Коморские о-ва|ja:コモロ・イスラム連邦共和国|de:Komoren|fr:Comores|es:Comoras|pt-BR:Comores|fa:کومورو|ko:코모로스		KM		6255146		
+927384	en:Malawi|zh-CN:马拉维|ru:Малави|ja:マラウイ共和国|de:Malawi|fr:Malawi|es:Malaui|pt-BR:Malauí|fa:مالاوی|ko:말라위		MW		6255146		
+932692	en:Lesotho|zh-CN:莱索托|ru:Лесото|ja:レソト王国|de:Lesotho|fr:Lesotho|es:Lesotho|pt-BR:Lesoto|fa:لسوتو|ko:레소토		LS		6255146		
+933860	en:Botswana|zh-CN:博茨瓦纳|ru:Ботсвана|ja:ボツワナ共和国|de:Botswana|fr:Botswana|es:Botsuana|pt-BR:Botsuana|fa:بوتسوانا|ko:보츠와나		BW		6255146		
+934292	en:Mauritius|zh-CN:毛里求斯|ru:Маврикий|ja:モーリシャス|de:Mauritius|fr:Maurice|es:Mauricio|pt-BR:Maurício|fa:موریتیوس|ko:모리셔스		MU		6255146		
+934841	en:Eswatini|zh-CN:斯威士兰|ru:Эсватини|ja:スワジランド王国|de:Eswatini|fr:Swaziland|es:Esuatini|pt-BR:Essuatíni|fa:سوازیلند|ko:스와질랜드		SZ		6255146		
+935317	en:Réunion|zh-CN:留尼汪|ru:Реюньон|ja:レユニオン|de:Réunion|fr:Réunion|es:Reunión|pt-BR:Reunião|fa:رئونیون|ko:레위니옹		RE	1	6255146		
+953987	en:South Africa|zh-CN:南非|ru:ЮАР|ja:南アフリカ|de:Südafrika|fr:Afrique du Sud|es:Sudáfrica|pt-BR:África do Sul|fa:افریقای جنوبی|ko:남아프리카		ZA		6255146		
+1024031	en:Mayotte|zh-CN:马约特|ru:Майотта|ja:マヨット島|de:Mayotte|fr:Mayotte|es:Mayotte|pt-BR:Mayotte|fa:مایوت|ko:마요티		YT	1	6255146		
+1036973	en:Mozambique|zh-CN:莫桑比克|ru:Мозамбик|ja:モザンビーク共和国|de:Mosambik|fr:Mozambique|es:Mozambique|pt-BR:Moçambique|fa:موزامبیک|ko:모잠비크		MZ		6255146		
+1062947	en:Madagascar|zh-CN:马达加斯加|ru:Мадагаскар|ja:マダガスカル共和国|de:Madagaskar|fr:Madagascar|es:Madagascar|pt-BR:Madagascar|fa:ماداگاسکار|ko:마다가스카르		MG		6255146		
+1149361	en:Afghanistan|zh-CN:阿富汗|ru:Афганистан|ja:アフガニスタン・イスラム国|de:Afghanistan|fr:Afghanistan|es:Afganistán|pt-BR:Afeganistão|fa:افغانستان|ko:아프가니스탄		AF		6255147		
+1168579	en:Pakistan|zh-CN:巴基斯坦|ru:Пакистан|ja:パキスタン・イスラム共和国|de:Pakistan|fr:Pakistan|es:Pakistán|pt-BR:Paquistão|fa:پاکستان|ko:파키스탄		PK		6255147		
+1210997	en:Bangladesh|zh-CN:孟加拉国|ru:Бангладеш|ja:バングラディッシュ人民共和国|de:Bangladesch|fr:Bangladesh|es:Bangladesh|pt-BR:Bangladesh|fa:بنگلادش|ko:방글라데시		BD		6255147		
+1218197	en:Turkmenistan|zh-CN:土库曼斯坦|ru:Туркменистан|ja:トルクメニスタン|de:Turkmenistan|fr:Turkménistan|es:Turkmenistán|pt-BR:Turcomenistão|fa:ترکمنستان|ko:투르크메니스탄		TM		6255147		
+1220409	en:Tajikistan|zh-CN:塔吉克斯坦|ru:Таджикистан|ja:タジキスタン共和国|de:Tadschikistan|fr:Tadjikistan|es:Tayikistán|pt-BR:Tadjiquistão|fa:تاجیکستان|ko:타지키스탄		TJ		6255147		
+1227603	en:Sri Lanka|zh-CN:斯里兰卡|ru:Шри-Ланка|ja:スリランカ民主社会主義共和国|de:Sri Lanka|fr:Sri Lanka|es:Sri Lanka|pt-BR:Sri Lanka|fa:سری‌لانکا|ko:스리랑카		LK		6255147		
+1252634	en:Bhutan|zh-CN:不丹|ru:Бутан|ja:ブータン王国|de:Bhutan|fr:Bhoutan|es:Bután|pt-BR:Butão|fa:بوتان|ko:부탄		BT		6255147		
+1269750	en:India|zh-CN:印度|ru:Индия|ja:インド|de:Indien|fr:Inde|es:India|pt-BR:Índia|fa:هند|ko:인도		IN		6255147		
+1282028	en:Maldives|zh-CN:马尔代夫|ru:Мальдивы|ja:モルディブ|de:Malediven|fr:Maldives|es:Maldivas|pt-BR:Maldivas|fa:مالدیو|ko:몰디브		MV		6255147		
+1282588	en:British Indian Ocean Territory|zh-CN:英属印度洋领地|ru:Британская территория в Индийском океане|ja:英領インド洋地域|de:Britisches Territorium im Indischen Ozean|fr:Territoire britannique de l'océan Indien|es:Territorio Británico del Océano Índico|pt-BR:Território Britânico do Oceano Índico|fa:مستعمره‌های بریتانیا در اقیانوس هند|ko:영국령 인도양 식민지		IO		6255147		
+1282988	en:Nepal|zh-CN:尼泊尔|ru:Непал|ja:ネパール王国|de:Nepal|fr:Népal|es:Nepal|pt-BR:Nepal|fa:نپال|ko:네팔		NP		6255147		
+1327865	en:Myanmar|zh-CN:缅甸|ru:Мьянма (Бирма)|ja:ミャンマー連邦|de:Myanmar|fr:Myanmar|es:Myanmar (Birmania)|pt-BR:Mianmar (Birmânia)|fa:میانمار|ko:미얀마		MM		6255147		
+1512440	en:Uzbekistan|zh-CN:乌兹别克斯坦|ru:Узбекистан|ja:ウズベキスタン共和国|de:Usbekistan|fr:Ouzbékistan|es:Uzbekistán|pt-BR:Uzbequistão|fa:ازبکستان|ko:우즈베키스탄		UZ		6255147		
+1522867	en:Kazakhstan|zh-CN:哈萨克斯坦|ru:Казахстан|ja:カザフスタン共和国|de:Kasachstan|fr:Kazakhstan|es:Kazajstán|pt-BR:Cazaquistão|fa:قزاقستان|ko:카자흐스탄		KZ		6255147		
+1527747	en:Kyrgyzstan|zh-CN:吉尔吉斯斯坦|ru:Кыргызстан|ja:キルギス共和国|de:Kirgisistan|fr:Kirghizstan|es:Kirguistán|pt-BR:Quirguistão|fa:قرقیزستان|ko:키르기스스탄		KG		6255147		
+1546748	en:French Southern Territories|zh-CN:法属南部领地|ru:Французские Южные территории|ja:仏領極南諸島|de:Französische Süd- und Antarktisgebiete|fr:Terres australes françaises|es:Territorios Australes Franceses|pt-BR:Territórios Franceses do Sul|fa:سرزمین‌های جنوب فرانسه|ko:프랑스 남부 지방		TF		6255152		
+1547314	en:Heard and McDonald Islands|zh-CN:赫德岛和麦克唐纳岛|ru:о-ва Херд и Макдональд|ja:ハード島・マクドナルド諸島|de:Heard und McDonaldinseln|fr:Île Heard et îles McDonald|es:Islas Heard y McDonald|pt-BR:Ilhas Heard e McDonald|fa:هرد و جزایر مک‌دونالد|ko:허드 맥도널드 제도		HM		6255152		
+1547376	en:Cocos (Keeling) Islands|zh-CN:科科斯（基林）群岛|ru:Кокосовые о-ва|ja:ココス(キーリング)諸島|de:Kokosinseln|fr:Îles Cocos|es:Islas Cocos|pt-BR:Ilhas Cocos (Keeling)|fa:جزایر کوکوس|ko:코코스 제도		CC		6255147		
+1559582	en:Palau|zh-CN:帕劳|ru:Палау|ja:パラオ|de:Palau|fr:Palaos|es:Palaos|pt-BR:Palau|fa:پالائو|ko:팔라우		PW		6255151		
+1562822	en:Vietnam|zh-CN:越南|ru:Вьетнам|ja:ベトナム|de:Vietnam|fr:Viêt Nam|es:Vietnam|pt-BR:Vietnã|fa:ویتنام|ko:베트남		VN		6255147		
+1605651	en:Thailand|zh-CN:泰国|ru:Таиланд|ja:タイ王国|de:Thailand|fr:Thaïlande|es:Tailandia|pt-BR:Tailândia|fa:تایلند|ko:태국		TH		6255147		
+1643084	en:Indonesia|zh-CN:印度尼西亚|ru:Индонезия|ja:インドネシア共和国|de:Indonesien|fr:Indonésie|es:Indonesia|pt-BR:Indonésia|fa:اندونزی|ko:인도네시아		ID		6255147		
+1655842	en:Laos|zh-CN:老挝|ru:Лаос|ja:ラオス|de:Laos|fr:Laos|es:Laos|pt-BR:República Popular Democrática do Laos|fa:لائوس|ko:라오스		LA		6255147		
+1668284	en:Taiwan|zh-CN:台湾|ru:Тайвань|ja:台湾|de:Taiwan|fr:Taïwan|es:Taiwán|pt-BR:Taiwan|fa:تایوان|ko:타이완		TW		6255147		
+1694008	en:Philippines|zh-CN:菲律宾|ru:Филиппины|ja:フィリピン共和国|de:Philippinen|fr:Philippines|es:Filipinas|pt-BR:Filipinas|fa:فیلیپین|ko:필리핀		PH		6255147		
+1733045	en:Malaysia|zh-CN:马来西亚|ru:Малайзия|ja:マレーシア|de:Malaysia|fr:Malaisie|es:Malasia|pt-BR:Malásia|fa:مالزی|ko:말레이지아		MY		6255147		
+1814991	en:China|zh-CN:中国|ru:Китай|ja:中国|de:China|fr:Chine|es:China|pt-BR:China|fa:چین|ko:중국		CN		6255147		
+1819730	en:Hong Kong|zh-CN:香港|ru:Гонконг|ja:香港|de:Hongkong|fr:Hong Kong|es:Hong Kong|pt-BR:Hong Kong|fa:هنگ‌کنگ|ko:홍콩		HK		6255147		
+1820814	en:Brunei|zh-CN:文莱|ru:Бруней-Даруссалам|ja:ブルネイ|de:Brunei|fr:Brunei|es:Brunéi|pt-BR:Brunei|fa:برونئی|ko:브루나이		BN		6255147		
+1821275	en:Macao|zh-CN:澳门|ru:Макао|ja:マカオ|de:Macau|fr:Macao|es:Macao|pt-BR:Macau|fa:ماکائو|ko:마카오		MO		6255147		
+1831722	en:Cambodia|zh-CN:柬埔寨|ru:Камбоджа|ja:カンボジア国|de:Kambodscha|fr:Cambodge|es:Camboya|pt-BR:Camboja|fa:کامبوج|ko:캄보디아		KH		6255147		
+1835841	en:South Korea|zh-CN:韩国|ru:Республика Корея|ja:大韓民国|de:Südkorea|fr:Corée du Sud|es:Corea del Sur|pt-BR:Coreia do Sul|fa:کرهٔ جنوبی|ko:Taehan-min’guk		KR		6255147		
+1861060	en:Japan|zh-CN:日本|ru:Япония|ja:日本|de:Japan|fr:Japon|es:Japón|pt-BR:Japão|fa:ژاپن|ko:일본		JP		6255147		
+1873107	en:North Korea|zh-CN:朝鲜|ru:КНДР|ja:韓国、朝鮮民主主義人民共和国|de:Nordkorea|fr:Corée du Nord|es:Corea del Norte|pt-BR:Coreia do Norte|fa:کرهٔ شمالی|ko:Chosŏn-minjujuŭi-inmin-konghwaguk		KP		6255147		
+1880251	en:Singapore|zh-CN:新加坡|ru:Сингапур|ja:シンガポール|de:Singapur|fr:Singapour|es:Singapur|pt-BR:Singapura|fa:سنگاپور|ko:싱가포르		SG		6255147		
+1899402	en:Cook Islands|zh-CN:库克群岛|ru:Острова Кука|ja:クック諸島|de:Cookinseln|fr:Îles Cook|es:Islas Cook|pt-BR:Ilhas Cook|fa:جزایر کوک|ko:쿡제도		CK		6255151		
+1966436	en:Timor-Leste|zh-CN:东帝汶|ru:Тимор-Лесте|ja:東ティモール共和国|de:Timor-Leste|fr:Timor Oriental|es:Timor-Leste|pt-BR:Timor-Leste|fa:تیمور شرقی|ko:동티모르		TL		6255151		
+2017370	en:Russia|zh-CN:俄罗斯联邦|ru:Россия|ja:ロシア|de:Russland|fr:Russie|es:Rusia|pt-BR:Rússia|fa:روسیه|ko:러시아		RU		6255148		
+2029969	en:Mongolia|zh-CN:蒙古|ru:Монголия|ja:モンゴル国|de:Mongolei|fr:Mongolie|es:Mongolia|pt-BR:Mongólia|fa:مغولستان|ko:몽골		MN		6255147		
+2077456	en:Australia|zh-CN:澳大利亚|ru:Австралия|ja:オーストラリア|de:Australien|fr:Australie|es:Australia|pt-BR:Austrália|fa:استرالیا|ko:오스트레일리아		AU		6255151		
+2078138	en:Christmas Island|zh-CN:圣诞岛|ru:о-в Рождества|ja:クリスマス島|de:Weihnachtsinsel|fr:Île Christmas|es:Isla de Navidad|pt-BR:Ilha Christmas|fa:جزیرهٔ کریسمس|ko:크리스마스섬		CX		6255151		
+2080185	en:Marshall Islands|zh-CN:马绍尔群岛|ru:Маршалловы Острова|ja:マーシャル諸島|de:Marshallinseln|fr:Îles Marshall|es:Islas Marshall|pt-BR:Ilhas Marshall|fa:جزایر مارشال|ko:마셜 제도		MH		6255151		
+2081918	en:Federated States of Micronesia|zh-CN:密克罗尼西亚联邦|ru:Федеративные Штаты Микронезии|ja:ミクロネシア連邦|de:Mikronesien|fr:Micronésie|es:Micronesia|pt-BR:Micronésia|fa:میکرونزی|ko:미크로네시아 연방		FM		6255151		
+2088628	en:Papua New Guinea|zh-CN:巴布亚新几内亚|ru:Папуа – Новая Гвинея|ja:パプア・ニューギニア|de:Papua-Neuguinea|fr:Papouasie-Nouvelle-Guinée|es:Papúa-Nueva Guinea|pt-BR:Papua-Nova Guiné|fa:پاپوا گینهٔ نو|ko:파푸아뉴기니		PG		6255151		
+2103350	en:Solomon Islands|zh-CN:所罗门群岛|ru:Соломоновы Острова|ja:ソロモン諸島|de:Salomonen|fr:Îles Salomon|es:Islas Salomón|pt-BR:Ilhas Salomão|fa:جزایر سلیمان|ko:솔로몬		SB		6255151		
+2110297	en:Tuvalu|zh-CN:图瓦卢|ru:Тувалу|ja:ツバル|de:Tuvalu|fr:Tuvalu|es:Tuvalu|pt-BR:Tuvalu|fa:تووالو|ko:투발루		TV		6255151		
+2110425	en:Nauru|zh-CN:瑙鲁|ru:Науру|ja:ナウル|de:Nauru|fr:Nauru|es:Nauru|pt-BR:Nauru|fa:نائورو|ko:나우루		NR		6255151		
+2134431	en:Vanuatu|zh-CN:瓦努阿图|ru:Вануату|ja:バヌアツ共和国|de:Vanuatu|fr:Vanuatu|es:Vanuatu|pt-BR:Vanuatu|fa:وانواتو|ko:바누아투		VU		6255151		
+2139685	en:New Caledonia|zh-CN:新喀里多尼亚|ru:Новая Каледония|ja:ニューカレドニア|de:Neukaledonien|fr:Nouvelle-Calédonie|es:Nueva Caledonia|pt-BR:Nova Caledônia|fa:کالدونیای جدید|ko:뉴칼레도니아		NC		6255151		
+2155115	en:Norfolk Island|zh-CN:诺福克岛|ru:о-в Норфолк|ja:ノーフォーク島|de:Norfolkinsel|fr:Île Norfolk|es:Isla Norfolk|pt-BR:Ilha Norfolk|fa:جزیرهٔ نورفولک|ko:노퍽섬		NF		6255151		
+2186224	en:New Zealand|zh-CN:新西兰|ru:Новая Зеландия|ja:ニュージーランド|de:Neuseeland|fr:Nouvelle-Zélande|es:Nueva Zelanda|pt-BR:Nova Zelândia|fa:زلاند نو|ko:뉴질랜드		NZ		6255151		
+2205218	en:Fiji|zh-CN:斐济|ru:Фиджи|ja:フィジー|de:Fidschi|fr:Fidji|es:Fiyi|pt-BR:Fiji|fa:فیجی|ko:피지		FJ		6255151		
+2215636	en:Libya|zh-CN:利比亚|ru:Ливия|ja:社会主義人民リビア・アラブ国|de:Libyen|fr:Libye|es:Libia|pt-BR:Líbia|fa:لیبی|ko:리비아		LY		6255146		
+2233387	en:Cameroon|zh-CN:喀麦隆|ru:Камерун|ja:カメルーン共和国|de:Kamerun|fr:Cameroun|es:Camerún|pt-BR:Camarões|fa:کامرون|ko:카메룬		CM		6255146		
+2245662	en:Senegal|zh-CN:塞内加尔|ru:Сенегал|ja:セネガル共和国|de:Senegal|fr:Sénégal|es:Senegal|pt-BR:Senegal|fa:سنگال|ko:세네갈		SN		6255146		
+2260494	en:Congo Republic|zh-CN:刚果共和国|ru:Республика Конго|ja:コンゴ共和国|de:Kongo (Republik Kongo)|fr:République du Congo|es:Congo|pt-BR:Congo|fa:کنگو (جمهوری)|ko:콩고		CG		6255146		
+2264397	en:Portugal|zh-CN:葡萄牙|ru:Португалия|ja:ポルトガル共和国|de:Portugal|fr:Portugal|es:Portugal|pt-BR:Portugal|fa:پرتغال|ko:포르트칼		PT	1	6255148		
+2275384	en:Liberia|zh-CN:利比里亚|ru:Либерия|ja:リベリア共和国|de:Liberia|fr:Liberia|es:Liberia|pt-BR:Libéria|fa:لیبریا|ko:라이베리아		LR		6255146		
+2287781	en:Ivory Coast|zh-CN:象牙海岸|ru:Кот-д’Ивуар|ja:象牙海岸|de:Elfenbeinküste|fr:Côte d'Ivoire|es:Côte d’Ivoire|pt-BR:Côte d’Ivoire|fa:ساحل‌عاج|ko:아이보리 코스트		CI		6255146		
+2300660	en:Ghana|zh-CN:加纳|ru:Гана|ja:ガーナ共和国|de:Ghana|fr:Ghana|es:Ghana|pt-BR:Gana|fa:غنا|ko:가나		GH		6255146		
+2309096	en:Equatorial Guinea|zh-CN:赤道几内亚|ru:Экваториальная Гвинея|ja:赤道ギニア|de:Äquatorialguinea|fr:Guinée équatoriale|es:Guinea Ecuatorial|pt-BR:Guiné Equatorial|fa:گینهٔ استوایی|ko:적도 기니		GQ		6255146		
+2328926	en:Nigeria|zh-CN:尼日利亚|ru:Нигерия|ja:ナイジェリア連邦共和国|de:Nigeria|fr:Nigeria|es:Nigeria|pt-BR:Nigéria|fa:نیجریه|ko:나이지리아		NG		6255146		
+2361809	en:Burkina Faso|zh-CN:布基纳法索|ru:Буркина-Фасо|ja:ブルキナファソ|de:Burkina Faso|fr:Burkina Faso|es:Burkina Faso|pt-BR:Burquina Faso|fa:بورکینافاسو|ko:부르키나파소		BF		6255146		
+2363686	en:Togo|zh-CN:多哥|ru:Того|ja:トーゴ共和国|de:Togo|fr:Togo|es:Togo|pt-BR:Togo|fa:توگو|ko:토고		TG		6255146		
+2372248	en:Guinea-Bissau|zh-CN:几内亚比绍|ru:Гвинея-Бисау|ja:ギニアビサウ共和国|de:Guinea-Bissau|fr:Guinée-Bissau|es:Guinea-Bissáu|pt-BR:Guiné-Bissau|fa:گینهٔ بیسائو|ko:기네비쏘		GW		6255146		
+2378080	en:Mauritania|zh-CN:毛利塔尼亚|ru:Мавритания|ja:モーリタニア・イスラム共和国|de:Mauretanien|fr:Mauritanie|es:Mauritania|pt-BR:Mauritânia|fa:موریتانی|ko:모리타니		MR		6255146		
+2395170	en:Benin|zh-CN:贝宁|ru:Бенин|ja:ベニン共和国|de:Benin|fr:Bénin|es:Benín|pt-BR:Benin|fa:بنین|ko:베넹		BJ		6255146		
+2400553	en:Gabon|zh-CN:加蓬|ru:Габон|ja:ガボン共和国|de:Gabun|fr:Gabon|es:Gabón|pt-BR:Gabão|fa:گابون|ko:가봉		GA		6255146		
+2403846	en:Sierra Leone|zh-CN:塞拉利昂|ru:Сьерра-Леоне|ja:シエラレオネ|de:Sierra Leone|fr:Sierra Leone|es:Sierra Leona|pt-BR:Serra Leoa|fa:سیرالئون|ko:시에라리온		SL		6255146		
+2410758	en:São Tomé and Príncipe|zh-CN:圣多美和普林西比|ru:Сан-Томе и Принсипи|ja:サントメ・プリンシペ|de:São Tomé und Príncipe|fr:Sao Tomé-et-Principe|es:Santo Tomé y Príncipe|pt-BR:São Tomé e Príncipe|fa:سائوتومه و پرینسیپه|ko:상투메 프린시페		ST		6255146		
+2411586	en:Gibraltar|zh-CN:直布罗陀|ru:Гибралтар|ja:ジブラルタル|de:Gibraltar|fr:Gibraltar|es:Gibraltar|pt-BR:Gibraltar|fa:جبل طارق|ko:지브롤터		GI		6255148		
+2413451	en:Gambia|zh-CN:冈比亚|ru:Гамбия|ja:ガンビア共和国|de:Gambia|fr:Gambie|es:Gambia|pt-BR:Gâmbia|fa:گامبیا|ko:감비아		GM		6255146		
+2420477	en:Guinea|zh-CN:几内亚|ru:Гвинея|ja:ギニア共和国|de:Guinea|fr:Guinée|es:Guinea|pt-BR:Guiné|fa:گینه|ko:기니		GN		6255146		
+2434508	en:Chad|zh-CN:乍得|ru:Чад|ja:チャド共和国|de:Tschad|fr:Tchad|es:Chad|pt-BR:Chade|fa:چاد|ko:차드		TD		6255146		
+2440476	en:Niger|zh-CN:尼日尔|ru:Нигер|ja:ニジェール共和国|de:Niger|fr:Niger|es:Níger|pt-BR:Níger|fa:نیجر|ko:니제르		NE		6255146		
+2453866	en:Mali|zh-CN:马里|ru:Мали|ja:マリ共和国|de:Mali|fr:Mali|es:Mali|pt-BR:Mali|fa:مالی|ko:말리		ML		6255146		
+2461445	en:Western Sahara|zh-CN:西撒哈拉|ru:Западная Сахара|ja:西サハラ|de:Westsahara|fr:Sahara Occidental|es:Sáhara Occidental|pt-BR:Saara Ocidental|fa:صحرای غربی|ko:서사하라		EH		6255146		
+2464461	en:Tunisia|zh-CN:突尼斯|ru:Тунис|ja:チュニジア共和国|de:Tunesien|fr:Tunisie|es:Túnez|pt-BR:Tunísia|fa:تونس|ko:튀니지		TN		6255146		
+2510769	en:Spain|zh-CN:西班牙|ru:Испания|ja:スペイン|de:Spanien|fr:Espagne|es:España|pt-BR:Espanha|fa:اسپانیا|ko:스페인		ES	1	6255148		
+2542007	en:Morocco|zh-CN:摩洛哥|ru:Марокко|ja:モロッコ王国|de:Marokko|fr:Maroc|es:Marruecos|pt-BR:Marrocos|fa:مراکش|ko:모로코		MA		6255146		
+2562770	en:Malta|zh-CN:马耳他|ru:Мальта|ja:マルタ島|de:Malta|fr:Malte|es:Malta|pt-BR:Malta|fa:مالت|ko:몰타		MT	1	6255148		
+2589581	en:Algeria|zh-CN:阿尔及利亚|ru:Алжир|ja:アルジェリア民主人民共和国|de:Algerien|fr:Algérie|es:Argelia|pt-BR:Argélia|fa:الجزایر|ko:알제리		DZ		6255146		
+2622320	en:Faroe Islands|zh-CN:法罗群岛|ru:Фарерские о-ва|ja:フェロー諸島|de:Färöer|fr:Îles Féroé|es:Islas Feroe|pt-BR:Ilhas Faroé|fa:جزایر فارو|ko:페로 제도		FO		6255148		
+2623032	en:Denmark|zh-CN:丹麦|ru:Дания|ja:デンマーク王国|de:Dänemark|fr:Danemark|es:Dinamarca|pt-BR:Dinamarca|fa:دانمارک|ko:덴마크		DK	1	6255148		
+2629691	en:Iceland|zh-CN:冰岛|ru:Исландия|ja:アイスランド共和国|de:Island|fr:Islande|es:Islandia|pt-BR:Islândia|fa:ایسلند|ko:아이슬란드		IS		6255148		
+2635167	en:United Kingdom|zh-CN:英国|ru:Британия|ja:英国|de:Vereinigtes Königreich|fr:Royaume Uni|es:Reino Unido|pt-BR:Reino Unido|fa:بریتانیا|ko:영국		GB		6255148		
+2658434	en:Switzerland|zh-CN:瑞士|ru:Швейцария|ja:スイス連邦|de:Schweiz|fr:Suisse|es:Suiza|pt-BR:Suíça|fa:سوئیس|ko:스위스		CH		6255148		
+2661886	en:Sweden|zh-CN:瑞典|ru:Швеция|ja:スウェーデン王国|de:Schweden|fr:Suède|es:Suecia|pt-BR:Suécia|fa:سوئد|ko:스웨덴		SE	1	6255148		
+2750405	en:Netherlands|zh-CN:荷兰|ru:Нидерланды|ja:オランダ王国|de:Niederlande|fr:Pays-Bas|es:Holanda|pt-BR:Holanda|fa:هلند|ko:네덜란드		NL	1	6255148		
+2782113	en:Austria|zh-CN:奥地利|ru:Австрия|ja:オーストリア共和国|de:Österreich|fr:Autriche|es:Austria|pt-BR:Áustria|fa:اتریش|ko:오스트리아		AT	1	6255148		
+2802361	en:Belgium|zh-CN:比利时|ru:Бельгия|ja:ベルギー王国|de:Belgien|fr:Belgique|es:Bélgica|pt-BR:Bélgica|fa:بلژیک|ko:벨기에		BE	1	6255148		
+2921044	en:Germany|zh-CN:德国|ru:ФРГ|ja:ドイツ連邦共和国|de:Deutschland|fr:Allemagne|es:Alemania|pt-BR:Alemanha|fa:آلمان|ko:독일		DE	1	6255148		
+2960313	en:Luxembourg|zh-CN:卢森堡|ru:Люксембург|ja:ルクセンブルク|de:Luxemburg|fr:Luxembourg|es:Luxemburgo|pt-BR:Luxemburgo|fa:لوکزامبورگ|ko:룩셈부르크		LU	1	6255148		
+2963597	en:Ireland|zh-CN:爱尔兰|ru:Ирландия|ja:アイルランド|de:Irland|fr:Irlande|es:Irlanda|pt-BR:Irlanda|fa:ایرلند|ko:아일랜드		IE	1	6255148		
+2993457	en:Monaco|zh-CN:摩纳哥|ru:Монако|ja:モナコ|de:Monaco|fr:Monaco|es:Mónaco|pt-BR:Mónaco|fa:موناکو|ko:모나코		MC		6255148		
+3017382	en:France|zh-CN:法国|ru:Франция|ja:フランス共和国|de:Frankreich|fr:France|es:Francia|pt-BR:França|fa:فرانسه|ko:프랑스		FR	1	6255148		
+3041565	en:Andorra|zh-CN:安道尔|ru:Андорра|ja:アンドラ|de:Andorra|fr:Andorre|es:Andorra|pt-BR:Andorra|fa:آندورا|ko:안도라		AD		6255148		
+3042058	en:Liechtenstein|zh-CN:列支敦士登|ru:Лихтенштейн|ja:リヒテンシュタイン公国|de:Liechtenstein|fr:Liechtenstein|es:Liechtenstein|pt-BR:Liechtenstein|fa:لیختن‌اشتاین|ko:리히텐슈타인		LI		6255148		
+3042142	en:Jersey|zh-CN:泽西岛|ru:Джерси|ja:ジャージー|de:Jersey|fr:Jersey|es:Jersey|pt-BR:Jersey|fa:جرزی|ko:저지		JE		6255148		
+3042225	en:Isle of Man|zh-CN:英国属地曼岛|ru:о-в Мэн|ja:マン島|de:Isle of Man|fr:Île de Man|es:Isla de Man|pt-BR:Ilha de Man|fa:جزیرهٔ من|ko:맨 섬		IM		6255148		
+3042362	en:Guernsey|zh-CN:根西岛|ru:Гернси|ja:ガーンジー|de:Guernsey|fr:Guernesey|es:Guernesey|pt-BR:Guernsey|fa:گرنزی|ko:건지		GG		6255148		
+3057568	en:Slovakia|zh-CN:斯洛伐克|ru:Словакия|ja:スロバキア (スロバキア共和国)|de:Slowakei|fr:Slovaquie|es:Eslovaquia|pt-BR:Eslováquia|fa:اسلواکی|ko:슬로바키아		SK	1	6255148		
+3077311	en:Czechia|zh-CN:捷克|ru:Чехия|ja:チェコ共和国|de:Tschechien|fr:Tchéquie|es:Chequia|pt-BR:Chéquia|fa:چک|ko:체코		CZ	1	6255148		
+3144096	en:Norway|zh-CN:挪威|ru:Норвегия|ja:ノルウェー王国|de:Norwegen|fr:Norvège|es:Noruega|pt-BR:Noruega|fa:نروژ|ko:노르웨이		NO		6255148		
+3164670	en:Vatican City|zh-CN:梵蒂冈|ru:Ватикан|ja:ローマ法王庁 (バチカン市国)|de:Vatikanstadt|fr:Vatican|es:Ciudad del Vaticano|pt-BR:Vaticano|fa:واتیکان|ko:바티칸		VA		6255148		
+3168068	en:San Marino|zh-CN:圣马力诺|ru:Сан-Марино|ja:サンマリノ共和国|de:San Marino|fr:Saint-Marin|es:San Marino|pt-BR:San Marino|fa:سان‌مارینو|ko:산마리노		SM		6255148		
+3175395	en:Italy|zh-CN:意大利|ru:Италия|ja:イタリア共和国|de:Italien|fr:Italie|es:Italia|pt-BR:Itália|fa:ایتالیا|ko:이탈리아		IT	1	6255148		
+3190538	en:Slovenia|zh-CN:斯洛文尼亚|ru:Словения|ja:スロベニア|de:Slowenien|fr:Slovénie|es:Eslovenia|pt-BR:Eslovênia|fa:اسلوونی|ko:슬로베니아		SI	1	6255148		
+3194884	en:Montenegro|zh-CN:黑山|ru:Черногория|ja:モンテネグロ|de:Montenegro|fr:Monténégro|es:Montenegro|pt-BR:Montenegro|fa:مونته‌نگرو|ko:몬테네그로		ME		6255148		
+3202326	en:Croatia|zh-CN:克罗地亚|ru:Хорватия|ja:クロアチア共和国|de:Kroatien|fr:Croatie|es:Croacia|pt-BR:Croácia|fa:کرواسی|ko:크로아티아		HR	1	6255148		
+3277605	en:Bosnia and Herzegovina|zh-CN:波黑|ru:Босния и Герцеговина|ja:ボスニア・ヘルツェゴビナ|de:Bosnien und Herzegowina|fr:Bosnie-Herzégovine|es:Bosnia-Herzegovina|pt-BR:Bósnia e Herzegovina|fa:بوسنی و هرزگوین|ko:보스니아 헤르체고비나		BA		6255148		
+3351879	en:Angola|zh-CN:安哥拉|ru:Ангола|ja:アンゴラ共和国|de:Angola|fr:Angola|es:Angola|pt-BR:Angola|fa:آنگولا|ko:앙골라		AO		6255146		
+3355338	en:Namibia|zh-CN:纳米比亚|ru:Намибия|ja:ナミビア共和国|de:Namibia|fr:Namibie|es:Namibia|pt-BR:Namíbia|fa:نامیبیا|ko:나미비아		NA		6255146		
+3370751	en:Saint Helena|zh-CN:圣赫勒拿|ru:о-в Св. Елены|ja:セントヘレナ|de:St. Helena|fr:Sainte-Hélène|es:Santa Elena|pt-BR:Santa Helena|fa:سنت هلن|ko:세인트헬레나		SH		6255146		
+3371123	en:Bouvet Island|zh-CN:布维岛|ru:о-в Буве|ja:ブーベ島|de:Bouvetinsel|fr:Île Bouvet|es:Isla Bouvet|pt-BR:Ilha Bouvet|fa:جزیره بووت|ko:부베 섬		BV		6255152		
+3374084	en:Barbados|zh-CN:巴巴多斯|ru:Барбадос|ja:バルバドス|de:Barbados|fr:Barbade|es:Barbados|pt-BR:Barbados|fa:باربادوس|ko:바베이도스		BB		6255149		
+3374766	en:Cabo Verde|zh-CN:佛得角|ru:Кабо-Верде|ja:カーボベルデ|de:Kapverden|fr:Cap-Vert|es:Cabo Verde|pt-BR:Cabo Verde|fa:کیپ‌ورد|ko:카보베르데		CV		6255146		
+3378535	en:Guyana|zh-CN:圭亚那|ru:Гайана|ja:ガイアナ|de:Guyana|fr:Guyana|es:Guyana|pt-BR:Guiana|fa:گویان|ko:가이아나		GY		6255150		
+3381670	en:French Guiana|zh-CN:法属圭亚那|ru:Французская Гвиана|ja:仏領ギアナ|de:Französisch-Guayana|fr:Guyane|es:Guayana Francesa|pt-BR:Guiana Francesa|fa:گویان فرانسه|ko:프랑스령 기아나		GF	1	6255150		
+3382998	en:Suriname|zh-CN:苏里南|ru:Суринам|ja:スリナム共和国|de:Suriname|fr:Suriname|es:Surinam|pt-BR:Suriname|fa:سورینام|ko:수리남		SR		6255150		
+3424932	en:Saint Pierre and Miquelon|zh-CN:圣皮埃尔和密克隆群岛|ru:Сен-Пьер и Микелон|ja:サンピエール島・ミクロン島|de:St. Pierre und Miquelon|fr:Saint-Pierre et Miquelon|es:San Pedro y Miquelón|pt-BR:São Pedro e Miquelão|fa:سن پیر و میکلن|ko:생피에르 미클롱		PM		6255149		
+3425505	en:Greenland|zh-CN:格陵兰|ru:Гренландия|ja:グリーンランド|de:Grönland|fr:Groenland|es:Groenlandia|pt-BR:Groenlândia|fa:گروئنلند|ko:그린란드		GL		6255149		
+3437598	en:Paraguay|zh-CN:巴拉圭|ru:Парагвай|ja:パラグアイ共和国|de:Paraguay|fr:Paraguay|es:Paraguay|pt-BR:Paraguai|fa:پاراگوئه|ko:파라과이		PY		6255150		
+3439705	en:Uruguay|zh-CN:乌拉圭|ru:Уругвай|ja:ウルグアイ共和国|de:Uruguay|fr:Uruguay|es:Uruguay|pt-BR:Uruguai|fa:اوروگوئه|ko:우루과이		UY		6255150		
+3469034	en:Brazil|zh-CN:巴西|ru:Бразилия|ja:ブラジル連邦共和国|de:Brasilien|fr:Brésil|es:Brasil|pt-BR:Brasil|fa:برزیل|ko:브라질		BR		6255150		
+3474414	en:Falkland Islands|zh-CN:福克兰群岛（马尔维纳斯）|ru:Фолклендские о-ва|ja:フォークランド諸島|de:Falklandinseln|fr:Îles Malouines|es:Islas Malvinas|pt-BR:Ilhas Malvinas|fa:جزایر فالکلند|ko:포클랜드 제도		FK		6255150		
+3474415	en:South Georgia and the South Sandwich Islands|zh-CN:南乔治亚岛和南桑德韦奇岛|ru:Южная Георгия и Южные Сандвичевы о-ва|ja:サウスジョージア・サウスサンドウィッチ諸島|de:Südgeorgien und die Südlichen Sandwichinseln|fr:Géorgie du Sud-et-les îles Sandwich du Sud|es:Islas Georgia del Sur y Sandwich del Sur|pt-BR:Ilhas Geórgia do Sul e Sandwich do Sul|fa:جورجیای جنوبی و جزایر ساندویچ جنوبی|ko:사우스조지아 사우스샌드위치 제도		GS		6255152		
+3489940	en:Jamaica|zh-CN:牙买加|ru:Ямайка|ja:ジャマイカ|de:Jamaika|fr:Jamaïque|es:Jamaica|pt-BR:Jamaica|fa:جامائیکا|ko:자메이카		JM		6255149		
+3508796	en:Dominican Republic|zh-CN:多米尼加|ru:Доминиканская Республика|ja:ドミニカ共和国|de:Dom. Republik|fr:République dominicaine|es:Santo Domingo|pt-BR:República Dominicana|fa:جمهوری دومینیکن|ko:도미니카 공화국		DO		6255149		
+3562981	en:Cuba|zh-CN:古巴|ru:Куба|ja:キューバ共和国|de:Kuba|fr:Cuba|es:Cuba|pt-BR:Cuba|fa:کوبا|ko:쿠바		CU		6255149		
+3570311	en:Martinique|zh-CN:马提尼克|ru:Мартиника|ja:マルティニーク|de:Martinique|fr:Martinique|es:Martinica|pt-BR:Martinica|fa:مارتینیک|ko:마르티니크		MQ	1	6255149		
+3572887	en:Bahamas|zh-CN:巴哈马|ru:Багамы|ja:バハマ国|de:Bahamas|fr:Bahamas|es:Bahamas|pt-BR:Bahamas|fa:باهاما|ko:바하마		BS		6255149		
+3573345	en:Bermuda|zh-CN:百慕大|ru:Бермудские о-ва|ja:バミューダ諸島|de:Bermuda|fr:Bermudes|es:Bermudas|pt-BR:Bermudas|fa:برمودا|ko:버뮤다		BM		6255149		
+3573511	en:Anguilla|zh-CN:安圭拉|ru:Ангилья|ja:アンギラ|de:Anguilla|fr:Anguilla|es:Anguila|pt-BR:Anguilla|fa:آنگیل|ko:안길라		AI		6255149		
+3573591	en:Trinidad and Tobago|zh-CN:特立尼达和多巴哥|ru:Тринидад и Тобаго|ja:トリニダード・トバゴ|de:Trinidad und Tobago|fr:Trinité-et-Tobago|es:Trinidad y Tobago|pt-BR:Trinidad e Tobago|fa:ترینیداد و توباگو|ko:트리니다드 토바고		TT		6255149		
+3575174	en:St Kitts and Nevis|zh-CN:圣基茨和尼维斯|ru:Сент-Китс и Невис|ja:セントクリストファー・ネビス|de:St. Kitts und Nevis|fr:Saint-Christophe-et-Niévès|es:San Cristóbal y Nieves|pt-BR:São Cristóvão e Névis|fa:سنت کیتس و نویس|ko:세인트크리스토퍼 네비스		KN		6255149		
+3575830	en:Dominica|zh-CN:多米尼克|ru:Доминика|ja:ドミニカ国|de:Dominica|fr:Dominique|es:Dominica|pt-BR:Dominica|fa:دومینیک|ko:도미니카		DM		6255149		
+3576396	en:Antigua and Barbuda|zh-CN:安提瓜和巴布达|ru:Антигуа и Барбуда|ja:アンティグア・バーブーダ|de:Antigua und Barbuda|fr:Antigua-et-Barbuda|es:Antigua y Barbuda|pt-BR:Antígua e Barbuda|fa:آنتیگوا و باربودا|ko:앤티가 바부다		AG		6255149		
+3576468	en:Saint Lucia|zh-CN:圣卢西亚|ru:Сент-Люсия|ja:セントルシア|de:St. Lucia|fr:Sainte-Lucie|es:Santa Lucía|pt-BR:Santa Lúcia|fa:سنت لوسیا|ko:세인트루시아		LC		6255149		
+3576916	en:Turks and Caicos Islands|zh-CN:特克斯和凯科斯群岛|ru:о-ва Тёркс и Кайкос|ja:タークス・カイコス諸島|de:Turks- und Caicosinseln|fr:Îles Turques-et-Caïques|es:Islas Turcas y Caicos|pt-BR:Ilhas Turcas e Caicos|fa:جزایر تورکس و کایکوس|ko:터크스 케이커스 제도		TC		6255149		
+3577279	en:Aruba|zh-CN:阿鲁巴|ru:Аруба|ja:アルバ島|de:Aruba|fr:Aruba|es:Aruba|pt-BR:Aruba|fa:آروبا|ko:아루바		AW		6255149		
+3577718	en:British Virgin Islands|zh-CN:英属维尔京群岛|ru:Виргинские о-ва (Великобритания)|ja:英領ヴァージン諸島|de:Britische Jungferninseln|fr:Îles Vierges|es:Islas Vírgenes|pt-BR:Ilhas Virgens Britânicas|fa:جزایر ویرجین بریتانیا|ko:영국령 버진 아일랜드		VG		6255149		
+3577815	en:St Vincent and Grenadines|zh-CN:圣文森特和格林纳丁斯|ru:Сент-Винсент и Гренадины|ja:セントビンセント及びグレナディーン諸島|de:St. Vincent und die Grenadinen|fr:Saint-Vincent-et-les-Grenadines|es:San Vicente y las Granadinas|pt-BR:São Vicente e Granadinas|fa:سنت وینسنت و گرنادین|ko:세인트빈센트그레나딘		VC		6255149		
+3578097	en:Montserrat|zh-CN:蒙特塞拉特|ru:Монтсеррат|ja:モントセラト島|de:Montserrat|fr:Montserrat|es:Montserrat|pt-BR:Montserrat|fa:مونت‌سرات|ko:몬트세랫		MS		6255149		
+3578421	en:Saint Martin|zh-CN:法属圣马丁|ru:Сен-Мартен|ja:サン・マルタン|de:St. Martin|fr:Saint-Martin|es:San Martín|pt-BR:São Martinho|fa:سنت مارتین|ko:생마르탱		MF	1	6255149		
+3578476	en:Saint Barthélemy|zh-CN:圣巴泰勒米|ru:Остров Святого Бартоломея|ja:サン・バルテルミー|de:St. Barthélemy|fr:Saint-Barthélemy|es:San Bartolomé|pt-BR:São Bartolomeu|fa:سن بارتلمی|ko:생 바르텔르미		BL		6255149		
+3579143	en:Guadeloupe|zh-CN:瓜德罗普|ru:Гваделупа|ja:グアドループ|de:Guadeloupe|fr:Guadeloupe|es:Guadalupe|pt-BR:Guadalupe|fa:گوادلوپ|ko:과들루프		GP	1	6255149		
+3580239	en:Grenada|zh-CN:格林纳达|ru:Гренада|ja:グレナダ|de:Grenada|fr:Grenade|es:Granada|pt-BR:Granada|fa:گرانادا|ko:그레나다		GD		6255149		
+3580718	en:Cayman Islands|zh-CN:开曼群岛|ru:Каймановы Острова|ja:ケイマン諸島|de:Kaimaninseln|fr:Îles Caïmans|es:Islas Caimán|pt-BR:Ilhas Caiman|fa:جزایر کِیمن|ko:케이맨제도		KY		6255149		
+3582678	en:Belize|zh-CN:伯利兹|ru:Белиз|ja:ベリーズ|de:Belize|fr:Belize|es:Belice|pt-BR:Belize|fa:بلیز|ko:벨리즈		BZ		6255149		
+3585968	en:El Salvador|zh-CN:萨尔瓦多|ru:Сальвадор|ja:エルサルバドル|de:El Salvador|fr:Salvador|es:El Salvador|pt-BR:El Salvador|fa:السالوادور|ko:엘살바도르		SV		6255149		
+3595528	en:Guatemala|zh-CN:危地马拉|ru:Гватемала|ja:グアテマラ|de:Guatemala|fr:Guatemala|es:Guatemala|pt-BR:Guatemala|fa:گواتمالا|ko:과테말라		GT		6255149		
+3608932	en:Honduras|zh-CN:洪都拉斯|ru:Гондурас|ja:ホンジュラス共和国|de:Honduras|fr:Honduras|es:Honduras|pt-BR:Honduras|fa:هندوراس|ko:온두라스		HN		6255149		
+3617476	en:Nicaragua|zh-CN:尼加拉瓜|ru:Никарагуа|ja:ニカラグア共和国|de:Nicaragua|fr:Nicaragua|es:Nicaragua|pt-BR:Nicarágua|fa:نیکاراگوئه|ko:니카라과		NI		6255149		
+3624060	en:Costa Rica|zh-CN:哥斯达黎加|ru:Коста-Рика|ja:コスタリカ|de:Costa Rica|fr:Costa Rica|es:Costa Rica|pt-BR:Costa Rica|fa:کاستاریکا|ko:코스타리카		CR		6255149		
+3625428	en:Venezuela|zh-CN:委内瑞拉|ru:Венесуэла|ja:ベネズエラ共和国|de:Venezuela|fr:Vénézuéla|es:Venezuela|pt-BR:Venezuela|fa:ونزوئلا|ko:베네수엘라		VE		6255150		
+3658394	en:Ecuador|zh-CN:厄瓜多尔|ru:Эквадор|ja:エクアドル共和国|de:Ecuador|fr:Équateur|es:Ecuador|pt-BR:Equador|fa:اکوادور|ko:에콰도르		EC		6255150		
+3686110	en:Colombia|zh-CN:哥伦比亚|ru:Колумбия|ja:コロンビア共和国|de:Kolumbien|fr:Colombie|es:Colombia|pt-BR:Colômbia|fa:کلمبیا|ko:콜롬비아		CO		6255150		
+3703430	en:Panama|zh-CN:巴拿马|ru:Панама|ja:パナマ|de:Panama|fr:Panama|es:Panamá|pt-BR:Panamá|fa:پاناما|ko:파나마		PA		6255149		
+3723988	en:Haiti|zh-CN:海地|ru:Гаити|ja:ハイチ共和国|de:Haiti|fr:Haïti|es:Haití|pt-BR:Haiti|fa:هاییتی|ko:하이티		HT		6255149		
+3865483	en:Argentina|zh-CN:阿根廷|ru:Аргентина|ja:アルゼンチン共和国|de:Argentinien|fr:Argentine|es:Argentina|pt-BR:Argentina|fa:آرژانتین|ko:아르헨티나		AR		6255150		
+3895114	en:Chile|zh-CN:智利|ru:Чили|ja:チリ共和国|de:Chile|fr:Chili|es:Chile|pt-BR:Chile|fa:شیلی|ko:칠레		CL		6255150		
+3923057	en:Bolivia|zh-CN:玻利维亚|ru:Боливия|ja:ボリビア共和国|de:Bolivien|fr:Bolivie|es:Bolivia|pt-BR:Bolívia|fa:بولیوی|ko:볼리비아		BO		6255150		
+3932488	en:Peru|zh-CN:秘鲁|ru:Перу|ja:ペルー共和国|de:Peru|fr:Pérou|es:Perú|pt-BR:Peru|fa:پرو|ko:페루		PE		6255150		
+3996063	en:Mexico|zh-CN:墨西哥|ru:Мексика|ja:メキシコ合衆国|de:Mexiko|fr:Mexique|es:México|pt-BR:México|fa:مکزیک|ko:멕시코		MX		6255149		
+4030656	en:French Polynesia|zh-CN:法属波利尼西亚|ru:Французская Полинезия|ja:仏領ポリネシア|de:Französisch-Polynesien|fr:Polynésie française|es:Polinesia Francesa|pt-BR:Polinésia Francesa|fa:پلی‌نزی فرانسه|ko:프랑스령 폴리네시아		PF		6255151		
+4030699	en:Pitcairn Islands|zh-CN:皮特凯恩|ru:о-ва Питкэрн|ja:ピトケアン諸島|de:Pitcairninseln|fr:Pitcairn|es:Islas Pitcairn|pt-BR:Ilhas Pitcairn|fa:جزایر پیت‌کرن|ko:핏케언 제도		PN		6255151		
+4030945	en:Kiribati|zh-CN:基里巴斯|ru:Кирибати|ja:キリバス共和国|de:Kiribati|fr:Kiribati|es:Kiribati|pt-BR:Quiribati|fa:کیریباتی|ko:키리바시		KI		6255151		
+4031074	en:Tokelau|zh-CN:托克劳|ru:Токелау|ja:トケラウ|de:Tokelau|fr:Tokelau|es:Tokelau|pt-BR:Tokelau|fa:توکلائو|ko:토켈라우		TK		6255151		
+4032283	en:Tonga|zh-CN:汤加|ru:Тонга|ja:トンガ王国|de:Tonga|fr:Tonga|es:Tonga|pt-BR:Tonga|fa:تونگا|ko:통가		TO		6255151		
+4034749	en:Wallis and Futuna|zh-CN:瓦利斯和富图纳|ru:Уоллис и Футуна|ja:ウォリス・フツナ|de:Wallis und Futuna|fr:Wallis-et-Futuna|es:Wallis y Futuna|pt-BR:Wallis e Futuna|fa:والیس و فوتونا|ko:왈리스 퓌튀나		WF		6255151		
+4034894	en:Samoa|zh-CN:萨摩亚|ru:Самоа|ja:西サモア|de:Samoa|fr:Samoa|es:Samoa|pt-BR:Samoa|fa:ساموا|ko:사모아		WS		6255151		
+4036232	en:Niue|zh-CN:纽埃|ru:Ниуэ|ja:ニウエ島|de:Niue|fr:Niue|es:Niue|pt-BR:Niue|fa:نیووی|ko:니우에		NU		6255151		
+4041468	en:Northern Mariana Islands|zh-CN:北马里亚纳|ru:Северные Марианские о-ва|ja:北マリアナ諸島|de:Nördliche Marianen|fr:Îles Mariannes du Nord|es:Islas Marianas del Norte|pt-BR:Ilhas Marianas do Norte|fa:جزایر ماریانای شمالی|ko:북마리아나 제도		MP		6255151		
+4043988	en:Guam|zh-CN:关岛|ru:Гуам|ja:グアム|de:Guam|fr:Guam|es:Guam|pt-BR:Guam|fa:گوام|ko:괌		GU		6255151		
+4566966	en:Puerto Rico|zh-CN:波多黎各|ru:Пуэрто-Рико|ja:プエルトリコ|de:Puerto Rico|fr:Porto Rico|es:Puerto Rico|pt-BR:Porto Rico|fa:پورتوریکو|ko:푸에르토리코		PR		6255149		
+4796775	en:U.S. Virgin Islands|zh-CN:美属维尔京群岛|ru:Виргинские о-ва (США)|ja:米領ヴァージン諸島|de:Amerikanische Jungferninseln|fr:Îles Vierges des États-Unis|es:Islas Vírgenes de EE. UU.|pt-BR:Ilhas Virgens Americanas|fa:جزایر ویرجین ایالات متحده|ko:미국령 버진아일랜드		VI		6255149		
+5854968	en:U.S. Outlying Islands|zh-CN:美国本土外小岛屿|ru:Внешние малые о-ва (США)|ja:合衆国領有小離島|de:Amerikanische Überseeinseln|fr:Îles mineures éloignées des États-Unis|es:Islas menores alejadas de EE. UU.|pt-BR:Ilhas Menores Distantes dos EUA|fa:جزایر دورافتادهٔ ایالات متحده|ko:미국령 해외 제도		UM		6255151		
+5880801	en:American Samoa|zh-CN:美属萨摩亚|ru:Американское Самоа|ja:米領サモア|de:Amerikanisch-Samoa|fr:Samoa américaines|es:Samoa Americana|pt-BR:Samoa Americana|fa:ساموای امریکا|ko:아메리칸 사모아		AS		6255151		
+6251999	en:Canada|zh-CN:加拿大|ru:Канада|ja:カナダ|de:Kanada|fr:Canada|es:Canadá|pt-BR:Canadá|fa:کانادا|ko:캐나다		CA		6255149		
+6252001	en:United States|zh-CN:美国|ru:США|ja:アメリカ|de:Vereinigte Staaten|fr:États Unis|es:Estados Unidos|pt-BR:EUA|fa:ایالات متحدهٔ امریکا|ko:미국		US		6255149		
+6254930	en:Palestine|zh-CN:巴勒斯坦|ru:Палестина|ja:パレスチナ|de:Palästina|fr:Palestine|es:Palestina|pt-BR:Palestina|fa:فلسطین|ko:팔레스타인		PS		6255147		
+6290252	en:Serbia|zh-CN:塞尔维亚|ru:Сербия|ja:セルビア|de:Serbien|fr:Serbie|es:Serbia|pt-BR:Sérvia|fa:صربستان|ko:세르비아		RS		6255148		
+6697173	en:Antarctica|zh-CN:南极洲|ru:Антарктида|ja:南極|de:Antarktis|fr:Antarctique|es:Antártida|pt-BR:Antártida|fa:جنوبگان|ko:남극 대륙		AQ		6255152		
+7609695	en:Sint Maarten|zh-CN:圣马丁岛|ru:Синт-Мартен|ja:シント・マールテン|de:Sint Maarten|fr:Saint-Martin|es:Isla de San Martín|pt-BR:São Martinho|fa:سنت مارتن|ko:신트마르텐		SX		6255149		
+7626836	en:Curaçao|zh-CN:库拉索|ru:Кюрасао|ja:キュラソー|de:Curaçao|fr:Curaçao|es:Curazao|pt-BR:Curaçao|fa:کوراسائو|ko:퀴라소		CW		6255149		
+7626844	en:Bonaire, Sint Eustatius, and Saba|zh-CN:博奈尔岛、圣尤斯达蒂斯和萨巴|ru:Бонайре, Синт-Эстатиус и Саба|ja:ボネール、シント・ユースタティウスおよびサバ|de:Karibische Niederlande|fr:Pays-Bas caribéens|es:Bonaire|pt-BR:Bonaire|fa:جزایر کارائیب هلند|ko:네덜란드령 카리브		BQ		6255149		
+7909807	en:South Sudan|zh-CN:南苏丹|ru:Южный Судан|ja:南スーダン共和国|de:Südsudan|fr:Soudan du Sud|es:Sudán del Sur|pt-BR:República do Sudão do Sul|fa:سودان جنوبی|ko:남수단		SS		6255146		

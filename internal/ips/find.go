@@ -20,13 +20,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"net"
+	"net/url"
 	"path/filepath"
 	"strings"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/sjzar/ips/pkg/model"
 
 	"github.com/sjzar/ips/format"
+	"github.com/sjzar/ips/format/mmdb"
 	"github.com/sjzar/ips/format/qqwry"
 	"github.com/sjzar/ips/internal/data"
 	"github.com/sjzar/ips/internal/ipio"
@@ -34,6 +35,7 @@ import (
 	"github.com/sjzar/ips/internal/parser"
 	"github.com/sjzar/ips/internal/util"
 	"github.com/sjzar/ips/pkg/errors"
+	"github.com/sjzar/ips/pkg/model"
 )
 
 // ParseText parses the provided text and returns the result based on the Manager configuration.
@@ -180,6 +182,23 @@ func (m *Manager) createReader(_format, file string) (format.Reader, error) {
 		return nil, err
 	}
 
+	switch dbr.(type) {
+	case *mmdb.Reader:
+		readerOptionArg, err := url.ParseQuery(m.Conf.ReaderOption)
+		if err != nil {
+			log.Debug("url.ParseQuery error: ", err)
+			return nil, err
+		}
+		option := mmdb.ReaderOption{
+			DisableExtraData: readerOptionArg.Get("disable_extra_data") == "true",
+			UseFullField:     readerOptionArg.Get("use_full_field") == "true",
+		}
+		if err := dbr.SetOption(option); err != nil {
+			log.Debug("reader.SetOption error: ", err)
+			return nil, err
+		}
+	}
+
 	reader := ipio.NewStandardReader(dbr, nil)
 
 	fs, err := operate.NewFieldSelector(reader.Meta(), m.Conf.Fields)
@@ -207,6 +226,15 @@ func (m *Manager) createReader(_format, file string) (format.Reader, error) {
 	}
 
 	reader.OperateChain.Use(rw.Do)
+
+	if len(m.Conf.Lang) != 0 {
+		tl, err := operate.NewTranslator(m.Conf.Lang)
+		if err != nil {
+			log.Debug("operate.NewTranslator error: ", err)
+			return nil, err
+		}
+		reader.OperateChain.Use(tl.Do)
+	}
 
 	return reader, nil
 }

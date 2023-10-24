@@ -17,8 +17,6 @@ ips is a command-line tool and library that facilitates the querying, dumping, a
 go install github.com/sjzar/ips@latest
 ```
 
-Ensure you have Go 1.16+ installed and the Go environment variables configured.
-
 ### Features
 
 * One-click querying, dumping, and packaging of IP geolocation databases
@@ -117,4 +115,5 @@ ips pack -i qqwry.dat -f country -o country.ipdb
 * [@lionsoul2014](https://github.com/lionsoul2014) for the [ip2region](https://github.com/lionsoul2014/ip2region) database format
 * [@zu1k](https://github.com/zu1k) for the [nali](https://github.com/zu1k/nali) project, from which this project's querying feature was inspired
 * [@metowolf](https://github.com/metowolf) for the [qqwry.dat](https://github.com/metowolf/qqwry.dat) and ipdb project
+* [GeoNames.org](https://geonames.org) for the geolocation data
 * Contributors of various Go open-source libraries, such as [cobra](https://github.com/spf13/cobra), [viper](https://github.com/spf13/viper), [logrus](https://github.com/sirupsen/logrus), [progressbar](https://github.com/schollz/progressbar), etc.

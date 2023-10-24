@@ -19,9 +19,7 @@ package mmdb
 import (
 	"net"
 
-	"github.com/oschwald/maxminddb-golang"
-
-	"github.com/sjzar/ips/ipnet"
+	"github.com/sjzar/ips/format/mmdb/sdk"
 	"github.com/sjzar/ips/pkg/model"
 )
 
@@ -32,89 +30,45 @@ const (
 
 // Reader is a structure that provides functionalities to read from MMDB IP database.
 type Reader struct {
-	meta   *model.Meta       // Metadata of the IP database
-	db     *maxminddb.Reader // Database reader instance
-	dbType databaseType      // Database type
+	meta   *model.Meta  // Metadata of the IP database
+	db     *sdk.Reader  // Database reader instance
+	option ReaderOption // Configuration options for the reader.
 }
 
-// NewReader initializes a new instance of Reader.
+// NewReader initializes and returns a new Reader for the specified MMDB file.
+// It loads metadata and sets default options for the reader.
 func NewReader(file string) (*Reader, error) {
-
-	db, err := maxminddb.Open(file)
+	db, err := sdk.NewReader(file)
 	if err != nil {
 		return nil, err
-	}
-
-	supportDefaultLang := false
-	supportEnglish := false
-	for _, lang := range db.Metadata.Languages {
-		if lang == Lang {
-			supportDefaultLang = true
-			break
-		}
-		if lang == "en" {
-			supportEnglish = true
-		}
-	}
-	if !supportDefaultLang && supportEnglish {
-		Lang = "en"
-	}
-	dbType := getDBType(db.Metadata.DatabaseType)
-	fullFields := CityFullFields
-	if dbType&isASN > 0 {
-		fullFields = ASNFullFields
 	}
 
 	meta := &model.Meta{
 		MetaVersion: model.MetaVersion,
 		Format:      DBFormat,
-		Fields:      fullFields,
+		IPVersion:   db.IPVersion,
+		Fields:      db.Fields,
 	}
 	meta.AddCommonFieldAlias(CommonFieldsAlias)
 
-	switch db.Metadata.IPVersion {
-	case 4:
-		meta.IPVersion |= model.IPv4
-	case 6:
-		meta.IPVersion |= model.IPv4
-		meta.IPVersion |= model.IPv6
-	}
-
 	return &Reader{
-		meta:   meta,
-		db:     db,
-		dbType: dbType,
+		meta: meta,
+		db:   db,
 	}, nil
 }
 
 // Find retrieves IP information based on the given IP address.
-func (d *Reader) Find(ip net.IP) (*model.IPInfo, error) {
-
-	data := make(map[string]string)
-	var ipNet *net.IPNet
-	var err error
-	switch {
-	case d.dbType&isCity > 0:
-		var city City
-		ipNet, _, err = d.db.LookupNetwork(ip, &city)
-		if err != nil {
-			return nil, err
-		}
-		data = city.Format()
-	case d.dbType&isASN > 0:
-		var asn ASN
-		ipNet, _, err = d.db.LookupNetwork(ip, &asn)
-		if err != nil {
-			return nil, err
-		}
-		data = asn.Format()
+func (r *Reader) Find(ip net.IP) (*model.IPInfo, error) {
+	ipNet, data, err := r.db.Find(ip)
+	if err != nil {
+		return nil, err
 	}
 
 	ret := &model.IPInfo{
 		IP:     ip,
-		IPNet:  ipnet.NewRange(ipNet),
+		IPNet:  ipNet,
 		Data:   data,
-		Fields: d.meta.Fields,
+		Fields: r.meta.Fields,
 	}
 	ret.AddCommonFieldAlias(CommonFieldsAlias)
 
@@ -122,16 +76,27 @@ func (d *Reader) Find(ip net.IP) (*model.IPInfo, error) {
 }
 
 // Meta returns the meta-information of the IP database.
-func (d *Reader) Meta() *model.Meta {
-	return d.meta
+func (r *Reader) Meta() *model.Meta {
+	return r.meta
 }
 
-// SetOption configures the Reader with the provided option.
-func (d *Reader) SetOption(option interface{}) error {
+// ReaderOption contains configuration options for the Reader.
+type ReaderOption struct {
+	DisableExtraData bool // If true, extra data (matched via GeoNameID) won't be used.
+	UseFullField     bool // If true, all data will be combined into a single JSON string field.
+}
+
+// SetOption applies the provided option to the Reader's configuration.
+func (r *Reader) SetOption(option interface{}) error {
+	if opt, ok := option.(ReaderOption); ok {
+		r.db.DisableExtraData = opt.DisableExtraData
+		r.db.UseFullField = opt.UseFullField
+		r.option = opt
+	}
 	return nil
 }
 
-// Close closes the IP database.
-func (d *Reader) Close() error {
-	return d.db.Close()
+// Close releases any resources used by the Reader and closes the MMDB database.
+func (r *Reader) Close() error {
+	return r.db.Close()
 }

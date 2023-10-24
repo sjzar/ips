@@ -29,11 +29,14 @@ func init() {
 	// operate
 	dumpCmd.Flags().StringVarP(&dpFields, "fields", "f", "", "Specify the fields to be dumped from the input file. Default is all fields.")
 	dumpCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
+	dumpCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
 
 	// input & output
 	dumpCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", "Path to the IP database file.")
 	dumpCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", "Specify the format of the input file. Examples: ipdb, mmdb, etc.")
+	dumpCmd.Flags().StringVarP(&readerOption, "input-option", "", "", "Specify the option for database reader.")
 	dumpCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", "Path to the dumped file.")
+
 }
 
 var dumpCmd = &cobra.Command{
