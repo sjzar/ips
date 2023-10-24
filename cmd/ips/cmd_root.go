@@ -41,6 +41,7 @@ func init() {
 	rootCmd.Flags().StringVarP(&fields, "fields", "f", "", "Specify the fields of interest for the IP data. Separate multiple fields with commas.")
 	rootCmd.Flags().BoolVarP(&useDBFields, "use-db-fields", "", false, "Use field names as they appear in the database. Default is common field names.")
 	rootCmd.Flags().StringVarP(&rewriteFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
+	rootCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
 
 	// database
 	rootCmd.Flags().StringVarP(&rootFile, "file", "i", "", "Path to the IPv4 and IPv6 database file.")
@@ -49,6 +50,7 @@ func init() {
 	rootCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", "Specify the format for IPv4 data. Examples: ipdb, mmdb, etc.")
 	rootCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", "Path to the IPv6 database file.")
 	rootCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", "Specify the format for IPv6 data. Examples: ipdb, mmdb, etc.")
+	rootCmd.Flags().StringVarP(&readerOption, "database-option", "", "", "Specify the option for database reader.")
 
 	// output
 	rootCmd.Flags().StringVarP(&rootTextFormat, "text-format", "", "", "Specify the desired format for text output. It supports %origin and %values parameters.")

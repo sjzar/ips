@@ -17,8 +17,6 @@ ips 是一个命令行工具与库，可以轻松完成 IP 地理位置数据库
 go install github.com/sjzar/ips@latest
 ```
 
-本机需要安装 Go 1.16+，并且配置好 Go 的环境变量。
-
 ### 特性
 
 * 一键查询、转存和打包 IP 地理位置数据库
@@ -117,4 +115,5 @@ ips pack -i qqwry.dat -f country -o country.ipdb
 * [@lionsoul2014](https://github.com/lionsoul2014) 的 [ip2region](https://github.com/lionsoul2014/ip2region) 数据库格式
 * [@zu1k](https://github.com/zu1k) 的 [nali](https://github.com/zu1k/nali) 项目，本项目查询功能参考了 nali 的方案
 * [@metowolf](https://github.com/metowolf) 的 [qqwry.dat](https://github.com/metowolf/qqwry.dat) 和 ipdb 项目
+* [GeoNames.org](https://geonames.org) 的地理信息数据
 * 各个 Go 开源库的贡献者们，例如 [cobra](https://github.com/spf13/cobra)、[viper](https://github.com/spf13/viper)、[logrus](https://github.com/sirupsen/logrus)、[progressbar](https://github.com/schollz/progressbar) 等

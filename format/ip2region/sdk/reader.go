@@ -108,7 +108,7 @@ func (i *Reader) findOffset(ip uint32) (startIP, endIP uint32, length, offset ui
 	var il0 = (ip >> 24) & 0xFF
 	var il1 = (ip >> 16) & 0xFF
 	var idx = il0*VectorIndexCols*VectorIndexSize + il1*VectorIndexSize
-	var sPtr, ePtr = uint32(0), uint32(0)
+	var sPtr, ePtr uint32
 	sPtr = binary.LittleEndian.Uint32(i.data[HeaderInfoLength+idx:])
 	ePtr = binary.LittleEndian.Uint32(i.data[HeaderInfoLength+idx+4:])
 

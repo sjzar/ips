@@ -46,6 +46,9 @@ type Config struct {
 	// IPSDir specifies the working directory for IPS.
 	IPSDir string `mapstructure:"-"`
 
+	// Lang specifies the language for the output.
+	Lang string `mapstructure:"lang"`
+
 	// Find
 	// IPv4File specifies the file is IPv4 database.
 	IPv4File string `mapstructure:"ipv4_file"`
@@ -89,6 +92,13 @@ type Config struct {
 
 	// DPRewriterFiles lists the files for rewriting during dump and pack operations.
 	DPRewriterFiles string `mapstructure:"dp_rewriter_files"`
+
+	// Database
+	// ReaderOption specifies the options for the reader.
+	ReaderOption string `mapstructure:"reader_option"`
+
+	// WriterOption specifies the options for the writer.
+	WriterOption string `mapstructure:"writer_option"`
 }
 
 func (c *Config) ShowConfig(allKeys bool) string {

@@ -49,6 +49,9 @@ var (
 	// rewriteFiles specifies the files for data rewriting.
 	rewriteFiles string
 
+	// lang specifies the language for the output.
+	lang string
+
 	// root command flags
 	// database
 	// rootFormat defines the format for database.
@@ -101,6 +104,13 @@ var (
 
 	// outputFormat specifies the output format for pack operations.
 	outputFormat string
+
+	// database
+	// readerOption specifies the options for the reader.
+	readerOption string
+
+	// writerOption specifies the options for the writer.
+	writerOption string
 )
 
 // GetFlagConfig initializes and returns the configuration for the IP service.
@@ -120,6 +130,10 @@ func GetFlagConfig() *ips.Config {
 
 	if len(rewriteFiles) != 0 {
 		conf.RewriteFiles = rewriteFiles
+	}
+
+	if len(lang) != 0 {
+		conf.Lang = lang
 	}
 
 	// root command flags
@@ -170,6 +184,14 @@ func GetFlagConfig() *ips.Config {
 
 	if len(dpRewriterFiles) != 0 {
 		conf.DPRewriterFiles = dpRewriterFiles
+	}
+
+	if len(readerOption) != 0 {
+		conf.ReaderOption = readerOption
+	}
+
+	if len(writerOption) != 0 {
+		conf.WriterOption = writerOption
 	}
 
 	return conf
