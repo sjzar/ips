@@ -56,7 +56,7 @@ func TestDataRewriter(t *testing.T) {
 	ast.Equal(2, len(info.Data))
 	value, _ := info.GetData("province")
 	ast.Equal("上海", value)
-	value, _ = info.GetData("province")
+	value, _ = info.GetData("isp")
 	ast.Equal("电信", value)
 
 	info = &model.IPInfo{

@@ -22,3 +22,6 @@ go.work
 
 .idea/
 .DS_Store
+packages/
+bin/
+dist/
