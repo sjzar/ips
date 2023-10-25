@@ -47,6 +47,7 @@ func TestWriter(t *testing.T) {
 	err = writer.Insert(&model.IPInfo{
 		IP:     ip,
 		IPNet:  ipnet.NewRange(ipNet),
+		Data:   map[string]string{"field1": "field1"},
 		Fields: []string{},
 	})
 	ast.Equal(errors.ErrMismatchedFieldsLength, err)
@@ -54,6 +55,7 @@ func TestWriter(t *testing.T) {
 	err = writer.Insert(&model.IPInfo{
 		IP:     ip,
 		IPNet:  ipnet.NewRange(ipNet),
+		Data:   map[string]string{"field1": "field1"},
 		Fields: []string{"field1"},
 	})
 	ast.Nil(err)
@@ -68,6 +70,7 @@ func TestWriter(t *testing.T) {
 	err = writer.Insert(&model.IPInfo{
 		IP:     ip,
 		IPNet:  ipnet.NewRange(ipNet),
+		Data:   map[string]string{"field1": "field1"},
 		Fields: []string{"field1"},
 	})
 	ast.Nil(err)
@@ -78,6 +81,7 @@ func TestWriter(t *testing.T) {
 	err = writer.Insert(&model.IPInfo{
 		IP:     ip,
 		IPNet:  ipnet.NewRange(ipNet),
+		Data:   map[string]string{"field1": "field1"},
 		Fields: []string{"field1"},
 	})
 	ast.Nil(err)
@@ -87,6 +91,7 @@ func TestWriter(t *testing.T) {
 	err = writer.Insert(&model.IPInfo{
 		IP:     ip,
 		IPNet:  ipnet.NewRange(ipNet),
+		Data:   map[string]string{"field1": "field1"},
 		Fields: []string{"field1"},
 	})
 	ast.Nil(err)
