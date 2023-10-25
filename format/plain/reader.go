@@ -18,11 +18,14 @@ package plain
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"net"
 	"os"
 	"strings"
 
+	"github.com/sjzar/ips/format/ipdb"
+	"github.com/sjzar/ips/format/ipdb/sdk"
 	"github.com/sjzar/ips/ipnet"
 	"github.com/sjzar/ips/pkg/errors"
 	"github.com/sjzar/ips/pkg/model"
@@ -33,21 +36,20 @@ const (
 	DBExt      = ".txt"
 	MetaPrefix = "# Meta: "
 	FieldSep   = ","
+	FieldData  = "text"
 )
 
 // Reader is a structure that provides functionalities to read from Plain Text.
 type Reader struct {
-	file    string
-	meta    *model.Meta
-	fd      *os.File
-	scanner *bufio.Scanner
-	done    bool
+	file string
+	meta *model.Meta
+	db   *sdk.City
 }
 
 // NewReader initializes a new instance of Reader.
 func NewReader(file string) (*Reader, error) {
 
-	meta, err := ParseMeta(file)
+	meta, db, err := Load(file)
 	if err != nil {
 		return nil, err
 	}
@@ -57,13 +59,30 @@ func NewReader(file string) (*Reader, error) {
 	return &Reader{
 		file: file,
 		meta: meta,
+		db:   db,
 	}, nil
 }
 
 // Find retrieves IP information based on the given IP address.
-// FIXME this method returns the next available IP info sequentially from the file.
 func (r *Reader) Find(ip net.IP) (*model.IPInfo, error) {
-	return r.Next()
+	data, ipNet, err := r.db.FindMap(ip.String(), "CN")
+	if err != nil {
+		return nil, err
+	}
+	values := strings.Split(data[FieldData], FieldSep)
+
+	ret := &model.IPInfo{
+		IP:     ip,
+		IPNet:  ipnet.NewRange(ipNet),
+		Fields: r.meta.Fields,
+		Data:   make(map[string]string),
+	}
+	for i, field := range r.meta.Fields {
+		ret.Data[field] = values[i]
+	}
+	ret.AddCommonFieldAlias(r.meta.FieldAlias)
+
+	return ret, nil
 }
 
 // Meta returns the meta-information of the IP database.
@@ -78,27 +97,59 @@ func (r *Reader) SetOption(option interface{}) error {
 
 // Close closes the IP database.
 func (r *Reader) Close() error {
-	if r.fd != nil {
-		return r.fd.Close()
-	}
 	return nil
 }
 
-// ParseMeta reads and parses the metadata from the beginning of the plain text IP database file.
-func ParseMeta(file string) (*model.Meta, error) {
-
+// Load opens the specified file, reads its contents, and initializes an IP database.
+// The function first extracts meta information from the file, then parses the IP data,
+// and finally creates an IP database based on the parsed data.
+// FIXME: The plain database format reader has not been implemented yet, so I made a wrap in ipdb format.
+func Load(file string) (*model.Meta, *sdk.City, error) {
 	f, err := os.Open(file)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	defer func() {
 		_ = f.Close()
 	}()
 
-	ret := &model.Meta{}
+	// Extract meta information from the file.
+	scanner := bufio.NewScanner(f)
+	meta, err := extractMetaInfo(scanner)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// Create a new IP database writer with the extracted meta information.
+	writer, err := ipdb.NewWriter(&model.Meta{
+		IPVersion:  meta.IPVersion,
+		Fields:     []string{FieldData},
+		FieldAlias: map[string]string{},
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// Parse the IP data from the file and load it into the writer.
+	err = parseIPData(scanner, writer, meta.IsIPv6Support())
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// Initialize the IP database using the loaded data.
+	db, err := initializeDatabase(writer)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return meta, db, nil
+}
+
+// extractMetaInfo reads the meta information from the file and returns it.
+func extractMetaInfo(scanner *bufio.Scanner) (*model.Meta, error) {
+	meta := &model.Meta{}
 	success := false
 
-	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
 		if len(line) == 0 {
@@ -108,7 +159,7 @@ func ParseMeta(file string) (*model.Meta, error) {
 		if strings.HasPrefix(line, MetaPrefix) {
 			success = true
 			metaStr := line[len(MetaPrefix):]
-			if err := json.Unmarshal([]byte(metaStr), ret); err != nil {
+			if err := json.Unmarshal([]byte(metaStr), meta); err != nil {
 				return nil, err
 			}
 			break
@@ -119,35 +170,14 @@ func ParseMeta(file string) (*model.Meta, error) {
 		return nil, errors.ErrMetaMissing
 	}
 
-	return ret, nil
+	return meta, nil
 }
 
-// Next retrieves the next IP information from the file.
-func (r *Reader) Next() (*model.IPInfo, error) {
-	if r.scanner == nil {
-		var err error
-		r.fd, err = os.Open(r.file)
-		if err != nil {
-			return nil, err
-		}
-		r.scanner = bufio.NewScanner(r.fd)
-	}
-
-	if r.done {
-		return nil, errors.ErrReadCompleted
-	}
-
-	ret := &model.IPInfo{
-		Fields: r.meta.Fields,
-		Data:   make(map[string]string),
-	}
-	for r.scanner.Scan() {
-		line := r.scanner.Text()
-		if len(line) == 0 {
-			continue
-		}
-
-		if strings.HasPrefix(line, "#") {
+// parseIPData processes the IP information from the file and loads it into the provided writer.
+func parseIPData(scanner *bufio.Scanner, writer *ipdb.Writer, isIPv6Support bool) error {
+	for scanner.Scan() {
+		line := scanner.Text()
+		if len(line) == 0 || strings.HasPrefix(line, "#") {
 			continue
 		}
 
@@ -161,27 +191,35 @@ func (r *Reader) Next() (*model.IPInfo, error) {
 			continue
 		}
 
-		values := strings.Split(split[1], FieldSep)
-		if len(values) != len(r.meta.Fields) {
-			continue
+		info := &model.IPInfo{
+			IP:     ipNet.IP,
+			IPNet:  ipnet.NewRange(ipNet),
+			Data:   map[string]string{FieldData: split[1]},
+			Fields: []string{FieldData},
 		}
 
-		ret.IP = ipNet.IP
-		ret.IPNet = ipnet.NewRange(ipNet)
-		for i, field := range r.meta.Fields {
-			ret.Data[field] = values[i]
+		if err := writer.Insert(info); err != nil {
+			return err
 		}
 
-		if ipnet.IsLastIP(ret.IPNet.End, r.meta.IsIPv6Support()) {
-			r.done = true
+		if ipnet.IsLastIP(info.IPNet.End, isIPv6Support) {
+			break
 		}
-
-		break
 	}
+	return nil
+}
 
-	if err := r.scanner.Err(); err != nil {
+// initializeDatabase creates the IP database and returns it.
+func initializeDatabase(writer *ipdb.Writer) (*sdk.City, error) {
+	r := &bytes.Buffer{}
+	if _, err := writer.WriteTo(r); err != nil {
 		return nil, err
 	}
 
-	return ret, nil
+	db, err := sdk.NewCityByIO(r)
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }

@@ -22,6 +22,7 @@ package sdk
 
 import (
 	"encoding/json"
+	"io"
 	"net"
 	"os"
 	"reflect"
@@ -103,6 +104,18 @@ func NewCity(name string) (*City, error) {
 	}, nil
 }
 
+// NewCityByIO initialize
+func NewCityByIO(r io.Reader) (*City, error) {
+	reader, err := newIOReader(r, &CityInfo{})
+	if err != nil {
+		return nil, err
+	}
+
+	return &City{
+		reader: reader,
+	}, nil
+}
+
 // Reload the database
 func (db *City) Reload(name string) error {
 
@@ -112,6 +125,18 @@ func (db *City) Reload(name string) error {
 	}
 
 	reader, err := newReader(name, &CityInfo{})
+	if err != nil {
+		return err
+	}
+
+	db.reader = reader
+
+	return nil
+}
+
+// ReloadByIO the database
+func (db *City) ReloadByIO(r io.Reader) error {
+	reader, err := newIOReader(r, &CityInfo{})
 	if err != nil {
 		return err
 	}

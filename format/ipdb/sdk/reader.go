@@ -20,6 +20,8 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
+	"io"
+	"io/ioutil"
 	"net"
 	"os"
 	"reflect"
@@ -86,6 +88,63 @@ func newReader(name string, obj interface{}) (*reader, error) {
 	if err != nil {
 		return nil, ErrReadFull
 	}
+	var meta MetaData
+	metaLength := int(binary.BigEndian.Uint32(body[0:4]))
+	if fileSize < (4 + metaLength) {
+		return nil, ErrFileSize
+	}
+	if err := json.Unmarshal(body[4:4+metaLength], &meta); err != nil {
+		return nil, err
+	}
+	if len(meta.Languages) == 0 || len(meta.Fields) == 0 {
+		return nil, ErrMetaData
+	}
+	if fileSize != (4 + metaLength + meta.TotalSize) {
+		return nil, ErrFileSize
+	}
+
+	var dm map[string]string
+	if obj != nil {
+		t := reflect.TypeOf(obj).Elem()
+		dm = make(map[string]string, t.NumField())
+		for i := 0; i < t.NumField(); i++ {
+			k := t.Field(i).Tag.Get("json")
+			dm[k] = t.Field(i).Name
+		}
+	}
+
+	db := &reader{
+		fileSize:  fileSize,
+		nodeCount: meta.NodeCount,
+
+		meta:    meta,
+		refType: dm,
+
+		data: body[4+metaLength:],
+	}
+
+	if db.v4offset == 0 {
+		node := 0
+		for i := 0; i < 96 && node < db.nodeCount; i++ {
+			if i >= 80 {
+				node = db.readNode(node, 1)
+			} else {
+				node = db.readNode(node, 0)
+			}
+		}
+		db.v4offset = node
+	}
+
+	return db, nil
+}
+
+func newIOReader(r io.Reader, obj interface{}) (*reader, error) {
+	body, err := ioutil.ReadAll(r)
+	if err != nil {
+		return nil, ErrReadFull
+	}
+
+	fileSize := len(body)
 	var meta MetaData
 	metaLength := int(binary.BigEndian.Uint32(body[0:4]))
 	if fileSize < (4 + metaLength) {
