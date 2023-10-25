@@ -26,7 +26,7 @@ import (
 )
 
 var (
-	version   = "v0.0.1"
+	Version   = "(devel)"
 	buildInfo = debug.BuildInfo{}
 	versionM  bool
 )
@@ -42,7 +42,9 @@ var versionCmd = &cobra.Command{
 	PreRun: func(cmd *cobra.Command, args []string) {
 		if bi, ok := debug.ReadBuildInfo(); ok {
 			buildInfo = *bi
-			version = bi.Main.Version
+			if len(bi.Main.Version) > 0 {
+				Version = bi.Main.Version
+			}
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
@@ -52,7 +54,7 @@ var versionCmd = &cobra.Command{
 				fmt.Printf("\t%s\n", strings.ReplaceAll(mod[:len(mod)-1], "\n", "\n\t"))
 			}
 		} else {
-			fmt.Printf("ips version %s %s %s/%s\n", version, runtime.Version(), runtime.GOOS, runtime.GOARCH)
+			fmt.Printf("ips version %s %s %s/%s\n", Version, runtime.Version(), runtime.GOOS, runtime.GOARCH)
 		}
 	},
 }

@@ -1,6 +1,9 @@
 BINARY_NAME := ips
 GO := go
-LDFLAGS := -ldflags "-s -w"
+ifeq ($(VERSION),)
+	VERSION := $(shell git describe --tags --always --dirty="-dev")
+endif
+LDFLAGS := -ldflags '-X "github.com/sjzar/ips/cmd/ips.Version=$(VERSION)" -w -s'
 
 PLATFORMS := \
 	darwin/amd64 \
