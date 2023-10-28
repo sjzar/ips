@@ -45,7 +45,7 @@ func NewReader(file string) (*Reader, error) {
 	meta := &model.Meta{
 		MetaVersion: model.MetaVersion,
 		Format:      DBFormat,
-		IPVersion:   model.IPv4,
+		IPVersion:   model.IPv6,
 		Fields:      FullFields,
 	}
 	meta.AddCommonFieldAlias(CommonFieldsAlias)

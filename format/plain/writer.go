@@ -42,13 +42,6 @@ func NewWriter(meta *model.Meta) (*Writer, error) {
 		meta: meta,
 	}
 
-	ret.buffer = bytes.NewBuffer([]byte{})
-	ret.iw = ret.buffer
-
-	if err := ret.Header(); err != nil {
-		return nil, err
-	}
-
 	return ret, nil
 }
 
@@ -76,7 +69,12 @@ func (w *Writer) SetOption(option interface{}) error {
 // Insert adds the given IP information into the writer.
 func (w *Writer) Insert(info *model.IPInfo) error {
 	if w.iw == nil {
-		return errors.ErrNilWriter
+		w.buffer = bytes.NewBuffer([]byte{})
+		w.iw = w.buffer
+
+		if err := w.Header(); err != nil {
+			return err
+		}
 	}
 
 	for _, ipNet := range info.IPNet.IPNets() {
