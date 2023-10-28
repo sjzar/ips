@@ -38,24 +38,22 @@ import (
 	"github.com/sjzar/ips/pkg/model"
 )
 
-// ParseText parses the provided text and returns the result based on the Manager configuration.
+// ParseText takes a text input, parses it into segments, and returns the serialized result
+// based on the Manager configuration. It returns the combined result as a string.
 func (m *Manager) ParseText(text string) (string, error) {
 
 	buf := &bytes.Buffer{}
 	tp := parser.NewTextParser(text).Parse()
 
 	for _, segment := range tp.Segments {
-		var result string
-		var err error
-		switch m.Conf.OutputType {
-		case OutputTypeJSON:
-			result, err = m.GetJsonResult(segment.Type, segment.Content)
-		default:
-			// OutputTypeText
-			result = m.GetTextResult(segment.Type, segment.Content)
-		}
+		info, err := m.parseSegment(segment)
 		if err != nil {
-			log.Debug("GetJsonResult error: ", err)
+			log.Debug("m.parseSegment error: ", err)
+			return "", err
+		}
+		result, err := m.serialize(segment, info)
+		if err != nil {
+			log.Debug("m.serialize error: ", err)
 			return "", err
 		}
 		buf.WriteString(result)
@@ -64,30 +62,113 @@ func (m *Manager) ParseText(text string) (string, error) {
 	return buf.String(), nil
 }
 
-// GetJsonResult returns the JSON representation for the given type and content.
-func (m *Manager) GetJsonResult(_type, content string) (string, error) {
-	var values interface{}
-	switch _type {
-	case parser.TextTypeIPv4:
-		ipInfo, err := m.IPv4Find(net.ParseIP(content))
-		if err != nil {
-			log.Debug("m.IPv4.Find error: ", err)
-			return "", err
-		}
-		values = ipInfo.Output(m.Conf.UseDBFields)
-	case parser.TextTypeIPv6:
-		ipInfo, err := m.IPv6Find(net.ParseIP(content))
-		if err != nil {
-			log.Debug("m.IPv6.Find error: ", err)
-			return "", err
-		}
-		values = ipInfo.Output(m.Conf.UseDBFields)
+// parseSegment processes the provided segment and returns the corresponding data.
+// This could be IP information, domain information, or raw text.
+func (m *Manager) parseSegment(segment parser.Segment) (interface{}, error) {
+	switch segment.Type {
+	case parser.TextTypeIPv4, parser.TextTypeIPv6:
+		return m.parseIP(segment.Content)
 	case parser.TextTypeDomain:
+		return m.parseDomain(segment.Content)
+	case parser.TextTypeText:
+		return segment.Content, nil
+	}
+	return nil, nil
+}
+
+// parseIP determines the type of IP (IPv4 or IPv6) and fetches the corresponding information.
+func (m *Manager) parseIP(content string) (*model.IPInfo, error) {
+	if ip := net.ParseIP(content); ip != nil {
+		if ip.To4() != nil {
+			return m.parseIPv4(ip)
+		}
+		return m.parseIPv6(ip)
 	}
 
-	if values == nil {
-		return "", nil
+	return nil, errors.ErrInvalidIP
+}
+
+// parseIPv4 finds and returns the information associated with the provided IPv4 address.
+func (m *Manager) parseIPv4(ip net.IP) (*model.IPInfo, error) {
+
+	// lazyLoad initializes the IP readers if they haven't been initialized yet.
+	if m.ipv4 == nil {
+		var err error
+		if m.ipv4, err = m.createReader(m.Conf.IPv4Format, m.Conf.IPv4File); err != nil {
+			log.Debug("createReader error: ", err)
+			return nil, err
+		}
 	}
+
+	return m.ipv4.Find(ip)
+}
+
+// parseIPv6 finds and returns the information associated with the provided IPv6 address.
+func (m *Manager) parseIPv6(ip net.IP) (*model.IPInfo, error) {
+
+	// lazyLoad initializes the IP readers if they haven't been initialized yet.
+	if m.ipv6 == nil {
+		var err error
+		if m.ipv6, err = m.createReader(m.Conf.IPv6Format, m.Conf.IPv6File); err != nil {
+			log.Debug("createReader error: ", err)
+			return nil, err
+		}
+	}
+
+	return m.ipv6.Find(ip)
+}
+
+// parseDomain fetches the information for the given domain. Implementation is pending.
+func (m *Manager) parseDomain(content string) (*model.DomainInfo, error) {
+	return &model.DomainInfo{
+		Domain: content,
+	}, nil
+}
+
+// serialize takes a segment and its associated data, then serializes the data
+// based on the Manager configuration and returns the serialized string.
+func (m *Manager) serialize(segment parser.Segment, data interface{}) (string, error) {
+	switch m.Conf.OutputType {
+	case OutputTypeJSON:
+		switch v := data.(type) {
+		case *model.IPInfo:
+			return m.serializeIPInfoToJSON(v)
+		case *model.DomainInfo:
+		case string:
+			return v, nil
+		}
+	default:
+		// default is OutputTypeText
+		switch v := data.(type) {
+		case *model.IPInfo:
+			return m.serializeIPInfoToText(segment.Content, v)
+		case *model.DomainInfo:
+		case string:
+			return v, nil
+		}
+	}
+
+	// impossible
+	return "", nil
+}
+
+// serializeIPInfoToText takes an IPInfo and the original content, then serializes
+// the IPInfo to a text format based on the Manager configuration.
+func (m *Manager) serializeIPInfoToText(content string, ipInfo *model.IPInfo) (string, error) {
+	values := strings.Join(util.DeleteEmptyValue(ipInfo.Values()), m.Conf.TextValuesSep)
+	if values != "" {
+		ret := strings.Replace(m.Conf.TextFormat, "%origin", content, 1)
+		ret = strings.Replace(ret, "%values", values, 1)
+		return ret, nil
+	}
+
+	return content, nil
+}
+
+// serializeIPInfoToJSON serializes the provided IPInfo to a JSON format
+// based on the Manager configuration. It returns the JSON string.
+func (m *Manager) serializeIPInfoToJSON(ipInfo *model.IPInfo) (string, error) {
+	values := ipInfo.Output(m.Conf.UseDBFields)
 
 	var ret []byte
 	var err error
@@ -104,61 +185,9 @@ func (m *Manager) GetJsonResult(_type, content string) (string, error) {
 	return string(ret) + "\n", nil
 }
 
-// GetTextResult returns the text representation for the given type and content.
-func (m *Manager) GetTextResult(_type, content string) string {
-	values := ""
-	switch _type {
-	case parser.TextTypeIPv4:
-		if ipInfo, err := m.IPv4Find(net.ParseIP(content)); err == nil {
-			values = strings.Join(util.DeleteEmptyValue(ipInfo.Values()), m.Conf.TextValuesSep)
-		}
-	case parser.TextTypeIPv6:
-		if ipInfo, err := m.IPv6Find(net.ParseIP(content)); err == nil {
-			values = strings.Join(util.DeleteEmptyValue(ipInfo.Values()), m.Conf.TextValuesSep)
-		}
-	case parser.TextTypeDomain:
-	}
-
-	if values != "" {
-		ret := strings.Replace(m.Conf.TextFormat, "%origin", content, 1)
-		ret = strings.Replace(ret, "%values", values, 1)
-		return ret
-	}
-
-	return content
-}
-
-// IPv4Find finds the IP information for the given IPv4 address.
-func (m *Manager) IPv4Find(ip net.IP) (*model.IPInfo, error) {
-
-	// lazyLoad initializes the IP readers if they haven't been initialized yet.
-	if m.ipv4 == nil {
-		var err error
-		if m.ipv4, err = m.createReader(m.Conf.IPv4Format, m.Conf.IPv4File); err != nil {
-			log.Debug("createReader error: ", err)
-			return nil, err
-		}
-	}
-
-	return m.ipv4.Find(ip)
-}
-
-// IPv6Find finds the IP information for the given IPv6 address.
-func (m *Manager) IPv6Find(ip net.IP) (*model.IPInfo, error) {
-
-	// lazyLoad initializes the IP readers if they haven't been initialized yet.
-	if m.ipv6 == nil {
-		var err error
-		if m.ipv6, err = m.createReader(m.Conf.IPv6Format, m.Conf.IPv6File); err != nil {
-			log.Debug("createReader error: ", err)
-			return nil, err
-		}
-	}
-
-	return m.ipv6.Find(ip)
-}
-
-// createReader creates an IP reader based on the provided format and file.
+// createReader sets up and returns an IP reader based on the specified format and file.
+// If the file doesn't exist, it tries to download it. This method also sets up various
+// reader options based on the configuration.
 func (m *Manager) createReader(_format, file string) (format.Reader, error) {
 	if !util.IsFileExist(file) {
 		fullpath := filepath.Join(m.Conf.IPSDir, file)

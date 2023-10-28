@@ -46,4 +46,8 @@ var (
 	ErrFailedDownload    = errors.New("failed to download")
 	ErrInvalidDirectory  = errors.New("invalid directory path")
 	ErrMissingConfigName = errors.New("config name not specified")
+
+	// Server
+
+	ErrInvalidIP = errors.New("invalid IP address")
 )
