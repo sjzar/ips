@@ -14,30 +14,10 @@
  * limitations under the License.
  */
 
-package ips
+package model
 
-import (
-	"github.com/gin-gonic/gin"
+type DomainInfo struct {
 
-	"github.com/sjzar/ips/format"
-)
-
-// Manager is a command-line tool for IP operations.
-type Manager struct {
-	// Conf holds the common configurations.
-	Conf *Config
-
-	// IPv4 and IPv6 are the IP readers for their respective IP versions.
-	ipv4 format.Reader
-	ipv6 format.Reader
-
-	// router is the HTTP router.
-	router *gin.Engine
-}
-
-// NewManager initializes and returns a new Manager instance.
-func NewManager(conf *Config) *Manager {
-	return &Manager{
-		Conf: conf,
-	}
+	// Domain is the domain name.
+	Domain string `json:"domain"`
 }

@@ -82,13 +82,6 @@ func Uint64ToIP2(high, low uint64) net.IP {
 func PrevIP(ip net.IP) net.IP {
 	res := make(net.IP, len(ip))
 	copy(res, ip)
-
-	// Ensure it's a pure IPv4 or IPv6
-	if ip.To4() != nil {
-		ip = ip.To4()
-		res = res[len(res)-4:]
-	}
-
 	for i := len(ip) - 1; i >= 0; i-- {
 		if res[i] > 0 {
 			res[i]--
@@ -103,13 +96,6 @@ func PrevIP(ip net.IP) net.IP {
 func NextIP(ip net.IP) net.IP {
 	res := make(net.IP, len(ip))
 	copy(res, ip)
-
-	// Ensure it's a pure IPv4 or IPv6
-	if ip.To4() != nil {
-		ip = ip.To4()
-		res = res[len(res)-4:]
-	}
-
 	for i := len(ip) - 1; i >= 0; i-- {
 		if res[i] < 0xff {
 			res[i]++

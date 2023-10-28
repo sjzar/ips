@@ -111,6 +111,11 @@ var (
 
 	// writerOption specifies the options for the writer.
 	writerOption string
+
+	// server
+
+	// addr specifies the server address.
+	addr string
 )
 
 // GetFlagConfig initializes and returns the configuration for the IP service.
@@ -192,6 +197,10 @@ func GetFlagConfig() *ips.Config {
 
 	if len(writerOption) != 0 {
 		conf.WriterOption = writerOption
+	}
+
+	if len(addr) != 0 {
+		conf.Addr = addr
 	}
 
 	return conf

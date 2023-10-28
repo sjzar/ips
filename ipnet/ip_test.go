@@ -52,7 +52,7 @@ func TestPrevIP(t *testing.T) {
 	}{
 		{net.ParseIP("192.168.1.1"), net.ParseIP("192.168.1.0")},
 		{net.ParseIP("192.168.1.0"), net.ParseIP("192.168.0.255")},
-		{net.ParseIP("0.0.0.0"), net.ParseIP("255.255.255.255")},
+		{net.ParseIP("0.0.0.0"), net.ParseIP("::fffe:ffff:ffff")},
 		{net.ParseIP("::1"), net.ParseIP("::")},
 		{net.ParseIP("::"), net.ParseIP("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")},
 	}
@@ -72,7 +72,7 @@ func TestNextIP(t *testing.T) {
 	}{
 		{net.ParseIP("192.168.1.0"), net.ParseIP("192.168.1.1")},
 		{net.ParseIP("192.168.0.255"), net.ParseIP("192.168.1.0")},
-		{net.ParseIP("255.255.255.255"), net.ParseIP("0.0.0.0")},
+		{net.ParseIP("255.255.255.255"), net.ParseIP("::1:0:0:0")},
 		{net.ParseIP("::"), net.ParseIP("::1")},
 		{net.ParseIP("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff"), net.ParseIP("::")},
 	}

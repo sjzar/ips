@@ -99,6 +99,10 @@ type Config struct {
 
 	// WriterOption specifies the options for the writer.
 	WriterOption string `mapstructure:"writer_option"`
+
+	// Service
+	// Addr specifies the address for the service.
+	Addr string `mapstructure:"addr" default:":6860"`
 }
 
 func (c *Config) ShowConfig(allKeys bool) string {

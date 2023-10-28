@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPS Tools</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--primary-bg);
+            color: var(--text-color);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+            background: var(--container-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right {
+            flex: 2;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 10px;
+            background: var(--input-bg);
+            border: var(--input-border);
+            color: var(--text-color);
+            resize: vertical;
+            border-radius: 5px;
+        }
+
+        .confirm-button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirm-button:hover {
+            background-color: var(--button-bg);
+        }
+
+        .CodeMirror {
+            height: 400px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            line-height: 1.5;
+            text-align: left;
+            background: var(--editor-bg);
+            color: var(--text-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        :root {
+            /* 浅色主题 */
+            --primary-bg: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            --container-bg: rgba(255, 255, 255, 0.8);
+            --text-color: #333;
+            --input-bg: #fff;
+            --input-border: 1px solid #ddd;
+            --button-bg: #4caf50;
+            --button-text: white;
+            --editor-bg: #fff;
+        }
+
+        [data-theme="dark"] {
+            /* 深色主题 */
+            --primary-bg: linear-gradient(120deg, #2c3e50 0%, #4b6cb7 100%);
+            --container-bg: rgba(50, 50, 50, 0.9);
+            --text-color: #eee;
+            --input-bg: #333;
+            --input-border: 1px solid #555;
+            --button-bg: #555;
+            --button-text: #ddd;
+            --editor-bg: #333;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .theme-toggle i {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .github-icon i {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+            position: absolute;
+            top: 10px;
+            right: 50px;
+        }
+
+        .project-name {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 36px;
+            font-weight: bold;
+            background: rgb(34, 193, 195);
+            background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            font-family: "Roboto", sans-serif;
+            padding: 5px 10px;
+        }
+    </style>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.65.9/codemirror.min.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/codemirror/5.65.9/theme/material.min.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.staticfile.org/codemirror/5.65.9/codemirror.min.js"></script>
+    <script src="https://cdn.staticfile.org/codemirror/5.65.9/mode/javascript/javascript.min.js"></script>
+
+    <script src="static/index.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="project-name">
+        IPS
+    </div>
+    <div class="theme-toggle">
+        <i id="toggleIcon" class="fa fa-moon-o" aria-hidden="true"></i>
+    </div>
+    <div class="github-icon">
+        <a href="https://github.com/sjzar/ips" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="left">
+        <div class="title">IP Geolocation</div>
+        <textarea class="input-box" rows="5" placeholder="Enter IP Address"></textarea>
+        <button class="confirm-button">Confirm</button>
+    </div>
+    <div class="right">
+        <textarea id="jsonEditor"></textarea>
+    </div>
+</div>
+</body>
+</html>
