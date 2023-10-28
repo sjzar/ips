@@ -18,6 +18,7 @@ package ipnet
 
 import (
 	"math/rand"
+	"net"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -42,4 +43,44 @@ func TestIPv4StrToUint32(t *testing.T) {
 	ast.Equal("1.1.1.1", Uint32ToIPv4(i).String())
 	i = IPv4StrToUint32("fake")
 	ast.Equal(uint32(0), i)
+}
+
+func TestPrevIP(t *testing.T) {
+	tests := []struct {
+		input    net.IP
+		expected net.IP
+	}{
+		{net.ParseIP("192.168.1.1"), net.ParseIP("192.168.1.0")},
+		{net.ParseIP("192.168.1.0"), net.ParseIP("192.168.0.255")},
+		{net.ParseIP("0.0.0.0"), net.ParseIP("255.255.255.255")},
+		{net.ParseIP("::1"), net.ParseIP("::")},
+		{net.ParseIP("::"), net.ParseIP("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff")},
+	}
+
+	for _, test := range tests {
+		output := PrevIP(test.input)
+		if !output.Equal(test.expected) {
+			t.Errorf("For input %v, expected %v, but got %v", test.input, test.expected, output)
+		}
+	}
+}
+
+func TestNextIP(t *testing.T) {
+	tests := []struct {
+		input    net.IP
+		expected net.IP
+	}{
+		{net.ParseIP("192.168.1.0"), net.ParseIP("192.168.1.1")},
+		{net.ParseIP("192.168.0.255"), net.ParseIP("192.168.1.0")},
+		{net.ParseIP("255.255.255.255"), net.ParseIP("0.0.0.0")},
+		{net.ParseIP("::"), net.ParseIP("::1")},
+		{net.ParseIP("ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff"), net.ParseIP("::")},
+	}
+
+	for _, test := range tests {
+		output := NextIP(test.input)
+		if !output.Equal(test.expected) {
+			t.Errorf("For input %v, expected %v, but got %v", test.input, test.expected, output)
+		}
+	}
 }

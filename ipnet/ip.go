@@ -78,32 +78,46 @@ func Uint64ToIP2(high, low uint64) net.IP {
 	}
 }
 
-// adjustIP modifies the IP by the given delta, which can be positive or negative.
-func adjustIP(ip net.IP, delta int) net.IP {
-	ipVals := make([]byte, len(ip))
-	copy(ipVals, ip)
-	i := len(ipVals) - 1
-	for i >= 0 {
-		sum := int(ipVals[i]) + delta
-		if 0 <= sum && sum <= 255 {
-			ipVals[i] = byte(sum)
-			break
-		}
-		// Adjust the next byte and continue
-		delta, ipVals[i] = sum/256, byte(sum%256)
-		i--
-	}
-	return net.IP(ipVals)
-}
-
 // PrevIP returns the IP immediately before the given IP.
 func PrevIP(ip net.IP) net.IP {
-	return adjustIP(ip, -1)
+	res := make(net.IP, len(ip))
+	copy(res, ip)
+
+	// Ensure it's a pure IPv4 or IPv6
+	if ip.To4() != nil {
+		ip = ip.To4()
+		res = res[len(res)-4:]
+	}
+
+	for i := len(ip) - 1; i >= 0; i-- {
+		if res[i] > 0 {
+			res[i]--
+			break
+		}
+		res[i] = 0xff
+	}
+	return res
 }
 
 // NextIP returns the IP immediately after the given IP.
 func NextIP(ip net.IP) net.IP {
-	return adjustIP(ip, 1)
+	res := make(net.IP, len(ip))
+	copy(res, ip)
+
+	// Ensure it's a pure IPv4 or IPv6
+	if ip.To4() != nil {
+		ip = ip.To4()
+		res = res[len(res)-4:]
+	}
+
+	for i := len(ip) - 1; i >= 0; i-- {
+		if res[i] < 0xff {
+			res[i]++
+			break
+		}
+		res[i] = 0
+	}
+	return res
 }
 
 // IPLess compares two IPs and returns true if the first IP is less than the second.
