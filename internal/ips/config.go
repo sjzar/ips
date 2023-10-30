@@ -100,6 +100,18 @@ type Config struct {
 	// WriterOption specifies the options for the writer.
 	WriterOption string `mapstructure:"writer_option"`
 
+	// MyIP
+	// LocalAddr specifies the local address (in IP format) that should be used for outbound connections.
+	// Useful in systems with multiple network interfaces.
+	LocalAddr string `mapstructure:"local_addr"`
+
+	// MyIPCount defines the minimum number of detectors that should return the same IP
+	// for the IP to be considered as the system's public IP.
+	MyIPCount int `mapstructure:"my_ip_count" default:"3"`
+
+	// MyIPTimeoutS specifies the maximum duration (in seconds) to wait for the detectors to return an IP.
+	MyIPTimeoutS int `mapstructure:"myip_timeout_s"`
+
 	// Service
 	// Addr specifies the address for the service.
 	Addr string `mapstructure:"addr" default:":6860"`
