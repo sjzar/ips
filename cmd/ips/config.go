@@ -112,6 +112,18 @@ var (
 	// writerOption specifies the options for the writer.
 	writerOption string
 
+	// myip
+	// localAddr specifies the local address (in IP format) that should be used for outbound connections.
+	// Useful in systems with multiple network interfaces.
+	localAddr string
+
+	// myIPCount defines the minimum number of detectors that should return the same IP
+	// for the IP to be considered as the system's public IP.
+	myIPCount int
+
+	// myIPTimeoutS specifies the maximum duration (in seconds) to wait for the detectors to return an IP.
+	myIPTimeoutS int
+
 	// server
 
 	// addr specifies the server address.
@@ -201,6 +213,18 @@ func GetFlagConfig() *ips.Config {
 
 	if len(addr) != 0 {
 		conf.Addr = addr
+	}
+
+	if len(localAddr) != 0 {
+		conf.LocalAddr = localAddr
+	}
+
+	if myIPCount != 0 {
+		conf.MyIPCount = myIPCount
+	}
+
+	if myIPTimeoutS != 0 {
+		conf.MyIPTimeoutS = myIPTimeoutS
 	}
 
 	return conf

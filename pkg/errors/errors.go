@@ -29,7 +29,6 @@ var (
 	ErrMismatchedFieldsLength = errors.New("mismatched fields length")
 	ErrInvalidCIDR            = errors.New("invalid CIDR format")
 	ErrCIDROverlap            = errors.New("CIDR overlap detected")
-	ErrReadCompleted          = errors.New("read operation already completed")
 	ErrMetaMissing            = errors.New("meta information missing")
 	ErrNilWriter              = errors.New("writer is not initialized")
 	ErrUnsupportedLanguage    = errors.New("unsupported language")
@@ -46,6 +45,7 @@ var (
 	ErrFailedDownload    = errors.New("failed to download")
 	ErrInvalidDirectory  = errors.New("invalid directory path")
 	ErrMissingConfigName = errors.New("config name not specified")
+	ErrDiscoveryFailed   = errors.New("failed to discover IP address")
 
 	// Server
 
