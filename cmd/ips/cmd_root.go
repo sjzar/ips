@@ -57,6 +57,7 @@ func init() {
 	rootCmd.Flags().StringVarP(&rootTextValuesSep, "text-values-sep", "", "", "Specify the separator for values in text output. (default is space)")
 	rootCmd.Flags().BoolVarP(&rootJson, "json", "j", false, "Output the results in JSON format.")
 	rootCmd.Flags().BoolVarP(&rootJsonIndent, "json-indent", "", false, "Output the results in indent JSON format.")
+	rootCmd.Flags().BoolVarP(&rootAlfred, "alfred", "", false, "Output the results in Alfred format.")
 }
 
 var rootCmd = &cobra.Command{
@@ -100,6 +101,9 @@ func Root(cmd *cobra.Command, args []string) {
 			ret, err := manager.ParseText(text)
 			if err != nil {
 				log.Fatal(err)
+			}
+			if len(ret) == 0 {
+				continue
 			}
 			fmt.Println(ret)
 		}

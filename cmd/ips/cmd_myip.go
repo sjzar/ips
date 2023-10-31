@@ -17,6 +17,8 @@
 package ips
 
 import (
+	"fmt"
+
 	"github.com/spf13/cobra"
 )
 
@@ -48,6 +50,8 @@ func init() {
 	myipCmd.Flags().StringVarP(&rootTextValuesSep, "text-values-sep", "", "", "Specify the separator for values in text output. (default is space)")
 	myipCmd.Flags().BoolVarP(&rootJson, "json", "j", false, "Output the results in JSON format.")
 	myipCmd.Flags().BoolVarP(&rootJsonIndent, "json-indent", "", false, "Output the results in indent JSON format.")
+	myipCmd.Flags().BoolVarP(&rootAlfred, "alfred", "", false, "Output the results in Alfred format.")
+
 }
 
 var myipCmd = &cobra.Command{
@@ -66,5 +70,5 @@ func MyIP(cmd *cobra.Command, args []string) {
 	if err != nil {
 		return
 	}
-	cmd.Println(ip)
+	fmt.Println(ip)
 }

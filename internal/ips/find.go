@@ -42,24 +42,25 @@ import (
 // based on the Manager configuration. It returns the combined result as a string.
 func (m *Manager) ParseText(text string) (string, error) {
 
-	buf := &bytes.Buffer{}
 	tp := parser.NewTextParser(text).Parse()
 
+	infoList := make([]interface{}, 0, len(tp.Segments))
 	for _, segment := range tp.Segments {
 		info, err := m.parseSegment(segment)
 		if err != nil {
 			log.Debug("m.parseSegment error: ", err)
 			return "", err
 		}
-		result, err := m.serialize(segment, info)
-		if err != nil {
-			log.Debug("m.serialize error: ", err)
-			return "", err
-		}
-		buf.WriteString(result)
+		infoList = append(infoList, info)
 	}
 
-	return buf.String(), nil
+	result, err := m.serialize(infoList)
+	if err != nil {
+		log.Debug("m.serialize error: ", err)
+		return "", err
+	}
+
+	return result, nil
 }
 
 // parseSegment processes the provided segment and returns the corresponding data.
@@ -127,49 +128,72 @@ func (m *Manager) parseDomain(content string) (*model.DomainInfo, error) {
 
 // serialize takes a segment and its associated data, then serializes the data
 // based on the Manager configuration and returns the serialized string.
-func (m *Manager) serialize(segment parser.Segment, data interface{}) (string, error) {
+func (m *Manager) serialize(data []interface{}) (string, error) {
 	switch m.Conf.OutputType {
 	case OutputTypeJSON:
-		switch v := data.(type) {
-		case *model.IPInfo:
-			return m.serializeIPInfoToJSON(v)
-		case *model.DomainInfo:
-		case string:
-			return v, nil
+		list := &model.DataList{}
+		for _, info := range data {
+			switch v := info.(type) {
+			case *model.IPInfo:
+				list.AddItem(v.Output(m.Conf.UseDBFields))
+			case *model.DomainInfo:
+			case string:
+				continue
+			}
 		}
+		return m.serializeDataToJSON(list)
+	case OutputTypeAlfred:
+		list := &model.DataList{}
+		for _, info := range data {
+			switch v := info.(type) {
+			case *model.IPInfo:
+				list.AddAlfredItemByIPInfo(v)
+			case *model.DomainInfo:
+			case string:
+				continue
+			}
+		}
+		list.AddAlfredItemEmpty()
+		return m.serializeDataToJSON(list)
 	default:
 		// default is OutputTypeText
-		switch v := data.(type) {
-		case *model.IPInfo:
-			return m.serializeIPInfoToText(segment.Content, v)
-		case *model.DomainInfo:
-		case string:
-			return v, nil
+		buf := &bytes.Buffer{}
+		for _, info := range data {
+			switch v := info.(type) {
+			case *model.IPInfo:
+				ret, err := m.serializeIPInfoToText(v)
+				if err != nil {
+					return "", err
+				}
+				buf.WriteString(ret)
+			case *model.DomainInfo:
+			case string:
+				buf.WriteString(v)
+			}
 		}
+		return buf.String(), nil
 	}
-
-	// impossible
-	return "", nil
 }
 
-// serializeIPInfoToText takes an IPInfo and the original content, then serializes
+// serializeIPInfoToText takes an IPInfo, then serializes
 // the IPInfo to a text format based on the Manager configuration.
-func (m *Manager) serializeIPInfoToText(content string, ipInfo *model.IPInfo) (string, error) {
+func (m *Manager) serializeIPInfoToText(ipInfo *model.IPInfo) (string, error) {
 	values := strings.Join(util.DeleteEmptyValue(ipInfo.Values()), m.Conf.TextValuesSep)
 	if values != "" {
-		ret := strings.Replace(m.Conf.TextFormat, "%origin", content, 1)
+		ret := strings.Replace(m.Conf.TextFormat, "%origin", ipInfo.IP.String(), 1)
 		ret = strings.Replace(ret, "%values", values, 1)
 		return ret, nil
 	}
 
-	return content, nil
+	return ipInfo.IP.String(), nil
 }
 
-// serializeIPInfoToJSON serializes the provided IPInfo to a JSON format
+// serializeDataToJSON serializes the provided DataList to a JSON format
 // based on the Manager configuration. It returns the JSON string.
-func (m *Manager) serializeIPInfoToJSON(ipInfo *model.IPInfo) (string, error) {
-	values := ipInfo.Output(m.Conf.UseDBFields)
-
+func (m *Manager) serializeDataToJSON(values *model.DataList) (string, error) {
+	if len(values.Items) == 0 {
+		return "", nil
+	}
 	var ret []byte
 	var err error
 	if m.Conf.JsonIndent {
@@ -182,7 +206,7 @@ func (m *Manager) serializeIPInfoToJSON(ipInfo *model.IPInfo) (string, error) {
 		return "", err
 	}
 
-	return string(ret) + "\n", nil
+	return string(ret), nil
 }
 
 // createReader sets up and returns an IP reader based on the specified format and file.
