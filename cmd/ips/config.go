@@ -85,6 +85,9 @@ var (
 	// rootJsonIndent defines whether to output in indented JSON format.
 	rootJsonIndent bool
 
+	// rootAlfred defines whether to output in Alfred format.
+	rootAlfred bool
+
 	// dump & pack command flags
 	// operate
 	// dpFields specifies the fields to output for dump and pack operations.
@@ -192,6 +195,10 @@ func GetFlagConfig() *ips.Config {
 	if rootJsonIndent {
 		conf.OutputType = ips.OutputTypeJSON
 		conf.JsonIndent = rootJsonIndent
+	}
+
+	if rootAlfred {
+		conf.OutputType = ips.OutputTypeAlfred
 	}
 
 	// dump & pack command flags

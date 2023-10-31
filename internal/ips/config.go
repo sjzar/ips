@@ -35,6 +35,9 @@ const (
 	// OutputTypeJSON represents the JSON output format.
 	OutputTypeJSON = "json"
 
+	// OutputTypeAlfred represents the Alfred output format.
+	OutputTypeAlfred = "alfred"
+
 	// DefaultFields represents the default output fields.
 	DefaultFields = "country,province,city,isp"
 )
