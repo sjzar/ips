@@ -17,6 +17,21 @@ ips is a command-line tool and library that facilitates the querying, dumping, a
 go install github.com/sjzar/ips@latest
 ```
 
+#### Binary Installation
+
+[![Windows](https://img.shields.io/badge/-Windows_x64-blue.svg?style=for-the-badge&logo=windows)](https://github.com/sjzar/ips/releases/latest/download/ips_windows.exe)
+[![Unix](https://img.shields.io/badge/-Linux/BSD-red.svg?style=for-the-badge&logo=linux)](https://github.com/sjzar/ips/releases/latest/download/ips_linux)
+[![MacOS](https://img.shields.io/badge/-MacOS-lightblue.svg?style=for-the-badge&logo=apple)](https://github.com/sjzar/ips/releases/latest/download/ips_macos)
+
+Download the latest binary files from [GitHub Releases](https://github.com/sjzar/ips/releases).
+
+#### Homebrew Installation
+
+```shell
+brew tap sjzar/tap
+brew install ips
+```
+
 ### Features
 
 * One-click querying, dumping, and packaging of IP geolocation databases
@@ -28,17 +43,19 @@ go install github.com/sjzar/ips@latest
 
 ### Supported Databases
 
-| Database     | Query | Dump | Pack | Official Website                                              | Command   |
-|:----------|:---|:---|:---|:--------------------------------------------------|:----------|
-| txt       | -  | ✅  | ✅  | -                                                 | Used for project dumps  |
-| ipdb      | ✅  | ✅  | ✅  | [Link](https://ipip.net)                          |           |
-| mmdb      | ✅  | ✅  | ✅  | [Link](https://maxmind.com)                       |           |
-| awdb      | ✅  | ✅  | -  | [Link](https://ipplus360.com)                     |           |
-| qqwry     | ✅  | ✅  | -  | [Link](https://cz88.net)                          | IPv4 only |
-| zxinc     | ✅  | ✅  | -  | [Link](https://ip.zxinc.org)                      | IPv6 only |
-| ip2region | ✅  | ✅  | -  | [Link](https://github.com/lionsoul2014/ip2region) | IPv4 only |
+| Database  | Query | Dump | Pack | Official Website                                  | Command                |
+|:----------|:------|:-----|:-----|:--------------------------------------------------|:-----------------------|
+| txt       | ✅     | ✅    | ✅    | -                                                 | Used for project dumps |
+| ipdb      | ✅     | ✅    | ✅    | [Link](https://ipip.net)                          |                        |
+| mmdb      | ✅     | ✅    | ✅    | [Link](https://maxmind.com)                       |                        |
+| awdb      | ✅     | ✅    | -    | [Link](https://ipplus360.com)                     |                        |
+| qqwry     | ✅     | ✅    | -    | [Link](https://cz88.net)                          | IPv4 only              |
+| zxinc     | ✅     | ✅    | -    | [Link](https://ip.zxinc.org)                      | IPv6 only              |
+| ip2region | ✅     | ✅    | -    | [Link](https://github.com/lionsoul2014/ip2region) | IPv4 only              |
 
 ### Usage
+
+For more detailed usage instructions, please refer to [usage_en.md](./docs/usage_en.md).
 
 #### Query
 

@@ -31,17 +31,20 @@ func init() {
 }
 
 var downloadCmd = &cobra.Command{
-	Use:   "download [file] [url]",
-	Short: "Download database files",
-	Long: `Example:
- # download list file city.free.ipdb
- ips download city.free.ipdb
+	Use:   "download [database_name] [custom_url]",
+	Short: "Download IP database files",
+	Long: `The 'ips download' command facilitates the acquisition and updating of IP geolocation database files.
 
- # download another database file
- ips download city.ipdb https://foo.com/city.ipdb
+For more detailed information and advanced configuration options, please refer to https://github.com/sjzar/ips/blob/main/docs/download.md
+`,
+	Example: `  # To download a predefined database file
+  ips download city.free.ipdb
 
- # set database file after download
- ips config set ipv4 city.ipdb`,
+  # To download a database file from a custom URL
+  ips download city.ipdb https://foo.com/city.ipdb
+
+  # To configure the downloaded file as the default IPv4 database
+  ips config set ipv4 city.ipdb`,
 	PreRun: PreRunInit,
 	Run:    Download,
 }

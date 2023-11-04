@@ -25,28 +25,29 @@ func init() {
 	rootCmd.AddCommand(packCmd)
 
 	// operate
-	packCmd.Flags().StringVarP(&dpFields, "fields", "f", "", "Specify the fields to be dumped from the input file. Default is all fields.")
-	packCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
-	packCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
+	packCmd.Flags().StringVarP(&dpFields, "fields", "f", "", UsageDPFields)
+	packCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", UsageRewriteFiles)
+	packCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// input & output
-	packCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", "Path to the IP database file.")
-	packCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", "Specify the format of the input file. Examples: ipdb, mmdb, etc.")
-	packCmd.Flags().StringVarP(&readerOption, "input-option", "", "", "Specify the option for database reader.")
-	packCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", "Path to the packed IP database file.")
-	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", "Specify the format of the output file. Examples: ipdb, mmdb, etc.")
-	packCmd.Flags().StringVarP(&writerOption, "output-option", "", "", "Specify the option for database writer.")
+	packCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", UsageDPInputFile)
+	packCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", UsageDPInputFormat)
+	packCmd.Flags().StringVarP(&readerOption, "input-option", "", "", UsageReaderOption)
+	packCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsagePackOutputFile)
+	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", UsagePackOutputFormat)
+	packCmd.Flags().StringVarP(&writerOption, "output-option", "", "", UsageWriterOption)
 
 }
 
 var packCmd = &cobra.Command{
 	Use:   "pack -i inputFile [--input-format format] -o outputFile [--output-format format]",
-	Short: "Pack data from IP database file to another IP database file.",
-	Long: `Pack data from IP database file to another IP database file.
+	Short: "Repackage IP database file",
+	Long: `The 'ips pack' command enables users to create a new IP database file from an existing one while allowing for customization of the data fields included.
 
-Example:
-    ips pack -i geoip.mmdb -o geoip.ipdb
+For more detailed information and advanced configuration options, please refer to https://github.com/sjzar/ips/blob/main/docs/pack.md
 `,
+	Example: `  # Package IP Database and Specify Fields
+  ips pack -i geoip.mmdb -o geoip_custom.ipdb --fields "country,city"`,
 	PreRun: PreRunInit,
 	Run:    Pack,
 }

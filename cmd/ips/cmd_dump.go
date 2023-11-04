@@ -27,26 +27,30 @@ func init() {
 	rootCmd.AddCommand(dumpCmd)
 
 	// operate
-	dumpCmd.Flags().StringVarP(&dpFields, "fields", "f", "", "Specify the fields to be dumped from the input file. Default is all fields.")
-	dumpCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
-	dumpCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
+	dumpCmd.Flags().StringVarP(&dpFields, "fields", "f", "", UsageDPFields)
+	dumpCmd.Flags().StringVarP(&dpRewriterFiles, "rewrite-files", "r", "", UsageRewriteFiles)
+	dumpCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// input & output
-	dumpCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", "Path to the IP database file.")
-	dumpCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", "Specify the format of the input file. Examples: ipdb, mmdb, etc.")
-	dumpCmd.Flags().StringVarP(&readerOption, "input-option", "", "", "Specify the option for database reader.")
-	dumpCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", "Path to the dumped file.")
+	dumpCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", UsageDPInputFile)
+	dumpCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", UsageDPInputFormat)
+	dumpCmd.Flags().StringVarP(&readerOption, "input-option", "", "", UsageReaderOption)
+	dumpCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsageDumpOutputFile)
 
 }
 
 var dumpCmd = &cobra.Command{
 	Use:   "dump -i inputFile [--input-format] [-o outputFile]",
-	Short: "Dump data from IP database file to plain file.",
-	Long: `Dump data from IP database file to plain file.
+	Short: "Export IP database contents to a text file",
+	Long: `Use the 'ips dump' command to extract and export data from IP databases into a plain text format, which can be tailored by specifying fields, formats, and languages.
 
-Example:
-    ips dump -i geoip.mmdb -o geoip.txt
+For more detailed information and advanced configuration options, please refer to https://github.com/sjzar/ips/blob/main/docs/dump.md
 `,
+	Example: `  # Export all fields from an IP database file to a text file
+  ips dump -i geoip.mmdb -o geoip.txt
+
+  # Export specific fields (country and city) from an IP database file
+  ips dump -i geoip.mmdb -o geoip.txt --fields "country,city"`,
 	PreRun: PreRunInit,
 	Run:    Dump,
 }

@@ -23,22 +23,22 @@ import (
 func init() {
 	rootCmd.AddCommand(serverCmd)
 	// server
-	serverCmd.Flags().StringVarP(&addr, "addr", "a", "", "server listen address")
+	serverCmd.Flags().StringVarP(&addr, "addr", "a", "", "Listen address")
 
 	// operate
-	serverCmd.Flags().StringVarP(&fields, "fields", "f", "", "Specify the fields of interest for the IP data. Separate multiple fields with commas.")
-	serverCmd.Flags().BoolVarP(&useDBFields, "use-db-fields", "", false, "Use field names as they appear in the database. Default is common field names.")
-	serverCmd.Flags().StringVarP(&rewriteFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
-	serverCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
+	serverCmd.Flags().StringVarP(&fields, "fields", "f", "", UsageFields)
+	serverCmd.Flags().BoolVarP(&useDBFields, "use-db-fields", "", false, UsageUseDBFields)
+	serverCmd.Flags().StringVarP(&rewriteFiles, "rewrite-files", "r", "", UsageRewriteFiles)
+	serverCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// database
-	serverCmd.Flags().StringVarP(&rootFile, "file", "i", "", "Path to the IPv4 and IPv6 database file.")
-	serverCmd.Flags().StringVarP(&rootFormat, "format", "", "", "Specify the format of the database. Examples: ipdb, mmdb, etc.")
-	serverCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", "Path to the IPv4 database file.")
-	serverCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", "Specify the format for IPv4 data. Examples: ipdb, mmdb, etc.")
-	serverCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", "Path to the IPv6 database file.")
-	serverCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", "Specify the format for IPv6 data. Examples: ipdb, mmdb, etc.")
-	serverCmd.Flags().StringVarP(&readerOption, "database-option", "", "", "Specify the option for database reader.")
+	serverCmd.Flags().StringVarP(&rootFile, "file", "i", "", UsageQueryFile)
+	serverCmd.Flags().StringVarP(&rootFormat, "format", "", "", UsageQueryFormat)
+	serverCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", UsageQueryIPv4File)
+	serverCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", UsageQueryIPv4Format)
+	serverCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", UsageQueryIPv6File)
+	serverCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", UsageQueryIPv6Format)
+	serverCmd.Flags().StringVarP(&readerOption, "database-option", "", "", UsageReaderOption)
 }
 
 var serverCmd = &cobra.Command{

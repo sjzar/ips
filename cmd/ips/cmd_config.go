@@ -37,26 +37,31 @@ func init() {
 
 var configCmd = &cobra.Command{
 	Use:   "config [set <key> <value>] [unset <key>] [reset]",
-	Short: "View or modify ips configuration items",
-	Long: `Example:
- # set ipv4 database file path
- ips config set ipv4 ~/path/to/ipv4.db
+	Short: "Manage IPS configuration settings",
+	Long: `The 'ips config' command allows you to view and change various settings for IPS.
 
- # set ipv4 database format
- ips config set ipv4_format ipdb
+You can specify database file paths, select output fields, and choose the format for IP databases.
 
- # set query fields
- ips config set fields "country,province,city,isp"
+Use 'set' to change a setting, 'unset' to remove it, and 'reset' to revert all settings to default values.
 
- # unset ipv6 database file path
- ips config unset ipv6
+For IPv6, use similar commands, like 'ips config set ipv6_format mmdb' to specify the format.
 
- # reset config
- ips config reset
+For more detailed information and advanced configuration options, please refer to https://github.com/sjzar/ips/blob/main/docs/config.md
+`,
+	Example: `  # Set the IPv4 database file path:
+  ips config set ipv4 ~/path/to/ipv4.db
 
- # ipv4 format: ipip, qqwry, maxmind, ip2region, dbip
- # ipv6 format: zxinc, maxmind, dbip
- # use 'ips config set ipv4 ipdb' or 'ips config set ipv6 zxinc' to set format`,
+  # Set the IPv4 database format:
+  ips config set ipv4_format ipdb
+
+  # Configure the fields to display in query results:
+  ips config set fields "country,province,city,isp"
+
+  # Remove the IPv6 database file path setting:
+  ips config unset ipv6
+
+  # Reset all configuration settings to their default values:
+  ips config reset`,
 	PreRun: PreRunInit,
 	Run:    Config,
 }
