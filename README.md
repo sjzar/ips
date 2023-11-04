@@ -17,6 +17,21 @@ ips 是一个命令行工具与库，可以轻松完成 IP 地理位置数据库
 go install github.com/sjzar/ips@latest
 ```
 
+#### 二进制安装
+
+[![Windows](https://img.shields.io/badge/-Windows_x64-blue.svg?style=for-the-badge&logo=windows)](https://github.com/sjzar/ips/releases/latest/download/ips_windows.exe)
+[![Unix](https://img.shields.io/badge/-Linux/BSD-red.svg?style=for-the-badge&logo=linux)](https://github.com/sjzar/ips/releases/latest/download/ips_linux)
+[![MacOS](https://img.shields.io/badge/-MacOS-lightblue.svg?style=for-the-badge&logo=apple)](https://github.com/sjzar/ips/releases/latest/download/ips_macos)
+
+从 [GitHub Releases](https://github.com/sjzar/ips/releases) 下载最新版本的二进制文件。
+
+#### Homebrew 安装
+
+```bash
+brew tap sjzar/tap
+brew install ips
+```
+
 ### 特性
 
 * 一键查询、转存和打包 IP 地理位置数据库
@@ -30,7 +45,7 @@ go install github.com/sjzar/ips@latest
 
 | 数据库       | 查询 | 转存 | 打包 | 官方网站                                              | 说明        |
 |:----------|:---|:---|:---|:--------------------------------------------------|:----------|
-| txt       | -  | ✅  | ✅  | -                                                 | 本项目转存时使用  |
+| txt       | ✅  | ✅  | ✅  | -                                                 | 本项目转存时使用  |
 | ipdb      | ✅  | ✅  | ✅  | [Link](https://ipip.net)                          |           |
 | mmdb      | ✅  | ✅  | ✅  | [Link](https://maxmind.com)                       |           |
 | awdb      | ✅  | ✅  | -  | [Link](https://ipplus360.com)                     |           |
@@ -39,6 +54,8 @@ go install github.com/sjzar/ips@latest
 | ip2region | ✅  | ✅  | -  | [Link](https://github.com/lionsoul2014/ip2region) | IPv4 only |
 
 ### 使用方法
+
+更详细的使用说明请翻阅 [usage.md](./docs/usage.md) 。
 
 #### 查询
 

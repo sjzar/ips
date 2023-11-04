@@ -35,29 +35,30 @@ var manager *ips.Manager
 // Initialization function for setting up command line arguments and flags.
 func init() {
 	// common
-	rootCmd.PersistentFlags().StringVarP(&logLevel, "loglevel", "", "info", "Set the desired verbosity level for logging. Example values: debug, info, warn, etc.")
+	rootCmd.PersistentFlags().StringVarP(&logLevel, "loglevel", "", "info", UsageLogLevel)
 
 	// operate
-	rootCmd.Flags().StringVarP(&fields, "fields", "f", "", "Specify the fields of interest for the IP data. Separate multiple fields with commas.")
-	rootCmd.Flags().BoolVarP(&useDBFields, "use-db-fields", "", false, "Use field names as they appear in the database. Default is common field names.")
-	rootCmd.Flags().StringVarP(&rewriteFiles, "rewrite-files", "r", "", "List of files that need to be rewritten based on the given configurations.")
-	rootCmd.Flags().StringVarP(&lang, "lang", "", "", "Set the language for the output. Example values: en, zh-CN, etc.")
+
+	rootCmd.Flags().StringVarP(&fields, "fields", "f", "", UsageFields)
+	rootCmd.Flags().BoolVarP(&useDBFields, "use-db-fields", "", false, UsageUseDBFields)
+	rootCmd.Flags().StringVarP(&rewriteFiles, "rewrite-files", "r", "", UsageRewriteFiles)
+	rootCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// database
-	rootCmd.Flags().StringVarP(&rootFile, "file", "i", "", "Path to the IPv4 and IPv6 database file.")
-	rootCmd.Flags().StringVarP(&rootFormat, "format", "", "", "Specify the format of the database. Examples: ipdb, mmdb, etc.")
-	rootCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", "Path to the IPv4 database file.")
-	rootCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", "Specify the format for IPv4 data. Examples: ipdb, mmdb, etc.")
-	rootCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", "Path to the IPv6 database file.")
-	rootCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", "Specify the format for IPv6 data. Examples: ipdb, mmdb, etc.")
-	rootCmd.Flags().StringVarP(&readerOption, "database-option", "", "", "Specify the option for database reader.")
+	rootCmd.Flags().StringVarP(&rootFile, "file", "i", "", UsageQueryFile)
+	rootCmd.Flags().StringVarP(&rootFormat, "format", "", "", UsageQueryFormat)
+	rootCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", UsageQueryIPv4File)
+	rootCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", UsageQueryIPv4Format)
+	rootCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", UsageQueryIPv6File)
+	rootCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", UsageQueryIPv6Format)
+	rootCmd.Flags().StringVarP(&readerOption, "database-option", "", "", UsageReaderOption)
 
 	// output
-	rootCmd.Flags().StringVarP(&rootTextFormat, "text-format", "", "", "Specify the desired format for text output. It supports %origin and %values parameters.")
-	rootCmd.Flags().StringVarP(&rootTextValuesSep, "text-values-sep", "", "", "Specify the separator for values in text output. (default is space)")
-	rootCmd.Flags().BoolVarP(&rootJson, "json", "j", false, "Output the results in JSON format.")
-	rootCmd.Flags().BoolVarP(&rootJsonIndent, "json-indent", "", false, "Output the results in indent JSON format.")
-	rootCmd.Flags().BoolVarP(&rootAlfred, "alfred", "", false, "Output the results in Alfred format.")
+	rootCmd.Flags().StringVarP(&rootTextFormat, "text-format", "", "", UsageTextFormat)
+	rootCmd.Flags().StringVarP(&rootTextValuesSep, "text-values-sep", "", "", UsageTextValuesSep)
+	rootCmd.Flags().BoolVarP(&rootJson, "json", "j", false, UsageJson)
+	rootCmd.Flags().BoolVarP(&rootJsonIndent, "json-indent", "", false, UsageJsonIndent)
+	rootCmd.Flags().BoolVarP(&rootAlfred, "alfred", "", false, UsageAlfred)
 }
 
 var rootCmd = &cobra.Command{
@@ -65,8 +66,20 @@ var rootCmd = &cobra.Command{
 	Short: "IP Geolocation Database Tools",
 	Long: `IP Geolocation Database Tools
 
-ips is a command line tool for querying IP geolocation information and repacking database file.
+The 'ips' is a command line tool for querying IP geolocation information and repacking database file.
+
+It allows for flexible queries via command-line or pipe input, supporting both IPv4 and IPv6 formats, and provides customizable outputs.
+
+For more detailed information and advanced configuration options, please refer to https://github.com/sjzar/ips/blob/main/docs/query.md
 `,
+	Example: `  # Standard IP query
+  ips 8.8.8.8
+
+  # Custom fields and output format
+  ips 8.8.8.8 -f "country,city" --text-format "%values" --text-values-sep ":"
+
+  # Pipeline query
+  echo 8.8.8.8 | ips`,
 	Args: cobra.MinimumNArgs(0),
 	CompletionOptions: cobra.CompletionOptions{
 		HiddenDefaultCmd: true,

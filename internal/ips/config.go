@@ -110,7 +110,7 @@ type Config struct {
 
 	// MyIPCount defines the minimum number of detectors that should return the same IP
 	// for the IP to be considered as the system's public IP.
-	MyIPCount int `mapstructure:"my_ip_count" default:"3"`
+	MyIPCount int `mapstructure:"myip_count" default:"3"`
 
 	// MyIPTimeoutS specifies the maximum duration (in seconds) to wait for the detectors to return an IP.
 	MyIPTimeoutS int `mapstructure:"myip_timeout_s"`
