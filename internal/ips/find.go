@@ -26,6 +26,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
+	"github.com/sjzar/ips/domainlist"
 	"github.com/sjzar/ips/format"
 	"github.com/sjzar/ips/format/mmdb"
 	"github.com/sjzar/ips/format/qqwry"
@@ -121,6 +122,10 @@ func (m *Manager) parseIPv6(ip net.IP) (*model.IPInfo, error) {
 
 // parseDomain fetches the information for the given domain. Implementation is pending.
 func (m *Manager) parseDomain(content string) (*model.DomainInfo, error) {
+	if ret, ok := domainlist.GetDomainInfo(content); ok {
+		return ret, nil
+	}
+
 	return &model.DomainInfo{
 		Domain: content,
 	}, nil
@@ -137,6 +142,7 @@ func (m *Manager) serialize(data []interface{}) (string, error) {
 			case *model.IPInfo:
 				list.AddItem(v.Output(m.Conf.UseDBFields))
 			case *model.DomainInfo:
+				list.AddItem(v)
 			case string:
 				continue
 			}
@@ -149,6 +155,7 @@ func (m *Manager) serialize(data []interface{}) (string, error) {
 			case *model.IPInfo:
 				list.AddAlfredItemByIPInfo(v)
 			case *model.DomainInfo:
+				list.AddAlfredItemByDomainInfo(v)
 			case string:
 				continue
 			}
@@ -167,6 +174,11 @@ func (m *Manager) serialize(data []interface{}) (string, error) {
 				}
 				buf.WriteString(ret)
 			case *model.DomainInfo:
+				ret, err := m.serializeDomainInfoToText(v)
+				if err != nil {
+					return "", err
+				}
+				buf.WriteString(ret)
 			case string:
 				buf.WriteString(v)
 			}
@@ -186,6 +198,19 @@ func (m *Manager) serializeIPInfoToText(ipInfo *model.IPInfo) (string, error) {
 	}
 
 	return ipInfo.IP.String(), nil
+}
+
+// serializeDomainInfoToText takes a DomainInfo, then serializes
+// the DomainInfo to a text format based on the Manager configuration.
+func (m *Manager) serializeDomainInfoToText(domainInfo *model.DomainInfo) (string, error) {
+	values := strings.Join(util.DeleteEmptyValue(domainInfo.Values()), m.Conf.TextValuesSep)
+	if values != "" {
+		ret := strings.Replace(m.Conf.TextFormat, "%origin", domainInfo.Domain, 1)
+		ret = strings.Replace(ret, "%values", values, 1)
+		return ret, nil
+	}
+
+	return domainInfo.Domain, nil
 }
 
 // serializeDataToJSON serializes the provided DataList to a JSON format
