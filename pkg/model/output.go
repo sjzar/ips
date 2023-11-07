@@ -74,6 +74,23 @@ func (d *DataList) AddAlfredItemByIPInfo(info *IPInfo) {
 	d.AddItem(item)
 }
 
+// AddAlfredItemByDomainInfo creates an AlfredItem from the provided DomainInfo
+// and adds it to the DataList.
+func (d *DataList) AddAlfredItemByDomainInfo(info *DomainInfo) {
+	values := strings.Join(util.DeleteEmptyValue(info.Values()), " ")
+	item := AlfredItem{
+		Title:    fmt.Sprintf("%s [%s]", info.Domain, values),
+		Subtitle: "Copy to clipboard",
+		Arg:      values,
+		Icon:     AlfredIcon{},
+		Valid:    true,
+		Text: AlfredText{
+			Copy: values,
+		},
+	}
+	d.AddItem(item)
+}
+
 // AddAlfredItemEmpty adds a default "Not found" AlfredItem to the DataList
 // if the list is empty.
 func (d *DataList) AddAlfredItemEmpty() {

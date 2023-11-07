@@ -16,8 +16,39 @@
 
 package model
 
+import (
+	"sort"
+)
+
+// DomainInfo holds details about a specific domain, including its name, main domain, and associated data.
 type DomainInfo struct {
 
 	// Domain is the domain name.
 	Domain string `json:"domain"`
+
+	// MainDomain is the main domain name.
+	MainDomain string `json:"main_domain"`
+
+	// Data holds the actual information related to the domain.
+	Data map[string]string `json:"data"`
+}
+
+// Values extracts the values from the Data map, sorts them alphabetically, and returns them as a slice of strings.
+// If the DomainInfo receiver or its Data map is nil, it returns nil to indicate the absence of data.
+func (d *DomainInfo) Values() []string {
+	if d == nil || d.Data == nil {
+		return nil
+	}
+	keys := make([]string, 0, len(d.Data))
+	for k := range d.Data {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	values := make([]string, 0, len(d.Data))
+	for _, v := range keys {
+		values = append(values, d.Data[v])
+	}
+
+	return values
 }

@@ -18,6 +18,8 @@ package parser
 
 import (
 	"sort"
+
+	"golang.org/x/net/publicsuffix"
 )
 
 const (
@@ -50,7 +52,7 @@ func NewTextParser(text string) *TextParser {
 
 // Parse parses the text to extract IPv4, IPv6, and other segments.
 func (t *TextParser) Parse() *TextParser {
-	return t.ParseIPv4().ParseIPv6().Distinct()
+	return t.ParseIPv4().ParseIPv6().ParseDomain().Distinct()
 }
 
 // ParseIPv4 extracts IPv4 segments from the text.
@@ -86,6 +88,30 @@ func (t *TextParser) ParseIPv6() *TextParser {
 				End:     v[1],
 				Type:    TextTypeIPv6,
 				Content: t.Text[v[0]:v[1]],
+			}
+			t.Segments = append(t.Segments, seg)
+		}
+	}
+	return t
+}
+
+// ParseDomain extracts domain segments from the text.
+func (t *TextParser) ParseDomain() *TextParser {
+	index := DomainRegexp.FindAllStringIndex(t.Text, -1)
+	if len(index) > 0 {
+		if t.Segments == nil {
+			t.Segments = make([]Segment, 0, len(index))
+		}
+		for _, v := range index {
+			domain := t.Text[v[0]:v[1]]
+			if _, ok := publicsuffix.PublicSuffix(domain); !ok {
+				continue
+			}
+			seg := Segment{
+				Start:   v[0],
+				End:     v[1],
+				Type:    TextTypeDomain,
+				Content: domain,
 			}
 			t.Segments = append(t.Segments, seg)
 		}

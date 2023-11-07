@@ -89,5 +89,5 @@ ips 8.8.8.8 --text-format "%values" --text-values-sep ":" --fields "country,city
 - 若初次使用，且没有指定数据库文件路径，则会自动下载 IP 数据库文件。
 - 关于默认 IP 数据库的选择
   - IPv4 的默认数据库为 `qqwry.dat`，选择纯真是因为目前有持续更新的社区资源（感谢 [@metowolf](https://github.com/metowolf)），对于非国内用户，建议使用 `GeoLite2-City.mmdb` 或商用数据库。
-  - IPv6 的默认数据库为 `zxipv6wry.db`，由于数据库文件较小，可以初次使用 IPS 工具时的体验，但这个数据库内容较为陈旧（最后更新时间为 2021 年 7 月），建议使用 `GeoLite2-City.mmdb` 或商用数据库。
+  - IPv6 的默认数据库为 `zxipv6wry.db`，由于数据库文件较小，可以优化初次使用 IPS 工具时的体验，但这个数据库内容较为陈旧（最后更新时间为 2021 年 7 月），建议使用 `GeoLite2-City.mmdb` 或商用数据库。
 - 部分国家 IP 地理位置信息更新较快，如果商业项目使用本工具，请务必更换为较新的商业数据库！

@@ -11,7 +11,7 @@
     * [Customize Export Fields](#customize-export-fields)
     * [Set Output Language and Rewrite Rules](#set-output-language-and-rewrite-rules)
   * [Notes](#notes)
-<!-- TOC -->>
+<!-- TOC -->
 
 ## Introduction
 
