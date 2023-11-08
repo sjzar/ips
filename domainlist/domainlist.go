@@ -37,7 +37,7 @@ var DomainList map[string]string
 func init() {
 	DomainList = make(map[string]string)
 
-	r := strings.NewReader(strings.Join([]string{data.CDNDomainList, data.CompanyDomainList}, "\n"))
+	r := strings.NewReader(strings.Join([]string{data.PlatformDomainList, data.ApplicationDomainList, data.OverseasDomainList}, "\n"))
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
 		line := scanner.Bytes()

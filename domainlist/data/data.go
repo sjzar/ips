@@ -20,8 +20,11 @@ import (
 	_ "embed"
 )
 
-//go:embed cdn.txt
-var CDNDomainList string
+//go:embed platform.txt
+var PlatformDomainList string
 
-//go:embed company.txt
-var CompanyDomainList string
+//go:embed application.txt
+var ApplicationDomainList string
+
+//go:embed ov.txt
+var OverseasDomainList string
