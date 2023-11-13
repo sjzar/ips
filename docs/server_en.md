@@ -22,6 +22,7 @@ ips server [--addr address] [flags]
 - `--ipv4-format string`：Specifies the format for the IPv4 database file; used in conjunction with `--ipv4-file`. The default is auto-detection.
 - `--ipv6-file string`：Specifies the path to the IPv6 database file.
 - `--ipv6-format string`：Specifies the format for the IPv6 database file; used in conjunction with `--ipv6-file`. The default is auto-detection.
+- `--hybrid-mode string`: Specifies the operational mode for the Hybrid Reader. Options are `comparison` and `aggregation`. For more details, refer to [IPS Configuration Documentation](./config_en.md#hybridmode).
 - `--lang string`：Sets the language for the output. The default is `zh-CN` (Chinese). For more details, refer to [IPS Configuration Documentation](./config_en.md#lang)。
 - `-f, --fields string`：Specifies the fields to retrieve from the input file. The default is all fields. For more details, refer to [IPS Configuration Documentation](./config_en.md#fields)。
 - `-r, --rewrite-files string`：Specifies a list of files to be rewritten based on the provided configurations. For more details, refer to [IPS Configuration Documentation](./config_en.md#rewritefiles)。

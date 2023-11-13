@@ -37,6 +37,7 @@ ips server [--addr address] [flags]
 - `--ipv4-format string`：指定 IPv4 数据库文件的格式，需要与 `--ipv4-file` 配合使用。默认为自动检测。
 - `--ipv6-file string`：指定 IPv6 数据库文件的路径。
 - `--ipv6-format string`：指定 IPv6 数据库文件的格式，需要与 `--ipv6-file` 配合使用。默认为自动检测。
+- `--hybrid-mode string`: 指定混合读取器的操作模式，可选值为 `comparison` 与 `aggregation`，参数详细解释请参考 [IPS 配置说明](./config.md#hybridmode)。
 - `--lang string`：设置输出信息的语言。默认为 `zh-CN` (中文)。参数详细解释请参考 [IPS 配置说明](./config.md#lang)。
 - `-f, --fields string`：指定从输入文件中获取的字段。默认为所有字段。参数详细解释请参考 [IPS 配置说明](./config.md#fields)。
 - `-r, --rewrite-files string`：指定需要载入的改写文件列表。参数详细解释请参考 [IPS 配置说明](./config.md#rewritefiles)。

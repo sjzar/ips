@@ -30,9 +30,10 @@ func init() {
 	packCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// input & output
-	packCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", UsageDPInputFile)
-	packCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", UsageDPInputFormat)
+	packCmd.Flags().StringSliceVarP(&inputFile, "input-file", "i", nil, UsageDPInputFile)
+	packCmd.Flags().StringSliceVarP(&inputFormat, "input-format", "", nil, UsageDPInputFormat)
 	packCmd.Flags().StringVarP(&readerOption, "input-option", "", "", UsageReaderOption)
+	packCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
 	packCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsagePackOutputFile)
 	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", UsagePackOutputFormat)
 	packCmd.Flags().StringVarP(&writerOption, "output-option", "", "", UsageWriterOption)

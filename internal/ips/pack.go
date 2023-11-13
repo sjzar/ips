@@ -19,81 +19,29 @@ package ips
 import (
 	"net/url"
 	"os"
-	"strings"
 
 	log "github.com/sirupsen/logrus"
 
 	"github.com/sjzar/ips/format"
 	"github.com/sjzar/ips/format/mmdb"
 	"github.com/sjzar/ips/format/plain"
-	"github.com/sjzar/ips/internal/data"
 	"github.com/sjzar/ips/internal/ipio"
-	"github.com/sjzar/ips/internal/operate"
+	"github.com/sjzar/ips/pkg/errors"
 )
 
 // Pack reads data from a database file, processes it, and writes it to an output.
-func (m *Manager) Pack(_format, file, _outputFormat, outputFile string) error {
+func (m *Manager) Pack(_format, file []string, _outputFormat, outputFile string) error {
 
-	// Create a new DB Reader
-	dbr, err := format.NewReader(_format, file)
+	if len(_format) == 0 {
+		_format = make([]string, len(file))
+	} else if len(file) != len(_format) {
+		return errors.ErrInvalidFormat
+	}
+
+	reader, err := m.createReader(_format, file, true)
 	if err != nil {
-		log.Debug("format.NewReader error: ", err)
+		log.Debug("m.createReader error: ", err)
 		return err
-	}
-	defer func() {
-		_ = dbr.Close()
-	}()
-
-	// Add specific logic based on the db reader type
-	switch dbr.(type) {
-	case *mmdb.Reader:
-		readerOptionArg, err := url.ParseQuery(m.Conf.ReaderOption)
-		if err != nil {
-			log.Debug("url.ParseQuery error: ", err)
-			return err
-		}
-		option := mmdb.ReaderOption{
-			DisableExtraData: readerOptionArg.Get("disable_extra_data") == "true",
-			UseFullField:     readerOptionArg.Get("use_full_field") == "true",
-		}
-		if err := dbr.SetOption(option); err != nil {
-			log.Debug("reader.SetOption error: ", err)
-			return err
-		}
-	}
-
-	// Initialize the reader
-	reader := ipio.NewStandardReader(dbr, nil)
-
-	// Setup field selector
-	fs, err := operate.NewFieldSelector(reader.Meta(), m.Conf.DPFields)
-	if err != nil {
-		log.Debug("operate.NewFieldSelector error: ", err)
-		return err
-	}
-	reader.OperateChain.Use(fs.Do)
-
-	// Setup data rewriter
-	rw := operate.NewDataRewriter()
-	if len(m.Conf.DPRewriterFiles) > 0 {
-		if err := rw.LoadFiles(strings.Split(m.Conf.DPRewriterFiles, ",")); err != nil {
-			log.Debug("rw.LoadFiles error: ", err)
-			return err
-		}
-	}
-
-	// common database process
-	rw.LoadString(data.ASN2ISP, data.Province, data.City, data.ISP)
-
-	reader.OperateChain.Use(rw.Do)
-
-	if len(m.Conf.Lang) != 0 {
-		tl, err := operate.NewTranslator(m.Conf.Lang)
-		if err != nil {
-			log.Debug("operate.NewTranslator error: ", err)
-			return err
-		}
-		reader.OperateChain.Use(tl.Do)
 	}
 
 	// Setup the writer

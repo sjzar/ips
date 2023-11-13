@@ -32,13 +32,15 @@ func init() {
 	serverCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// database
-	serverCmd.Flags().StringVarP(&rootFile, "file", "i", "", UsageQueryFile)
-	serverCmd.Flags().StringVarP(&rootFormat, "format", "", "", UsageQueryFormat)
-	serverCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", UsageQueryIPv4File)
-	serverCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", UsageQueryIPv4Format)
-	serverCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", UsageQueryIPv6File)
-	serverCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", UsageQueryIPv6Format)
+	serverCmd.Flags().StringSliceVarP(&rootFile, "file", "i", nil, UsageQueryFile)
+	serverCmd.Flags().StringSliceVarP(&rootFormat, "format", "", nil, UsageQueryFormat)
+	serverCmd.Flags().StringSliceVarP(&rootIPv4File, "ipv4-file", "", nil, UsageQueryIPv4File)
+	serverCmd.Flags().StringSliceVarP(&rootIPv4Format, "ipv4-format", "", nil, UsageQueryIPv4Format)
+	serverCmd.Flags().StringSliceVarP(&rootIPv6File, "ipv6-file", "", nil, UsageQueryIPv6File)
+	serverCmd.Flags().StringSliceVarP(&rootIPv6Format, "ipv6-format", "", nil, UsageQueryIPv6Format)
 	serverCmd.Flags().StringVarP(&readerOption, "database-option", "", "", UsageReaderOption)
+	serverCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
+
 }
 
 var serverCmd = &cobra.Command{

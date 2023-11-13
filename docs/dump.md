@@ -30,6 +30,7 @@ ips dump -i inputFile [--input-format] [-o outputFile] [flags]
 - `-i, --input-file string`：指定输入 IP 数据库文件的路径。必填项。
 - `--input-format string`：指定输入 IP 数据库文件的格式。默认为自动检测。
 - `--input-option string`：数据库读取器指定选项。具体信息请查阅数据库文档。
+- `--hybrid-mode string`: 指定混合读取器的操作模式，可选值为 `comparison` 与 `aggregation`，参数详细解释请参考 [IPS 配置说明](./config.md#hybridmode)。
 - `-o, --output-file string`：指定转存文件的路径。不指定转存文件时，输出到标准输出流。
 - `--lang string`：设置输出信息的语言。默认为 `zh-CN` (中文)。
 - `-f, --fields string`：指定从输入文件中获取的字段。默认为所有字段。参数详细解释请参考 [IPS 配置说明](./config.md#fields)。

@@ -18,6 +18,7 @@ package ips
 
 import (
 	"fmt"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -82,13 +83,13 @@ func Config(cmd *cobra.Command, args []string) {
 			log.Fatal("missing key or value")
 			return
 		}
-		SetConfig(args[1], args[2])
+		SetConfig(args[1], args[2:])
 	case CmdUnset:
 		if len(args) < 2 {
 			log.Fatal("missing key")
 			return
 		}
-		SetConfig(args[1], "")
+		SetConfig(args[1], []string{})
 	case CmdReset:
 		if err := config.ResetConfig(); err != nil {
 			log.Fatal("reset config failed ", err)
@@ -111,23 +112,31 @@ var MagicMap = map[string]string{
 	"dbip-asn":  "dbip-asn-lite.mmdb",
 }
 
-func SetConfig(key string, value string) {
+func SetConfig(key string, value []string) {
 
 	if _key, ok := MagicMap[key]; ok {
 		key = _key
 	}
 
-	if _value, ok := MagicMap[value]; ok {
-		value = _value
+	for i := range value {
+		if _value, ok := MagicMap[value[i]]; ok {
+			value[i] = _value
+		}
 	}
 
-	if err := config.SetConfig(key, value); err != nil {
+	var val interface{}
+	val = value
+	if len(value) == 1 {
+		val = value[0]
+	}
+
+	if err := config.SetConfig(key, val); err != nil {
 		log.Fatal(err)
 	}
 
 	if len(value) == 0 {
 		log.Infof("unset %s success", key)
 	} else {
-		log.Infof("set %s: [%s] success", key, value)
+		log.Infof("set %s: [%s] success", key, strings.Join(value, ","))
 	}
 }

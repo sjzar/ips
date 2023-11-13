@@ -42,6 +42,7 @@ echo <ip or text> | ips [flags]
 - `--ipv4-format string`：指定 IPv4 数据库文件的格式，需要与 `--ipv4-file` 配合使用。默认为自动检测。
 - `--ipv6-file string`：指定 IPv6 数据库文件的路径。
 - `--ipv6-format string`：指定 IPv6 数据库文件的格式，需要与 `--ipv6-file` 配合使用。默认为自动检测。
+- `--hybrid-mode string`: 指定混合读取器的操作模式，可选值为 `comparison` 与 `aggregation`，参数详细解释请参考 [IPS 配置说明](./config.md#hybridmode)。
 - `--text-format string`：指定文本输出的格式，支持 %origin 和 %values 参数。
 - `--text-values-sep string`：指定文本输出中值的分隔符，默认为空格。
 - `-j, --json bool`：以 JSON 格式输出结果。

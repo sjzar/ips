@@ -45,6 +45,7 @@ const (
 	UsagePackOutputFormat = "The format for the output IP database file."
 	UsageReaderOption     = "Additional options for the database reader, if applicable."
 	UsageWriterOption     = "Additional options for the database writer, if applicable."
+	UsageHybridMode       = "Sets mode for multi-IP source handling; 'comparison' to compare, 'aggregation' to merge data."
 
 	// Output Flags
 

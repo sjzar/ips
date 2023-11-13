@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function queryIP() {
         clearTimeout(timer);
 
-        const inputText = inputBox.value;
+        const inputText = encodeURI(inputBox.value);
 
         if (inputText) {
             fetch(`/api/v1/query?text=${inputText}`)

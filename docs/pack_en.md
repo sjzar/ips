@@ -29,6 +29,7 @@ ips pack -i inputFile [--input-format format] -o outputFile [--output-format for
 - `-i, --input-file string`：Specifies the path to the input IP database file. required.
 - `--input-format string`：Specifies the format of the input IP database file. The default is auto-detection.
 - `--input-option string`：Specifies options for the database reader. For more information, please consult the relevant database format documentation or obtain professional support.
+- `--hybrid-mode string`: Specifies the operational mode for the Hybrid Reader. Options are `comparison` and `aggregation`. For more details, refer to [IPS Configuration Documentation](./config_en.md#hybridmode).
 - `-o, --output-file string`：Specifies the path to the output IP database file. required.
 - `--output-format string`：Specifies the format of the output IP database file. If not specified, the format is auto-detected based on the output file extension.
 - `--output-option string`：Specifies options for the database writer. For more information, please consult the relevant database format documentation or obtain professional support.

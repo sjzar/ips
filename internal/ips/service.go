@@ -120,15 +120,9 @@ func (m *Manager) GetQuery(c *gin.Context) {
 		text = c.Request.URL.RawQuery
 	}
 
+	ret := &model.DataList{}
+
 	tp := parser.NewTextParser(text).Parse()
-
-	type Result struct {
-		Items []interface{} `json:"items"`
-	}
-
-	ret := Result{
-		Items: make([]interface{}, 0),
-	}
 
 	for _, segment := range tp.Segments {
 		info, err := m.parseSegment(segment)
@@ -139,7 +133,9 @@ func (m *Manager) GetQuery(c *gin.Context) {
 
 		switch v := info.(type) {
 		case *model.IPInfo:
-			ret.Items = append(ret.Items, v.Output(m.Conf.UseDBFields))
+			ret.AddItem(v.Output(m.Conf.UseDBFields))
+		case *model.DomainInfo:
+			ret.AddDomain(v)
 		}
 	}
 

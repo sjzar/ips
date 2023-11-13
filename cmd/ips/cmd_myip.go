@@ -37,13 +37,14 @@ func init() {
 	myipCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// database
-	myipCmd.Flags().StringVarP(&rootFile, "file", "i", "", UsageQueryFile)
-	myipCmd.Flags().StringVarP(&rootFormat, "format", "", "", UsageQueryFormat)
-	myipCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", UsageQueryIPv4File)
-	myipCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", UsageQueryIPv4Format)
-	myipCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", UsageQueryIPv6File)
-	myipCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", UsageQueryIPv6Format)
+	myipCmd.Flags().StringSliceVarP(&rootFile, "file", "i", nil, UsageQueryFile)
+	myipCmd.Flags().StringSliceVarP(&rootFormat, "format", "", nil, UsageQueryFormat)
+	myipCmd.Flags().StringSliceVarP(&rootIPv4File, "ipv4-file", "", nil, UsageQueryIPv4File)
+	myipCmd.Flags().StringSliceVarP(&rootIPv4Format, "ipv4-format", "", nil, UsageQueryIPv4Format)
+	myipCmd.Flags().StringSliceVarP(&rootIPv6File, "ipv6-file", "", nil, UsageQueryIPv6File)
+	myipCmd.Flags().StringSliceVarP(&rootIPv6Format, "ipv6-format", "", nil, UsageQueryIPv6Format)
 	myipCmd.Flags().StringVarP(&readerOption, "database-option", "", "", UsageReaderOption)
+	myipCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
 
 	// output
 	myipCmd.Flags().StringVarP(&rootTextFormat, "text-format", "", "", UsageTextFormat)

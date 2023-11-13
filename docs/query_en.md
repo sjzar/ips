@@ -41,6 +41,7 @@ echo <ip or text> | ips [flags]
 - `--ipv4-format string`：Specifies the format for the IPv4 database file; used in conjunction with `--ipv4-file`. The default is auto-detection.
 - `--ipv6-file string`：Specifies the path to the IPv6 database file.
 - `--ipv6-format string`：Specifies the format for the IPv6 database file; used in conjunction with `--ipv6-file`. The default is auto-detection.
+- `--hybrid-mode string`: Specifies the operational mode for the Hybrid Reader. Options are `comparison` and `aggregation`. For more details, refer to [IPS Configuration Documentation](./config_en.md#hybridmode).
 - `--text-format string`：Specifies the format for text output, supporting `%origin` and `%values` parameters.
 - `--text-values-sep string`：Specifies the separator for values in text output, with the default being a space.
 - `-j, --json bool`：Outputs results in JSON format.

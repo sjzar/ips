@@ -18,6 +18,7 @@ package ips
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"path"
@@ -45,13 +46,14 @@ func init() {
 	rootCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// database
-	rootCmd.Flags().StringVarP(&rootFile, "file", "i", "", UsageQueryFile)
-	rootCmd.Flags().StringVarP(&rootFormat, "format", "", "", UsageQueryFormat)
-	rootCmd.Flags().StringVarP(&rootIPv4File, "ipv4-file", "", "", UsageQueryIPv4File)
-	rootCmd.Flags().StringVarP(&rootIPv4Format, "ipv4-format", "", "", UsageQueryIPv4Format)
-	rootCmd.Flags().StringVarP(&rootIPv6File, "ipv6-file", "", "", UsageQueryIPv6File)
-	rootCmd.Flags().StringVarP(&rootIPv6Format, "ipv6-format", "", "", UsageQueryIPv6Format)
+	rootCmd.Flags().StringSliceVarP(&rootFile, "file", "i", nil, UsageQueryFile)
+	rootCmd.Flags().StringSliceVarP(&rootFormat, "format", "", nil, UsageQueryFormat)
+	rootCmd.Flags().StringSliceVarP(&rootIPv4File, "ipv4-file", "", nil, UsageQueryIPv4File)
+	rootCmd.Flags().StringSliceVarP(&rootIPv4Format, "ipv4-format", "", nil, UsageQueryIPv4Format)
+	rootCmd.Flags().StringSliceVarP(&rootIPv6File, "ipv6-file", "", nil, UsageQueryIPv6File)
+	rootCmd.Flags().StringSliceVarP(&rootIPv6Format, "ipv6-format", "", nil, UsageQueryIPv6Format)
 	rootCmd.Flags().StringVarP(&readerOption, "database-option", "", "", UsageReaderOption)
+	rootCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
 
 	// output
 	rootCmd.Flags().StringVarP(&rootTextFormat, "text-format", "", "", UsageTextFormat)
@@ -106,6 +108,7 @@ func Root(cmd *cobra.Command, args []string) {
 		}
 
 		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Split(ScanLines)
 		for scanner.Scan() {
 			text := scanner.Text()
 			if len(text) == 0 {
@@ -118,7 +121,7 @@ func Root(cmd *cobra.Command, args []string) {
 			if len(ret) == 0 {
 				continue
 			}
-			fmt.Println(ret)
+			fmt.Print(ret)
 		}
 		return
 	}
@@ -152,4 +155,25 @@ func PreRunInit(cmd *cobra.Command, args []string) {
 	// Initialize the IP manager with the config
 	conf := GetFlagConfig()
 	manager = ips.NewManager(conf)
+}
+
+// ScanLines scan lines but keep the suffix \r and \n
+func ScanLines(data []byte, atEOF bool) (advance int, token []byte, err error) {
+	if atEOF && len(data) == 0 {
+		return 0, nil, nil
+	}
+
+	if i := bytes.IndexByte(data, '\n'); i >= 0 {
+		return i + 1, data[:i+1], nil
+	}
+	if i := bytes.IndexByte(data, '\r'); i >= 0 {
+		return i + 1, data[:i+1], nil
+	}
+
+	// If we're at EOF, we have a final, non-terminated line. Return it.
+	if atEOF {
+		return len(data), data, nil
+	}
+	// Request more data.
+	return 0, nil, nil
 }

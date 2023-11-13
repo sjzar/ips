@@ -96,7 +96,7 @@ func (m *Manager) parseIPv4(ip net.IP) (*model.IPInfo, error) {
 	// lazyLoad initializes the IP readers if they haven't been initialized yet.
 	if m.ipv4 == nil {
 		var err error
-		if m.ipv4, err = m.createReader(m.Conf.IPv4Format, m.Conf.IPv4File); err != nil {
+		if m.ipv4, err = m.createReader(m.Conf.IPv4Format, m.Conf.IPv4File, false); err != nil {
 			log.Debug("createReader error: ", err)
 			return nil, err
 		}
@@ -111,7 +111,7 @@ func (m *Manager) parseIPv6(ip net.IP) (*model.IPInfo, error) {
 	// lazyLoad initializes the IP readers if they haven't been initialized yet.
 	if m.ipv6 == nil {
 		var err error
-		if m.ipv6, err = m.createReader(m.Conf.IPv6Format, m.Conf.IPv6File); err != nil {
+		if m.ipv6, err = m.createReader(m.Conf.IPv6Format, m.Conf.IPv6File, false); err != nil {
 			log.Debug("createReader error: ", err)
 			return nil, err
 		}
@@ -142,7 +142,7 @@ func (m *Manager) serialize(data []interface{}) (string, error) {
 			case *model.IPInfo:
 				list.AddItem(v.Output(m.Conf.UseDBFields))
 			case *model.DomainInfo:
-				list.AddItem(v)
+				list.AddDomain(v)
 			case string:
 				continue
 			}
@@ -216,7 +216,7 @@ func (m *Manager) serializeDomainInfoToText(domainInfo *model.DomainInfo) (strin
 // serializeDataToJSON serializes the provided DataList to a JSON format
 // based on the Manager configuration. It returns the JSON string.
 func (m *Manager) serializeDataToJSON(values *model.DataList) (string, error) {
-	if len(values.Items) == 0 {
+	if len(values.Items) == 0 && len(values.Domains) == 0 {
 		return "", nil
 	}
 	var ret []byte
@@ -231,13 +231,118 @@ func (m *Manager) serializeDataToJSON(values *model.DataList) (string, error) {
 		return "", err
 	}
 
-	return string(ret), nil
+	return string(ret) + "\n", nil
 }
 
-// createReader sets up and returns an IP reader based on the specified format and file.
-// If the file doesn't exist, it tries to download it. This method also sets up various
-// reader options based on the configuration.
-func (m *Manager) createReader(_format, file string) (format.Reader, error) {
+// createReader decides whether to create a standard or hybrid reader based on the number of files provided.
+// It creates a standard reader for a single file and a hybrid reader for multiple files.
+func (m *Manager) createReader(_format, file []string, isPackMode bool) (format.Reader, error) {
+	if len(file) == 1 {
+		return m.createStandardReader(_format[0], file[0], isPackMode)
+	}
+	return m.createHybridReader(_format, file, isPackMode)
+}
+
+// createHybridReader constructs a hybrid reader using multiple IP database formats and files.
+// It handles reader creation for each database file and aggregates them into a single hybrid reader.
+func (m *Manager) createHybridReader(_format, file []string, isPackMode bool) (format.Reader, error) {
+	readers := make([]format.Reader, 0, len(file))
+	for i := range file {
+		reader, err := m.createStandardReader(_format[i], file[i], isPackMode)
+		if err != nil {
+			log.Debug("createStandardReader error: ", err)
+			return nil, err
+		}
+		readers = append(readers, reader)
+	}
+
+	reader, err := ipio.NewHybridReader(nil, readers...)
+	if err != nil {
+		log.Debug("ipio.NewHybridReader error: ", err)
+		return nil, err
+	}
+
+	if len(m.Conf.HybridMode) != 0 {
+		if err := reader.SetOption(ipio.HybridReaderOption{
+			Mode: m.Conf.HybridMode,
+		}); err != nil {
+			log.Debug("reader.SetOption error: ", err)
+			return nil, err
+		}
+	}
+
+	if m.Conf.HybridMode != ipio.HybridComparisonMode {
+		fs, err := m.newFieldSelector(reader.Meta(), isPackMode)
+		if err != nil {
+			return nil, err
+		}
+		reader.OperateChain.Use(fs.Do)
+	}
+
+	rw, err := m.newDataRewriter(isPackMode)
+	if err != nil {
+		return nil, err
+	}
+	reader.OperateChain.Use(rw.Do)
+
+	if len(m.Conf.Lang) != 0 {
+		tl, err := operate.NewTranslator(m.Conf.Lang)
+		if err != nil {
+			log.Debug("operate.NewTranslator error: ", err)
+			return nil, err
+		}
+		reader.OperateChain.Use(tl.Do)
+	}
+
+	return reader, nil
+}
+
+// createStandardReader sets up and returns an IP reader based on the specified format and file.
+// It includes additional processing for field selection and data rewriting based on the configuration.
+func (m *Manager) createStandardReader(_format, file string, isPackMode bool) (format.Reader, error) {
+	dbr, err := m.createDatabaseReader(_format, file)
+	if err != nil {
+		return nil, err
+	}
+
+	reader := ipio.NewStandardReader(dbr, nil)
+
+	fs, err := m.newFieldSelector(reader.Meta(), isPackMode)
+	if err != nil {
+		return nil, err
+	}
+	reader.OperateChain.Use(fs.Do)
+
+	rw, err := m.newDataRewriter(isPackMode)
+	if err != nil {
+		return nil, err
+	}
+
+	// special database process
+	if !isPackMode {
+		switch dbr.Meta().Format {
+		case qqwry.DBFormat:
+			rw.LoadString(data.QQwryCountry, data.QQwryArea)
+		}
+	}
+
+	reader.OperateChain.Use(rw.Do)
+
+	if len(m.Conf.Lang) != 0 {
+		tl, err := operate.NewTranslator(m.Conf.Lang)
+		if err != nil {
+			log.Debug("operate.NewTranslator error: ", err)
+			return nil, err
+		}
+		reader.OperateChain.Use(tl.Do)
+	}
+
+	return reader, nil
+}
+
+// createDatabaseReader initializes a database reader for the given format and file.
+// It checks for file existence and downloads the database file if necessary.
+func (m *Manager) createDatabaseReader(_format, file string) (format.Reader, error) {
 	if !util.IsFileExist(file) {
 		fullpath := filepath.Join(m.Conf.IPSDir, file)
 		if !util.IsFileExist(fullpath) {
@@ -277,18 +382,35 @@ func (m *Manager) createReader(_format, file string) (format.Reader, error) {
 		}
 	}
 
-	reader := ipio.NewStandardReader(dbr, nil)
+	return dbr, nil
+}
 
-	fs, err := operate.NewFieldSelector(reader.Meta(), m.Conf.Fields)
+// newFieldSelector initializes a FieldSelector based on the provided metadata and the pack mode configuration.
+// It selects different sets of fields based on whether the pack mode is enabled or not.
+func (m *Manager) newFieldSelector(meta *model.Meta, isPackMode bool) (*operate.FieldSelector, error) {
+	fields := m.Conf.Fields
+	if isPackMode {
+		fields = m.Conf.DPFields
+	}
+	fs, err := operate.NewFieldSelector(meta, fields)
 	if err != nil {
 		log.Debug("operate.NewFieldSelector error: ", err)
 		return nil, err
 	}
-	reader.OperateChain.Use(fs.Do)
+	return fs, nil
+}
 
+// newDataRewriter creates a DataRewriter based on the pack mode configuration.
+// It loads different rewrite rules based on whether the pack mode is enabled or not.
+func (m *Manager) newDataRewriter(isPackMode bool) (*operate.DataRewriter, error) {
 	rw := operate.NewDataRewriter()
-	if len(m.Conf.RewriteFiles) > 0 {
-		if err := rw.LoadFiles(strings.Split(m.Conf.RewriteFiles, ",")); err != nil {
+
+	rewriteFiles := m.Conf.RewriteFiles
+	if isPackMode {
+		rewriteFiles = m.Conf.DPRewriterFiles
+	}
+	if len(rewriteFiles) > 0 {
+		if err := rw.LoadFiles(strings.Split(rewriteFiles, ",")); err != nil {
 			log.Debug("rw.LoadFiles error: ", err)
 			return nil, err
 		}
@@ -296,23 +418,5 @@ func (m *Manager) createReader(_format, file string) (format.Reader, error) {
 
 	// common process
 	rw.LoadString(data.ASN2ISP, data.Province, data.City, data.ISP)
-
-	// special database process
-	switch dbr.Meta().Format {
-	case qqwry.DBFormat:
-		rw.LoadString(data.QQwryCountry, data.QQwryArea)
-	}
-
-	reader.OperateChain.Use(rw.Do)
-
-	if len(m.Conf.Lang) != 0 {
-		tl, err := operate.NewTranslator(m.Conf.Lang)
-		if err != nil {
-			log.Debug("operate.NewTranslator error: ", err)
-			return nil, err
-		}
-		reader.OperateChain.Use(tl.Do)
-	}
-
-	return reader, nil
+	return rw, nil
 }

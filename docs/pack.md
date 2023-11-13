@@ -29,6 +29,7 @@ ips pack -i inputFile [--input-format format] -o outputFile [--output-format for
 - `-i, --input-file string`：指定输入 IP 数据库文件的路径。必填项。
 - `--input-format string`：指定输入 IP 数据库文件的格式。默认为自动检测。
 - `--input-option string`：数据库读取器指定选项。具体信息请查阅相关的数据库格式文档或获取专业支持。
+- `--hybrid-mode string`: 指定混合读取器的操作模式，可选值为 `comparison` 与 `aggregation`，参数详细解释请参考 [IPS 配置说明](./config.md#hybridmode)。
 - `-o, --output-file string`：指定输出 IP 数据库文件的路径。必填项。
 - `--output-format string`：指定输出 IP 数据库文件的格式。未指定时，使用输出文件的扩展名自动检测。
 - `--output-option string`：数据库写入器指定选项。具体信息请查阅相关的数据库格式文档或获取专业支持。

@@ -26,12 +26,17 @@ var (
 	ErrUnsupportedIPVersion   = errors.New("unsupported IP version")
 	ErrUnsupportedFormat      = errors.New("unsupported format")
 	ErrInvalidDatabase        = errors.New("invalid database")
+	ErrInvalidFormat          = errors.New("invalid format")
 	ErrMismatchedFieldsLength = errors.New("mismatched fields length")
 	ErrInvalidCIDR            = errors.New("invalid CIDR format")
 	ErrCIDROverlap            = errors.New("CIDR overlap detected")
 	ErrMetaMissing            = errors.New("meta information missing")
 	ErrNilWriter              = errors.New("writer is not initialized")
 	ErrUnsupportedLanguage    = errors.New("unsupported language")
+
+	// IPio
+
+	ErrNoDatabaseReaders = errors.New("no database readers provided")
 
 	// Operate
 
