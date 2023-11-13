@@ -17,6 +17,7 @@
     * [ipv4_format](#ipv4format)
     * [ipv6_file](#ipv6file)
     * [ipv6_format](#ipv6format)
+    * [hybrid_mode](#hybridmode)
     * [fields](#fields)
     * [use_db_fields](#usedbfields)
     * [rewrite_files](#rewritefiles)
@@ -168,6 +169,15 @@ Specifies the database file used for IPv6 address queries, a string parameter, w
 Specifies the format of the IPv6 database file, a string parameter.
 
 When the database file suffix is insufficient to determine the file format, it is used to specify the format of the IPv6 database. Usually, it is not necessary to set this.
+
+### hybrid_mode
+
+Specifies the operational mode of the Hybrid Reader, a string parameter. The operational mode determines how data from multiple IP databases is processed and combined.
+
+Options are `comparison` and `aggregation`, with the default being `aggregation`.
+
+- `comparison`: Suitable for scenarios requiring data comparison across different IP databases. Outputs data from all integrated databases, facilitating the identification of discrepancies and variations between each source.
+- `aggregation`: Ideal for situations requiring a unified, comprehensive view of IP information. Aggregates data from multiple sources, supplementing missing fields from one database with information from another.
 
 ### fields
 

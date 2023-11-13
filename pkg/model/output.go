@@ -46,7 +46,8 @@ type AlfredText struct {
 
 // DataList holds a list of items to be displayed in Alfred's result list.
 type DataList struct {
-	Items []interface{} `json:"items"`
+	Items   []interface{} `json:"items,omitempty"`
+	Domains []interface{} `json:"domains,omitempty"`
 }
 
 // AddItem appends a new item to the DataList's Items slice.
@@ -55,6 +56,14 @@ func (d *DataList) AddItem(item interface{}) {
 		d.Items = make([]interface{}, 0)
 	}
 	d.Items = append(d.Items, item)
+}
+
+// AddDomain appends a new item to the DataList's Domains slice.
+func (d *DataList) AddDomain(domain interface{}) {
+	if d.Domains == nil {
+		d.Domains = make([]interface{}, 0)
+	}
+	d.Domains = append(d.Domains, domain)
 }
 
 // AddAlfredItemByIPInfo creates an AlfredItem from the provided IPInfo

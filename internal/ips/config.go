@@ -18,14 +18,12 @@ package ips
 
 import (
 	"fmt"
-
-	"github.com/spf13/viper"
+	"strings"
 )
 
 func init() {
 	// Set Persistence Default Values
-	viper.SetDefault("ipv4_file", "qqwry.dat")
-	viper.SetDefault("ipv6_file", "zxipv6wry.db")
+	// viper.SetDefault("ipv4_file", []string{"qqwry.dat"})
 }
 
 const (
@@ -54,16 +52,23 @@ type Config struct {
 
 	// Find
 	// IPv4File specifies the file is IPv4 database.
-	IPv4File string `mapstructure:"ipv4_file"`
+	IPv4File []string `mapstructure:"ipv4_file" default:"[\"qqwry.dat\"]"`
 
 	// IPv4Format specifies the format for IPv4 database.
-	IPv4Format string `mapstructure:"ipv4_format"`
+	IPv4Format []string `mapstructure:"ipv4_format"`
 
 	// IPv6File specifies the file is IPv6 database.
-	IPv6File string `mapstructure:"ipv6_file"`
+	IPv6File []string `mapstructure:"ipv6_file" default:"[\"zxipv6wry.db\"]"`
 
 	// IPv6Format specifies the format for IPv6 database.
-	IPv6Format string `mapstructure:"ipv6_format"`
+	IPv6Format []string `mapstructure:"ipv6_format"`
+
+	// HybridMode specifies the operational mode of the HybridReader.
+	// It determines how the HybridReader processes and combines data from multiple IP database readers.
+	// Accepted values are "comparison" and "aggregation":
+	// - "comparison": Used for comparing data across different databases, where the output includes data from all readers.
+	// - "aggregation": Used for creating a unified view of data by aggregating and supplementing missing fields from multiple databases. (default)
+	HybridMode string `mapstructure:"hybrid_mode"`
 
 	// Fields lists the output fields.
 	// default is country, province, city, isp
@@ -122,13 +127,19 @@ type Config struct {
 
 func (c *Config) ShowConfig(allKeys bool) string {
 	str := fmt.Sprintf("ips dir:\t\t[%s]\n", c.IPSDir)
-	str += fmt.Sprintf("ipv4_file(ipv4):\t[%s]\n", c.IPv4File)
-	if allKeys || len(c.IPv4Format) > 0 {
-		str += fmt.Sprintf("ipv4_format:\t\t[%s]\n", c.IPv4Format)
+	if allKeys || len(c.Lang) > 0 {
+		str += fmt.Sprintf("lang:\t\t\t[%s]\n", c.Lang)
 	}
-	str += fmt.Sprintf("ipv6_file(ipv6):\t[%s]\n", c.IPv6File)
+	str += fmt.Sprintf("ipv4_file(ipv4):\t[%s]\n", strings.Join(c.IPv4File, ","))
+	if allKeys || len(c.IPv4Format) > 0 {
+		str += fmt.Sprintf("ipv4_format:\t\t[%s]\n", strings.Join(c.IPv4Format, ","))
+	}
+	str += fmt.Sprintf("ipv6_file(ipv6):\t[%s]\n", strings.Join(c.IPv6File, ","))
 	if allKeys || len(c.IPv6Format) > 0 {
-		str += fmt.Sprintf("ipv6_format:\t\t[%s]\n", c.IPv6Format)
+		str += fmt.Sprintf("ipv6_format:\t\t[%s]\n", strings.Join(c.IPv6Format, ","))
+	}
+	if allKeys || len(c.HybridMode) > 0 {
+		str += fmt.Sprintf("hybrid_mode:\t\t[%s]\n", c.HybridMode)
 	}
 	if allKeys || len(c.Fields) > 0 {
 		str += fmt.Sprintf("fields:\t\t\t[%s]\n", c.Fields)
@@ -157,5 +168,24 @@ func (c *Config) ShowConfig(allKeys bool) string {
 	if allKeys || len(c.DPRewriterFiles) > 0 {
 		str += fmt.Sprintf("dp_rewriter_files:\t[%s]\n", c.DPRewriterFiles)
 	}
+	if allKeys || len(c.ReaderOption) > 0 {
+		str += fmt.Sprintf("reader_option:\t\t[%s]\n", c.ReaderOption)
+	}
+	if allKeys || len(c.WriterOption) > 0 {
+		str += fmt.Sprintf("writer_option:\t\t[%s]\n", c.WriterOption)
+	}
+	if allKeys || len(c.LocalAddr) > 0 {
+		str += fmt.Sprintf("local_addr:\t\t[%s]\n", c.LocalAddr)
+	}
+	if allKeys || c.MyIPCount > 0 {
+		str += fmt.Sprintf("myip_count:\t\t[%d]\n", c.MyIPCount)
+	}
+	if allKeys || c.MyIPTimeoutS > 0 {
+		str += fmt.Sprintf("myip_timeout_s:\t\t[%d]\n", c.MyIPTimeoutS)
+	}
+	if allKeys || len(c.Addr) > 0 {
+		str += fmt.Sprintf("addr:\t\t\t[%s]\n", c.Addr)
+	}
+
 	return str
 }

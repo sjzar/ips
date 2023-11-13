@@ -32,9 +32,10 @@ func init() {
 	dumpCmd.Flags().StringVarP(&lang, "lang", "", "", UsageLang)
 
 	// input & output
-	dumpCmd.Flags().StringVarP(&inputFile, "input-file", "i", "", UsageDPInputFile)
-	dumpCmd.Flags().StringVarP(&inputFormat, "input-format", "", "", UsageDPInputFormat)
+	dumpCmd.Flags().StringSliceVarP(&inputFile, "input-file", "i", nil, UsageDPInputFile)
+	dumpCmd.Flags().StringSliceVarP(&inputFormat, "input-format", "", nil, UsageDPInputFormat)
 	dumpCmd.Flags().StringVarP(&readerOption, "input-option", "", "", UsageReaderOption)
+	dumpCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
 	dumpCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsageDumpOutputFile)
 
 }
@@ -63,7 +64,7 @@ func Dump(cmd *cobra.Command, args []string) {
 	}
 
 	if len(inputFile) == 0 {
-		inputFile = args[0]
+		inputFile = []string{args[0]}
 	}
 
 	if err := manager.Pack(inputFormat, inputFile, plain.DBFormat, outputFile); err != nil {

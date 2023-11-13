@@ -31,6 +31,7 @@ ips dump -i inputFile [--input-format] [-o outputFile] [flags]
 - `-i, --input-file string`：Specifies the path to the input IP database file. Required.
 - `--input-format string`：Specifies the format of the input IP database file. Default is auto-detection.
 - `--input-option string`：Specifies options for the database reader. For more information, refer to the database documentation.
+- `--hybrid-mode string`: Specifies the operational mode for the Hybrid Reader. Options are `comparison` and `aggregation`. For more details, refer to [IPS Configuration Documentation](./config_en.md#hybridmode).
 - `-o, --output-file string`：Specifies the path to the dump file. When not specified, outputs to the standard output stream.
 - `--lang string`：Sets the language for the output information. Default is `zh-CN` (Chinese).
 - `-f, --fields string`：Specifies the fields to be extracted from the input file. Default is all fields. For a detailed explanation of the parameter, refer to  [IPS Configuration Documentation](./config_en.md#fields)。

@@ -70,9 +70,7 @@ func (i *IPInfo) AddCommonFieldAlias(fieldAlias map[string]string) {
 	}
 
 	for commonField, dbField := range fieldAlias {
-		if _, ok := i.Data[dbField]; ok {
-			i.FieldAlias[commonField] = dbField
-		}
+		i.FieldAlias[commonField] = dbField
 	}
 }
 

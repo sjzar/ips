@@ -17,6 +17,7 @@
     * [ipv4_format](#ipv4format)
     * [ipv6_file](#ipv6file)
     * [ipv6_format](#ipv6format)
+    * [hybrid_mode](#hybridmode)
     * [fields](#fields)
     * [use_db_fields](#usedbfields)
     * [rewrite_files](#rewritefiles)
@@ -167,6 +168,15 @@ IPS 提供了丰富的配置参数以适应不同的使用场景。以下是所�
 指定 IPv6 数据库文件的格式，字符串参数。
 
 当数据库文件后缀不足以确定文件格式时，用来指定 IPv6 数据库的格式。通常不需要设置。
+
+### hybrid_mode
+
+指定了混合读取器（Hybrid Reader）的操作模式，字符串参数。操作模式决定了如何处理和组合来自多个 IP 数据库的数据。
+
+可选参数为 `comparison` 与 `aggregation`，默认值为 `aggregation`。
+
+- `comparison`：比较模式，适用于需要跨不同 IP 数据库比较数据的场景，输出所有集成数据库的数据，便于识别每个源之间的差异和变化。
+- `aggregation`：聚合模式，适用于需要统一、全面视图的 IP 信息的情况，从多个源聚合数据，用一个数据库中的信息补充另一个数据库中缺失的字段。
 
 ### fields
 

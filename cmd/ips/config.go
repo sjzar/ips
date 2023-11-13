@@ -55,22 +55,25 @@ var (
 	// root command flags
 	// database
 	// rootFormat defines the format for database.
-	rootFormat string
+	rootFormat []string
 
 	// rootFile specifies the file path for database.
-	rootFile string
+	rootFile []string
 
 	// rootIPv4Format defines the format for IPv4 database.
-	rootIPv4Format string
+	rootIPv4Format []string
 
 	// rootIPv4File specifies the file path for IPv4 database.
-	rootIPv4File string
+	rootIPv4File []string
 
 	// rootIPv6Format defines the format for IPv6 database.
-	rootIPv6Format string
+	rootIPv6Format []string
 
 	// rootIPv6File specifies the file path for IPv6 database.
-	rootIPv6File string
+	rootIPv6File []string
+
+	// hybridMode specifies the operational mode of the HybridReader.
+	hybridMode string
 
 	// output
 	// rootTextFormat defines the format for text output.
@@ -97,10 +100,10 @@ var (
 	dpRewriterFiles string
 
 	// inputFile specifies the input file for dump and pack operations.
-	inputFile string
+	inputFile []string
 
 	// inputFormat specifies the input format for dump and pack operations.
-	inputFormat string
+	inputFormat []string
 
 	// outputFile specifies the output file for dump and pack operations.
 	outputFile string
@@ -178,6 +181,22 @@ func GetFlagConfig() *ips.Config {
 		if len(rootIPv6Format) != 0 {
 			conf.IPv6Format = rootIPv6Format
 		}
+	}
+
+	if len(conf.IPv4Format) == 0 {
+		conf.IPv4Format = make([]string, len(conf.IPv4File))
+	} else if len(conf.IPv4File) != len(conf.IPv4Format) {
+		log.Fatal("IPv4 file and format mismatch")
+	}
+
+	if len(conf.IPv6Format) == 0 {
+		conf.IPv6Format = make([]string, len(conf.IPv6File))
+	} else if len(conf.IPv6File) != len(conf.IPv6Format) {
+		log.Fatal("IPv6 file and format mismatch")
+	}
+
+	if len(hybridMode) != 0 {
+		conf.HybridMode = hybridMode
 	}
 
 	if len(rootTextFormat) != 0 {
