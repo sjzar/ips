@@ -17,7 +17,6 @@
 package ipnet
 
 import (
-	"fmt"
 	"math/big"
 	"net"
 	"testing"
@@ -189,26 +188,4 @@ func TestSplitIPNet(t *testing.T) {
 			}
 		})
 	}
-}
-
-func TestIPNet(t *testing.T) {
-
-	start := net.ParseIP("::0")
-	end := net.ParseIP("::18f2:a2c8")
-	fmt.Printf("%#v\n", end)
-	// splitIPNetIPv6(start, end, 100)
-	ret := splitIPNetIPv6(start, end, 100)
-
-	for _, ip := range ret {
-		fmt.Printf("%s\n", ip)
-	}
-
-}
-
-func TestGetIndex(t *testing.T) {
-
-	ip := net.ParseIP("255.255.255.255")
-	index := GetIndex(BaseIPv4, ip)
-	fmt.Println(ip, index, BaseIPv4[index])
-
 }
