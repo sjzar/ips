@@ -332,6 +332,16 @@ Some database formats provide additional writing options, which can be set durin
 
 For example, `mmdb` database's `select_languages` and so on, please refer to the database documentation for specific functions.
 
+### reader_jobs
+
+The `reader_jobs` parameter is designed to control the number of concurrent jobs for reading operations. It specifies the maximum number of reading operations that can be performed simultaneously, thereby enhancing the efficiency of data processing.
+
+By default, setting `reader_jobs` is not necessary, as IPS will automatically determine the appropriate number based on the system's CPU core count and the output format.
+
+It's important to note that setting an excessively high number of concurrent jobs may lead to intensified competition for system resources, potentially degrading the overall performance of the program.
+
+In some cases, increasing the concurrency of readers does not result in performance improvement. In fact, the completion time of tasks depends on the slower of the readers and writers. This is particularly relevant as most writers (such as IPDB and MMDB) currently do not support concurrent writing. Therefore, choose a suitable concurrency level based on your specific circumstances.
+
 ### myip_count
 
 When querying the local IP address, this parameter defines the minimum number of detectors that return the same IP address. The default value is `3`.

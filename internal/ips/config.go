@@ -108,6 +108,10 @@ type Config struct {
 	// WriterOption specifies the options for the writer.
 	WriterOption string `mapstructure:"writer_option"`
 
+	// ReaderJobs specifies the number of concurrent jobs for the reader.
+	// It controls how many reading operations can be performed in parallel.
+	ReaderJobs int `mapstructure:"reader_jobs"`
+
 	// MyIP
 	// LocalAddr specifies the local address (in IP format) that should be used for outbound connections.
 	// Useful in systems with multiple network interfaces.

@@ -37,6 +37,7 @@ var (
 	// IPio
 
 	ErrNoDatabaseReaders = errors.New("no database readers provided")
+	ErrInvalidIPRange    = errors.New("invalid IP range")
 
 	// Operate
 

@@ -221,3 +221,8 @@ func IntToBinaryBE(num, length int) []byte {
 		return []byte{}
 	}
 }
+
+// WriterFormat returns the format of the writer.
+func (w *Writer) WriterFormat() string {
+	return DBFormat
+}

@@ -37,6 +37,7 @@ func init() {
 	dumpCmd.Flags().StringVarP(&readerOption, "input-option", "", "", UsageReaderOption)
 	dumpCmd.Flags().StringVarP(&hybridMode, "hybrid-mode", "", "aggregation", UsageHybridMode)
 	dumpCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsageDumpOutputFile)
+	dumpCmd.Flags().IntVarP(&readerJobs, "reader-jobs", "", 0, UsageReaderJobs)
 
 }
 

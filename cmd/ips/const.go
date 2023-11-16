@@ -46,6 +46,7 @@ const (
 	UsageReaderOption     = "Additional options for the database reader, if applicable."
 	UsageWriterOption     = "Additional options for the database writer, if applicable."
 	UsageHybridMode       = "Sets mode for multi-IP source handling; 'comparison' to compare, 'aggregation' to merge data."
+	UsageReaderJobs       = "Set the number of concurrent reader jobs. This parameter controls the parallelism level of reading operations."
 
 	// Output Flags
 
