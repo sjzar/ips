@@ -118,6 +118,9 @@ var (
 	// writerOption specifies the options for the writer.
 	writerOption string
 
+	// readerJobs specifies the number of concurrent reader jobs.
+	readerJobs int
+
 	// myip
 	// localAddr specifies the local address (in IP format) that should be used for outbound connections.
 	// Useful in systems with multiple network interfaces.
@@ -235,6 +238,10 @@ func GetFlagConfig() *ips.Config {
 
 	if len(writerOption) != 0 {
 		conf.WriterOption = writerOption
+	}
+
+	if readerJobs != 0 {
+		conf.ReaderJobs = readerJobs
 	}
 
 	if len(addr) != 0 {

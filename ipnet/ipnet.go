@@ -45,5 +45,5 @@ func LastIP(ipNet *net.IPNet) net.IP {
 
 // Contains checks if the given IP is within the range of start to end (inclusive of start and exclusive of end).
 func Contains(start, end, ip net.IP) bool {
-	return !IPLess(ip, start) && IPLess(ip, NextIP(end))
+	return !IPLess(ip, start) && (IPLess(ip, end) || ip.Equal(end))
 }

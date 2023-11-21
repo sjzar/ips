@@ -89,7 +89,7 @@ func (m *Manager) Pack(_format, file []string, _outputFormat, outputFile string)
 
 	// Dump data using the dumper
 	dumper := ipio.NewStandardDumper(reader, writer)
-	if err := dumper.Dump(); err != nil {
+	if err := dumper.Dump(m.Conf.ReaderJobs); err != nil {
 		log.Debug("dumper.Dump error: ", err)
 		return err
 	}

@@ -37,6 +37,7 @@ func init() {
 	packCmd.Flags().StringVarP(&outputFile, "output-file", "o", "", UsagePackOutputFile)
 	packCmd.Flags().StringVarP(&outputFormat, "output-format", "", "", UsagePackOutputFormat)
 	packCmd.Flags().StringVarP(&writerOption, "output-option", "", "", UsageWriterOption)
+	packCmd.Flags().IntVarP(&readerJobs, "reader-jobs", "", 0, UsageReaderJobs)
 
 }
 

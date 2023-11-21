@@ -112,3 +112,8 @@ func (w *Writer) Header() error {
 
 	return nil
 }
+
+// WriterFormat returns the format of the writer.
+func (w *Writer) WriterFormat() string {
+	return DBFormat
+}

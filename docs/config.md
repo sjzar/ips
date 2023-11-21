@@ -29,6 +29,7 @@
     * [dp_rewriter_files](#dprewriterfiles)
     * [reader_option](#readeroption)
     * [writer_option](#writeroption)
+    * [reader_jobs](#readerjobs)
     * [myip_count](#myipcount)
     * [myip_timeout_s](#myiptimeouts)
     * [addr](#addr)
@@ -329,6 +330,16 @@ $ ips config set rewrite_files "/path/to/rewrite1.txt,/path/to/rewrite2.txt"
 一些数据库格式提供了额外的写入选项，通过此参数可以在初始化数据库写入器时进行设置，用以影响写入操作的行为。
 
 例如 `mmdb` 数据库的 `select_languages` 等，具体功能请查阅数据库文档。
+
+### reader_jobs
+
+`reader_jobs` 参数用于控制读取操作的并发作业数量。它定义了可以同时进行的读取操作的最大数目，从而实现高效的数据处理。
+
+默认情况下无需设置 `reader_jobs`，IPS 将根据系统的 CPU 核心数与输出格式自动设置。
+
+值得注意的是，如果并发数设置过高，可能导致系统资源竞争加剧，进而影响程序的整体性能表现。
+
+在某些情况下，增加读取器的并发数并不会带来性能提升。实际上，任务完成时间取决于读取器和写入器中的较慢的一方，尤其是大部分写入器（例如 IPDB 和 MMDB）目前还不支持并发写入，请根据自身情况选择适合的并发数。
 
 ### myip_count
 

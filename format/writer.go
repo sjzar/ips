@@ -38,6 +38,9 @@ type Writer interface {
 
 	// WriteTo writes data to io.Writer
 	WriteTo(w io.Writer) (int64, error)
+
+	// WriterFormat returns the format of the writer.
+	WriterFormat() string
 }
 
 // NewWriter creates a Writer based on its format or file name.

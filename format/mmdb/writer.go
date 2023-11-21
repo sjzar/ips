@@ -119,6 +119,11 @@ func (w *Writer) WriteTo(iw io.Writer) (int64, error) {
 	return w.writer.WriteTo(iw)
 }
 
+// WriterFormat returns the format of the writer.
+func (w *Writer) WriterFormat() string {
+	return DBFormat
+}
+
 // ConvertMap converts fields and values to a map.
 func (w *Writer) ConvertMap(fields, values []string) map[string]interface{} {
 	ret := make(map[string]interface{})
