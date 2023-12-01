@@ -137,6 +137,27 @@ var (
 
 	// addr specifies the server address.
 	addr string
+
+	// mdns
+
+	// dnsClientNet specifies the network protocol to be used by the DNS client. tcp, udp, tcp-tls.
+	dnsClientNet string
+
+	// dnsClientTimeoutMs defines the timeout in milliseconds for DNS client requests.
+	dnsClientTimeoutMs int
+
+	// dnsClientSingleInflight indicates whether the DNS client should avoid making duplicate
+	// queries concurrently.
+	dnsClientSingleInflight bool
+
+	// mdnsTimeoutS specifies the timeout in seconds for MDNS operations.
+	mdnsTimeoutS int
+
+	// mdnsExchangeAddress defines the address of the DNS server to be used for MDNS queries.
+	mdnsExchangeAddress string
+
+	// mdnsRetryTimes sets the number of times an MDNS query should be retried on failure.
+	mdnsRetryTimes int
 )
 
 // GetFlagConfig initializes and returns the configuration for the IP service.
@@ -258,6 +279,30 @@ func GetFlagConfig() *ips.Config {
 
 	if myIPTimeoutS != 0 {
 		conf.MyIPTimeoutS = myIPTimeoutS
+	}
+
+	if len(dnsClientNet) > 0 {
+		conf.DNSClientNet = dnsClientNet
+	}
+
+	if dnsClientTimeoutMs > 0 {
+		conf.DNSClientTimeoutMs = dnsClientTimeoutMs
+	}
+
+	if dnsClientSingleInflight {
+		conf.DNSClientSingleInflight = dnsClientSingleInflight
+	}
+
+	if mdnsTimeoutS > 0 {
+		conf.MDNSTimeoutS = mdnsTimeoutS
+	}
+
+	if len(mdnsExchangeAddress) > 0 {
+		conf.MDNSExchangeAddress = mdnsExchangeAddress
+	}
+
+	if mdnsRetryTimes > 0 {
+		conf.MDNSRetryTimes = mdnsRetryTimes
 	}
 
 	return conf

@@ -47,3 +47,6 @@ var QQwryArea string
 
 //go:embed qqwry_country.map
 var QQwryCountry string
+
+//go:embed mdns_view.txt
+var MdnsView string
