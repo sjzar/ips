@@ -9,6 +9,7 @@ Welcome to IPS! This is a command-line tool and library designed to help you eas
 - [IPS Dump Command Documentation](./dump_en.md) - Dump IP geolocation databases.
 - [IPS Pack Command Documentation](./pack_en.md) - Package IP geolocation databases.
 - [IPS Command Documentation](./query_en.md) - Query IP geolocation information.
+- [IPS MDNS Command Documentation](./mdns_en.md) - Query Multi-Geolocations DNS resolution results.
 - [IPS Server Command Documentation](./server_en.md) - Start the IPS service.
 
 ## Supported Database Formats

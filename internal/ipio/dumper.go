@@ -20,6 +20,7 @@ import (
 	"context"
 	"net"
 	"runtime"
+	"slices"
 	"sync"
 
 	log "github.com/sirupsen/logrus"
@@ -203,7 +204,7 @@ func (d *SimpleDumper) next(marker net.IP) (*model.IPInfo, error) {
 		if currentInfo == nil {
 			currentInfo = info
 		} else {
-			if !Equal(currentInfo.Values(), info.Values()) {
+			if !slices.Equal(currentInfo.Values(), info.Values()) {
 				break
 			}
 			if ok := currentInfo.IPNet.Join(info.IPNet); !ok {
@@ -217,18 +218,4 @@ func (d *SimpleDumper) next(marker net.IP) (*model.IPInfo, error) {
 		}
 	}
 	return currentInfo, nil
-}
-
-// Equal compares two slices of strings for equality.
-// FIXME use slices.Equal() when go.mod updates to Go 1.18
-func Equal(s1, s2 []string) bool {
-	if len(s1) != len(s2) {
-		return false
-	}
-	for i := range s1 {
-		if s1[i] != s2[i] {
-			return false
-		}
-	}
-	return true
 }

@@ -124,6 +124,27 @@ type Config struct {
 	// MyIPTimeoutS specifies the maximum duration (in seconds) to wait for the detectors to return an IP.
 	MyIPTimeoutS int `mapstructure:"myip_timeout_s"`
 
+	// MDNS
+
+	// DNSClientNet specifies the network protocol to be used by the DNS client. tcp, udp, tcp-tls.
+	DNSClientNet string `mapstructure:"dns_client_net" default:"udp"`
+
+	// DNSClientTimeoutMs defines the timeout in milliseconds for DNS client requests.
+	DNSClientTimeoutMs int `mapstructure:"dns_client_timeout_ms" default:"1000"`
+
+	// DNSClientSingleInflight indicates whether the DNS client should avoid making duplicate
+	// queries concurrently.
+	DNSClientSingleInflight bool `mapstructure:"dns_client_single_inflight"`
+
+	// MDNSTimeoutS specifies the timeout in seconds for MDNS operations.
+	MDNSTimeoutS int `mapstructure:"mdns_timeout_s" default:"10"`
+
+	// MDNSExchangeAddress defines the address of the DNS server to be used for MDNS queries.
+	MDNSExchangeAddress string `mapstructure:"mdns_exchange_address" default:"119.29.29.29"`
+
+	// MDNSRetryTimes sets the number of times an MDNS query should be retried on failure.
+	MDNSRetryTimes int `mapstructure:"mdns_retry_times" default:"3"`
+
 	// Service
 	// Addr specifies the address for the service.
 	Addr string `mapstructure:"addr" default:":6860"`

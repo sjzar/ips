@@ -33,6 +33,8 @@ type Manager struct {
 
 	// router is the HTTP router.
 	router *gin.Engine
+
+	mdns *MDNS
 }
 
 // NewManager initializes and returns a new Manager instance.
