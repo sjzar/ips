@@ -130,7 +130,7 @@ type Config struct {
 	DNSClientNet string `mapstructure:"dns_client_net" default:"udp"`
 
 	// DNSClientTimeoutMs defines the timeout in milliseconds for DNS client requests.
-	DNSClientTimeoutMs int `mapstructure:"dns_client_timeout_ms" default:"1000"`
+	DNSClientTimeoutMs int `mapstructure:"dns_client_timeout_ms" default:"2000"`
 
 	// DNSClientSingleInflight indicates whether the DNS client should avoid making duplicate
 	// queries concurrently.

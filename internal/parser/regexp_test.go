@@ -74,3 +74,23 @@ func TestIPv6Regexp(t *testing.T) {
 		ast.Equal(inst.find, len(IPv6Regexp.FindAllStringIndex(inst.str, -1)), "index: %d str: %s", index, inst.str)
 	}
 }
+
+func TestDomainRegexp(t *testing.T) {
+	ast := assert.New(t)
+
+	type instance struct {
+		str  string
+		find int
+	}
+
+	instances := []instance{
+		{str: "", find: 0},
+		{str: "baidu.com", find: 1},
+		{str: "cloudfront.net", find: 1},
+		{str: "t.net x.com x.x", find: 2},
+	}
+
+	for index, inst := range instances {
+		ast.Equal(inst.find, len(DomainRegexp.FindAllStringIndex(inst.str, -1)), "index: %d str: %s", index, inst.str)
+	}
+}

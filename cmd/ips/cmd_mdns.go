@@ -27,7 +27,7 @@ func init() {
 
 	// mdns
 	mdnsCmd.Flags().StringVarP(&dnsClientNet, "net", "", "udp", "Specifies the network protocol to be used by the DNS client. tcp, udp, tcp-tls.")
-	mdnsCmd.Flags().IntVarP(&dnsClientTimeoutMs, "client-timeout", "", 1000, "Defines the timeout in milliseconds for DNS client requests.")
+	mdnsCmd.Flags().IntVarP(&dnsClientTimeoutMs, "client-timeout", "", 2000, "Defines the timeout in milliseconds for DNS client requests.")
 	mdnsCmd.Flags().BoolVarP(&dnsClientSingleInflight, "single-inflight", "", false, "Indicates whether the DNS client should avoid making duplicate queries concurrently.")
 	mdnsCmd.Flags().IntVarP(&mdnsTimeoutS, "timeout", "", 20, "Specifies the timeout in seconds for MDNS operations.")
 	mdnsCmd.Flags().StringVarP(&mdnsExchangeAddress, "exchange-address", "", "119.29.29.29", "Defines the address of the DNS server to be used for MDNS queries.")
