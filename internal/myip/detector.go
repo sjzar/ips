@@ -63,6 +63,7 @@ var Detectors = []Detector{
 	&HTTPDetector{Host: "https://ifconfig.co/ip"},
 	&HTTPDetector{Host: "https://ipinfo.io/ip"},
 	&HTTPDetector{Host: "https://wtfismyip.com/text"},
+	&HTTPDetector{Host: "https://ip2location.io/ip"},
 
 	// DNS servers
 	&DNSDetector{Domain: "myip.opendns.com.", Server: "resolver1.opendns.com:53", QueryType: "A"},
